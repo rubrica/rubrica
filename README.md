@@ -1,4 +1,4 @@
 rubrica
 =======
 
-Lireria para Firma Digital
+Libreria para Firma Digital
