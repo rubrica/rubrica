@@ -1,4 +1,4 @@
-rubrica
-=======
+rubrica.ec
+==========
 
-Libreria para Firma Digital
+Libreria para Firma Digital desarrollada para utilizarse en Ecuador.
