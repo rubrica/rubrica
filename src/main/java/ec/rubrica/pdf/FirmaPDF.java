@@ -47,6 +47,7 @@ import com.itextpdf.text.pdf.security.PrivateKeySignature;
 import com.itextpdf.text.pdf.security.TSAClient;
 
 import ec.rubrica.cert.securitydata.SecurityDataSubCaCert;
+import ec.rubrica.util.RectanguloParaFirmar;
 
 /**
  * Clase para firmar documentos PDF usando la libreria iText.
@@ -55,25 +56,35 @@ import ec.rubrica.cert.securitydata.SecurityDataSubCaCert;
  */
 public class FirmaPDF {
 
+	private static final float POSICION_FIRMA_Y_DEFECTO = 0.90736342f;
+	private static final float POSICION_FIRMA_X_DEFECTO = 0.151260504f;
 	private static final Logger logger = Logger.getLogger(FirmaPDF.class
 			.getName());
 
 	public static byte[] firmar(byte[] pdf, PrivateKey pk, Certificate[] chain,
 			TSAClient tsaClient) throws IOException {
+		return firmar(pdf, pk, chain, tsaClient, 1,POSICION_FIRMA_X_DEFECTO,POSICION_FIRMA_Y_DEFECTO);
+	}
+	
+	public static byte[] firmar(byte[] pdf, PrivateKey pk, Certificate[] chain,
+			TSAClient tsaClient,int pagina, float posicionUnitariaX, float posicionUnitariaY) throws IOException {
 		try {
 			// Creating the reader and the stamper
 			PdfReader reader = new PdfReader(pdf);
+			
 			ByteArrayOutputStream signedPdf = new ByteArrayOutputStream();
 			PdfStamper stamper = PdfStamper.createSignature(reader, signedPdf,
 					'\0');
 
+			Rectangle rectanguloPararFirmar= RectanguloParaFirmar.obtenerRectangulo(
+					reader.getPageSize(pagina), posicionUnitariaX, posicionUnitariaY);
+			
 			// Creating the appearance
 			PdfSignatureAppearance appearance = stamper
 					.getSignatureAppearance();
-			appearance.setReason("Testing");
-			appearance.setLocation("Quito");
-			appearance.setVisibleSignature(new Rectangle(36, 748, 144, 780), 1,
-					"sig");
+//			appearance.setReason("Testing");
+//			appearance.setLocation("Quito");
+			appearance.setVisibleSignature(rectanguloPararFirmar, pagina,"sig");
 
 			// Creating the signature
 			PrivateKeySignature pks = new PrivateKeySignature(pk,
