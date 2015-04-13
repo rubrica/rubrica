@@ -222,22 +222,18 @@ public class BceSubCert extends X509Certificate {
 		certificate.verify(key, sigProvider);
 	}
 
-	@Override
 	public Set<String> getCriticalExtensionOIDs() {
 		return certificate.getCriticalExtensionOIDs();
 	}
 
-	@Override
 	public byte[] getExtensionValue(String oid) {
 		return certificate.getExtensionValue(oid);
 	}
 
-	@Override
 	public Set<String> getNonCriticalExtensionOIDs() {
 		return certificate.getNonCriticalExtensionOIDs();
 	}
 
-	@Override
 	public boolean hasUnsupportedCriticalExtension() {
 		return certificate.hasUnsupportedCriticalExtension();
 	}

@@ -32,8 +32,7 @@ import java.util.logging.Logger;
  */
 public class KeyStoreUtilities {
 
-	private static final Logger log = Logger.getLogger(KeyStoreUtilities.class
-			.getName());
+	private static final Logger log = Logger.getLogger(KeyStoreUtilities.class.getName());
 
 	public static boolean tieneAliasRepetidos(KeyStore keyStore) {
 		try {
@@ -60,14 +59,11 @@ public class KeyStoreUtilities {
 			field.setAccessible(true);
 			keyStoreVeritable = (KeyStoreSpi) field.get(keyStore);
 
-			if ("sun.security.mscapi.KeyStore$MY".equals(keyStoreVeritable
-					.getClass().getName())) {
+			if ("sun.security.mscapi.KeyStore$MY".equals(keyStoreVeritable.getClass().getName())) {
 				Collection<Object> entries;
 				String alias, hashCode;
 				X509Certificate[] certificates;
-
-				field = keyStoreVeritable.getClass().getEnclosingClass()
-						.getDeclaredField("entries");
+				field = keyStoreVeritable.getClass().getEnclosingClass().getDeclaredField("entries");
 				field.setAccessible(true);
 				entries = (Collection<Object>) field.get(keyStoreVeritable);
 
@@ -105,16 +101,14 @@ public class KeyStoreUtilities {
 
 			while (aliases.hasMoreElements()) {
 				String alias = aliases.nextElement();
-				X509Certificate certificate = (X509Certificate) keyStore
-						.getCertificate(alias);
+				X509Certificate certificate = (X509Certificate) keyStore.getCertificate(alias);
 
-				String name = certificate.getSubjectDN().getName();
+				if (certificate != null) {
+					String name = certificate.getSubjectDN().getName();
 
-				boolean[] keyUsage = certificate.getKeyUsage();
+					boolean[] keyUsage = certificate.getKeyUsage();
 
-				if (keyUsage != null) {
-					// Certificado para Firma Digital
-					if (keyUsage[0]) {
+					if (keyUsage != null && keyUsage[0]) {
 						aliasList.add(new Alias(alias, name));
 					}
 				}
