@@ -1,0 +1,10 @@
+= Rubrica: Libreria para Firma Digital
+
+== Introducción
+
+Rubrica es una librería Java para aplicaciones de firma digital licenciada como software libre mediante una licencia LGPL v3.
+
+== Dependencias
+
+- OpenPDF: https://github.com/LibrePDF/OpenPDF
+- BouncyCastle: https://www.bouncycastle.org
