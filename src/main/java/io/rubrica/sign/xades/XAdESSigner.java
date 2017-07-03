@@ -19,6 +19,7 @@ package io.rubrica.sign.xades;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.util.ArrayList;
@@ -38,9 +39,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import io.rubrica.core.RubricaException;
-import io.rubrica.sign.SignConstants;
+import io.rubrica.sign.InvalidFormatException;
+import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
-import io.rubrica.sign.SimpleSignInfo;
 import io.rubrica.sign.XMLConstants;
 import io.rubrica.xml.Utils;
 import net.java.xades.util.Base64;
@@ -318,7 +319,7 @@ public final class XAdESSigner implements Signer {
 	static final String XMLDSIG_ATTR_ENCODING_STR = "Encoding";
 
 	static {
-		Utils.installXmlDSigProvider( );
+		Utils.installXmlDSigProvider();
 	}
 
 	/**
@@ -726,48 +727,8 @@ public final class XAdESSigner implements Signer {
 		return docAfirma;
 	}
 
-	public SignInfo getSignInfo(byte[] sign) throws RubricaException {
-		if (sign == null) {
-			throw new IllegalArgumentException("No se han introducido datos para analizar");
-		}
-
-		if (!isSign(sign)) {
-			throw new InvalidFormatException("Los datos introducidos no se corresponden con un objeto de firma");
-		}
-
-		SignInfo signInfo = new SignInfo(SignConstants.SIGN_FORMAT_XADES);
-
-		// Analizamos mas en profundidad la firma para obtener el resto de datos
-
-		// Tomamos la raiz del documento
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		dbf.setNamespaceAware(true);
-		Element rootSig = null;
-		try {
-			rootSig = dbf.newDocumentBuilder().parse(new ByteArrayInputStream(sign)).getDocumentElement();
-		} catch (Exception e) {
-			logger.warning("Error al analizar la firma: " + e);
-			rootSig = null;
-		}
-
-		// Establecemos la variante de firma
-		if (rootSig != null) {
-			if (isDetached(rootSig)) {
-				signInfo.setVariant(SignConstants.SIGN_FORMAT_XADES_DETACHED);
-			} else if (isEnveloped(rootSig)) {
-				signInfo.setVariant(SignConstants.SIGN_FORMAT_XADES_ENVELOPED);
-			} else if (isEnveloping(rootSig)) {
-				signInfo.setVariant(SignConstants.SIGN_FORMAT_XADES_ENVELOPING);
-			}
-		}
-
-		// Aqui vendria el analisis de la firma buscando alguno de los otros
-		// datos de relevancia
-		// que se almacenan en el objeto SignInfo
-		return signInfo;
-	}
-
-	public List<SimpleSignInfo> getSignersStructure(byte[] sign) throws InvalidFormatException {
+	@Override
+	public List<SignInfo> getSigners(byte[] sign) throws InvalidFormatException, IOException {
 		if (!isSign(sign)) {
 			throw new InvalidFormatException("Los datos indicados no son una firma XAdES compatible");
 		}
@@ -777,6 +738,7 @@ public final class XAdESSigner implements Signer {
 		dbf.setNamespaceAware(true);
 
 		Document signDoc;
+
 		try {
 			signDoc = dbf.newDocumentBuilder().parse(new ByteArrayInputStream(sign));
 		} catch (Exception e) {
@@ -787,16 +749,14 @@ public final class XAdESSigner implements Signer {
 		// Obtenemos todas las firmas del documento y el SignatureValue de cada
 		// una de ellas
 		NodeList signatures = signDoc.getElementsByTagNameNS(XMLConstants.DSIGNNS, SIGNATURE_TAG);
-		List<SimpleSignInfo> signInfos = new ArrayList<>();
+		List<SignInfo> signInfos = new ArrayList<>();
 
 		// Rellenamos la lista con los datos de las firmas del documento
 		for (int i = 0; i < signatures.getLength(); i++) {
 			Element signature = (Element) signatures.item(i);
-
-			SimpleSignInfo signInfo = Utils
-					.getSimpleSignInfoNode(Utils.guessXAdESNamespaceURL(signDoc.getDocumentElement()), signature);
+			SignInfo signInfo = Utils.getSimpleSignInfoNode(Utils.guessXAdESNamespaceURL(signDoc.getDocumentElement()),
+					signature);
 			signInfos.add(signInfo);
-			// Utils.getStringInfoNode(signature)
 		}
 
 		return signInfos;

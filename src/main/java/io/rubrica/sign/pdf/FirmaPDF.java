@@ -82,19 +82,21 @@ public class FirmaPDF {
 			// pagina,"sig");
 
 			// Creating the signature
-			//PrivateKeySignature pks = new PrivateKeySignature(pk, DigestAlgorithms.SHA1, null);
+			// PrivateKeySignature pks = new PrivateKeySignature(pk,
+			// DigestAlgorithms.SHA1, null);
 
-			//OcspClient ocsp = new OcspClientBouncyCastle();
+			// OcspClient ocsp = new OcspClientBouncyCastle();
 
-			//MakeSignature.signDetached(appearance, pks, chain, null, ocsp, tsaClient,
-			//		BouncyCastleProvider.PROVIDER_NAME, 0, MakeSignature.CMS);
+			// MakeSignature.signDetached(appearance, pks, chain, null, ocsp,
+			// tsaClient,
+			// BouncyCastleProvider.PROVIDER_NAME, 0, MakeSignature.CMS);
 
 			return signedPdf.toByteArray();
 		} catch (DocumentException e) {
 			throw new RuntimeException(e);
-		} //catch (GeneralSecurityException e) {
-		//	throw new RuntimeException(e);
-		//}
+		} // catch (GeneralSecurityException e) {
+			// throw new RuntimeException(e);
+			// }
 	}
 
 	/**
@@ -123,20 +125,22 @@ public class FirmaPDF {
 			if (ts != null) {
 				cal = pk.getTimeStampDate();
 			}
- 
-			//System.out.println("Subject: " + CertificateInfo.getSubjectFields(pk.getSigningCertificate()));
+
+			// System.out.println("Subject: " +
+			// CertificateInfo.getSubjectFields(pk.getSigningCertificate()));
 			System.out.println("Document modified: " + !pk.verify());
 
-			//KeyStore kall = KeyStoreUtil.loadCacertsKeyStore();
+			// KeyStore kall = KeyStoreUtil.loadCacertsKeyStore();
 
-			//Object fails[] = CertificateVerification.verifyCertificates(pkc, kall, null, cal);
+			// Object fails[] = CertificateVerification.verifyCertificates(pkc,
+			// kall, null, cal);
 
-			//if (fails == null) {
-			//	System.out.println("Certificates verified against the KeyStore");
-			//} else {
-			//	System.out.println("Certificate failed: " + fails[0]);
-			//	return false;
-			//}
+			// if (fails == null) {
+			// System.out.println("Certificates verified against the KeyStore");
+			// } else {
+			// System.out.println("Certificate failed: " + fails[0]);
+			// return false;
+			// }
 
 			BasicOCSPResp ocsp = pk.getOcsp();
 

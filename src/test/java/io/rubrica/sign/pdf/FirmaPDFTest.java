@@ -25,6 +25,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -35,7 +37,9 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -47,6 +51,9 @@ import com.lowagie.text.pdf.AcroFields;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfWriter;
 
+import io.rubrica.certificate.ec.bce.CertificadoBancoCentral;
+import io.rubrica.certificate.ec.bce.CertificadoBancoCentralFactory;
+import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
 import junit.framework.Assert;
 
@@ -125,5 +132,18 @@ public class FirmaPDFTest {
 			throw new IOException("Could not completely read file " + file.getName());
 		}
 		return bytes;
+	}
+
+	public static void main(String[] args) throws Exception {
+		byte[] pdf = Files.readAllBytes(Paths.get("/var/tmp/3484.pdf"));
+		Signer signer = new PDFSigner();
+		List<SignInfo> firmas = signer.getSigners(pdf);
+
+		for (SignInfo firma : firmas) {
+			X509Certificate certificado = firma.getCerts()[0];
+			CertificadoBancoCentral bce = CertificadoBancoCentralFactory.construir(certificado);
+			System.out.println("bce nombre=" + bce.getNombres());
+			System.out.println("bce apellidos=" + bce.getPrimerApellido() + " " + bce.getSegundoApellido());
+		}
 	}
 }

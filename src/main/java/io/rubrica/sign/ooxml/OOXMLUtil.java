@@ -45,10 +45,6 @@ final class OOXMLUtil {
 
 	private static final Logger logger = Logger.getLogger(OOXMLUtil.class.getName());
 
-	private OOXMLUtil() {
-		// No permitimos la instanciacion
-	}
-
 	/**
 	 * Cuenta el n&uacute;mero de firmas del documento OOXML.
 	 * 
@@ -151,10 +147,12 @@ final class OOXMLUtil {
 				if (OOXML_SIGNATURE_RELATIONSHIP_TYPE.equals(rel.getType())) {
 					// Comprobamos que exista el firma referenciada
 					String target = rel.getTarget();
+
 					ZipEntry signEntry = zipFile.getEntry("_xmlsignatures/" + target);
 					if (signEntry == null) {
 						signEntry = zipFile.getEntry("_xmlsignatures\\" + target);
 					}
+
 					if (signEntry == null) {
 						logger.severe("El documento OOXML no contiene las firmas declaradas");
 						zipFile.close();
@@ -164,7 +162,7 @@ final class OOXMLUtil {
 					// Guardamos la firma
 					try {
 						relations.add(Utils.getDataFromInputStream(zipFile.getInputStream(signEntry)));
-					} catch (final Exception e) {
+					} catch (Exception e) {
 						logger.severe("No se pudo leer una de las firmas del documento OOXML: " + e);
 						zipFile.close();
 						return new byte[0][];
@@ -192,6 +190,7 @@ final class OOXMLUtil {
 
 		// Analizamos el fichero de relaciones
 		RelationshipsParser parser;
+
 		try {
 			parser = new RelationshipsParser(ooxmlZipFile.getInputStream(relsEntry));
 		} catch (Exception e) {

@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -34,11 +35,14 @@ import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
@@ -74,7 +78,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import io.rubrica.core.RubricaException;
+import io.rubrica.core.Util;
+import io.rubrica.sign.InvalidFormatException;
+import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
+import io.rubrica.sign.XMLConstants;
 import io.rubrica.util.Utils;
 import nu.xom.canonical.Canonicalizer;
 import nu.xom.converters.DOMConverter;
@@ -88,11 +96,80 @@ public class ODFSigner implements Signer {
 	private static final String MANIFEST_PATH = "META-INF/manifest.xml";
 	private static final String SIGNATURES_PATH = "META-INF/documentsignatures.xml";
 	private static final String CANONICAL_XML_ALGORITHM = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315";
+	private static final String XMLDSIG_NAMESPACE = "http://www.w3.org/2000/09/xmldsig#";
 
 	/** Algoritmo de huella digital por defecto para las referencias XML. */
 	private static final String DEFAULT_DIGEST_METHOD = DigestMethod.SHA1;
 
 	private static final String DIGEST_METHOD_ALGORITHM_NAME = "SHA1";
+
+	/** Mimetypes de los formatos ODF soportados. */
+	private static final Set<String> SUPPORTED_FORMATS;
+
+	static {
+		SUPPORTED_FORMATS = new HashSet<>();
+		SUPPORTED_FORMATS.add("application/vnd.oasis.opendocument.text");
+		SUPPORTED_FORMATS.add("application/vnd.oasis.opendocument.spreadsheet");
+		SUPPORTED_FORMATS.add("application/vnd.oasis.opendocument.presentation");
+	}
+
+	/**
+	 * Indica si los datos son un documento ODF susceptible de ser firmado.
+	 * 
+	 * @param data
+	 *            Datos a comprobar
+	 * @return <code>true</code> si los datos son un documento ODF susceptible
+	 *         de ser firmado, <code>false</code> en caso contrario
+	 */
+	public boolean isValidDataFile(byte[] data) {
+		File odfFile;
+
+		try {
+			odfFile = createTempFile(data);
+			odfFile.deleteOnExit();
+		} catch (Exception e) {
+			logger.warning("No se pudo crear una copia del fichero para su analisis, se devolvera false: " + e);
+			return false;
+		}
+
+		// Si el mimetype del fichero no se ajusta a alguno de los MimeTypes
+		// soportados
+		// para firma ODF se lanzara una excepcion, en ese caso deducimos que no
+		// es un
+		// fichero valido
+		String mimetype = null;
+		try {
+			mimetype = getODFMimeType(odfFile);
+		} catch (final Exception e) {
+			return false;
+		}
+
+		// Sera valido si el mimetype coincide con alguno de los formatos ODF
+		// soportados
+		return mimetype != null && SUPPORTED_FORMATS.contains(mimetype);
+	}
+
+	public boolean isSign(byte[] signData) throws IOException {
+		if (!isValidDataFile(signData)) {
+			return false;
+		}
+
+		File odfFile;
+
+		try {
+			odfFile = createTempFile(signData);
+			odfFile.deleteOnExit();
+		} catch (Exception e) {
+			logger.warning("No se pudo crear una copia del fichero para su analisis, se devolvera false: " + e);
+			return false;
+		}
+
+		// carga el fichero zip
+		try (ZipFile zf = new ZipFile(odfFile);) {
+			// obtiene el archivo mimetype
+			return zf.getEntry(SIGNATURES_PATH) != null;
+		}
+	}
 
 	@Override
 	public byte[] sign(byte[] data, String algorithm, PrivateKey key, Certificate[] certChain, Properties extraParams)
@@ -340,6 +417,63 @@ public class ODFSigner implements Signer {
 		}
 	}
 
+	private static void toString(Document newDoc) throws Exception {
+		DOMSource domSource = new DOMSource(newDoc);
+		Transformer transformer = TransformerFactory.newInstance().newTransformer();
+		StringWriter sw = new StringWriter();
+		StreamResult sr = new StreamResult(sw);
+		transformer.transform(domSource, sr);
+		System.out.println(sw.toString());
+	}
+
+	public List<SignInfo> getSigners(byte[] sign) throws InvalidFormatException, IOException {
+		if (!isSign(sign)) {
+			throw new InvalidFormatException("Los datos indicados no se corresponden con un ODF firmado");
+		}
+
+		try {
+			// Genera un archivo zip temporal a partir del byte[] de entrada
+			File zipFile = File.createTempFile("sign", ".zip");
+			try (final FileOutputStream fos = new FileOutputStream(zipFile);) {
+				fos.write(sign);
+				fos.flush();
+			}
+
+			List<SignInfo> signInfos = new ArrayList<>();
+
+			try (ZipFile zf = new ZipFile(zipFile);
+					InputStream signIs = zf.getInputStream(zf.getEntry(SIGNATURES_PATH))) {
+
+				// Recupera la raiz del documento de firmas
+				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				dbf.setNamespaceAware(true);
+
+				// TODO
+				// toString(dbf.newDocumentBuilder().parse(signIs));
+
+				Element root = dbf.newDocumentBuilder().parse(signIs).getDocumentElement();
+
+				// Obtiene todas las firmas
+				NodeList signatures = root.getElementsByTagNameNS(XMLDSIG_NAMESPACE, "Signature");
+
+				int numSignatures = signatures.getLength();
+
+				for (int i = 0; i < numSignatures; i++) {
+					Element signature = (Element) signatures.item(i);
+					SignInfo signInfo = getSignInfo(signature);
+					signInfos.add(signInfo);
+				}
+			}
+
+			zipFile.deleteOnExit();
+
+			return signInfos;
+		} catch (Exception e) {
+			logger.warning("Se ha producido un error al obtener la estructura de firmas: " + e);
+			throw new InvalidFormatException("Se ha producido un error al obtener la estructura de firmas");
+		}
+	}
+
 	private static byte[] canonicalizeXml(org.w3c.dom.Element element, String algorithm) throws IOException {
 		nu.xom.Element xomElement = DOMConverter.convert(element);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -366,4 +500,76 @@ public class ODFSigner implements Signer {
 			logger.severe("Error al escribir el cuerpo del XML: " + ex);
 		}
 	}
+
+	private static String getODFMimeType(File odfFile) throws IOException {
+		// carga el fichero zip
+		try (ZipFile zf = new ZipFile(odfFile);) {
+			// obtiene el archivo mimetype
+			final ZipEntry entry = zf.getEntry("mimetype");
+			if (entry != null) {
+				return new String(Util.getDataFromInputStream(zf.getInputStream(entry)));
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Crea un fichero temporal con los datos.
+	 * 
+	 * @param data
+	 *            Datos del fichero.
+	 * @return Fichero generado.
+	 * @throws IOException
+	 *             Cuando se produce un error durante la generaci&oacute;n.
+	 */
+	private File createTempFile(byte[] data) throws IOException {
+		// Genera el archivo zip temporal a partir del InputStream de entrada
+		final File zipFile = File.createTempFile("sign", ".zip");
+		try (final FileOutputStream fos = new FileOutputStream(zipFile);) {
+			fos.write(data);
+			fos.flush();
+		}
+		return zipFile;
+	}
+
+	private SignInfo getSignInfo(Element signature) {
+		// Recupera la fecha de firma
+		Date signingTime = null;
+
+		try {
+			signingTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(
+					((Element) signature.getElementsByTagNameNS("http://purl.org/dc/elements/1.1/", "date").item(0))
+							.getTextContent());
+		} catch (Exception e) {
+			logger.warning("No se ha podido recuperar la fecha de firma: " + e);
+		}
+
+		List<X509Certificate> certChain = new ArrayList<>();
+		NodeList signatureNodes = signature.getElementsByTagNameNS(XMLConstants.DSIGNNS, "X509Certificate");
+
+		for (int i = 0; i < signatureNodes.getLength(); i++) {
+			certChain.add(Utils.getCertificate(signatureNodes.item(i)));
+		}
+
+		SignInfo signInfo = new SignInfo(certChain.toArray(new X509Certificate[certChain.size()]), signingTime);
+		signInfo.setSignAlgorithm(
+				((Element) signature.getElementsByTagNameNS(XMLConstants.DSIGNNS, "SignatureMethod").item(0))
+						.getAttribute("Algorithm"));
+
+		byte[] pkcs1;
+		try {
+			pkcs1 = Base64.getDecoder()
+					.decode(((Element) signature.getElementsByTagNameNS(XMLConstants.DSIGNNS, "SignatureValue").item(0))
+							.getTextContent().trim().replace("\r", "").replace("\n", "").replace(" ", "").replace("\t",
+									""));
+		} catch (Exception e) {
+			logger.warning("No se pudo extraer el PKCS#1 de una firma: " + e);
+			pkcs1 = null;
+		}
+
+		signInfo.setPkcs1(pkcs1);
+
+		return signInfo;
+	}
+
 }

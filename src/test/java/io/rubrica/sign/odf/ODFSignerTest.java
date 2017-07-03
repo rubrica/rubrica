@@ -21,10 +21,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
 import io.rubrica.util.Utils;
 
@@ -47,8 +49,12 @@ public class ODFSignerTest {
 			byte[] result = signer.sign(odf, "SHA1withRSA", pke.getPrivateKey(), pke.getCertificateChain(), null);
 			fos.write(result);
 			fos.flush();
-
 			Assert.assertNotNull(result);
+
+			List<SignInfo> firmas = signer.getSigners(result);
+			for (SignInfo signInfo : firmas) {
+				System.out.println("firma=" + signInfo);
+			}
 		}
 	}
 

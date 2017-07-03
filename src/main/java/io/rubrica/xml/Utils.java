@@ -60,7 +60,7 @@ import org.w3c.dom.ls.LSSerializer;
 
 import io.rubrica.core.Util;
 import io.rubrica.sign.SignConstants;
-import io.rubrica.sign.SimpleSignInfo;
+import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.XMLConstants;
 
 /**
@@ -572,7 +572,7 @@ public final class Utils {
 	 *            Nodo de firma.
 	 * @return Objeto descriptor de firma.
 	 */
-	public static SimpleSignInfo getSimpleSignInfoNode(String namespace, Element signature) {
+	public static SignInfo getSimpleSignInfoNode(String namespace, Element signature) {
 		// Recupera la fecha de firma
 		Date signingTime = null;
 		if (namespace != null) {
@@ -591,20 +591,24 @@ public final class Utils {
 			certChain.add(Utils.getCertificate(signatureNodes.item(i)));
 		}
 
-		SimpleSignInfo ssi = new SimpleSignInfo(certChain.toArray(new X509Certificate[certChain.size()]), signingTime);
+		SignInfo ssi = new SignInfo(certChain.toArray(new X509Certificate[certChain.size()]), signingTime);
 		ssi.setSignAlgorithm(
 				((Element) signature.getElementsByTagNameNS(XMLConstants.DSIGNNS, "SignatureMethod").item(0))
 						.getAttribute("Algorithm"));
 
-		/*
-		 * byte[] pkcs1; try { pkcs1 = Base64.getDecoder() .decode(((Element)
-		 * signature.getElementsByTagNameNS(XMLConstants.DSIGNNS,
-		 * "SignatureValue").item(0)) .getTextContent()); } catch (Exception e)
-		 * { logger.warning("No se pudo extraer el PKCS#1 de una firma: " + e);
-		 * pkcs1 = null; }
-		 */
+		byte[] pkcs1;
+		try {
+			NodeList nodeList = signature.getElementsByTagNameNS(XMLConstants.DSIGNNS, "SignatureValue");
+			Node node = nodeList.item(0);
+			String base64 = node.getTextContent().trim().replace("\r", "").replace("\n", "").replace(" ", "")
+					.replace("\t", "");
+			pkcs1 = Base64.getDecoder().decode(base64);
+		} catch (Exception e) {
+			logger.warning("No se pudo extraer el PKCS#1 de una firma: " + e);
+			pkcs1 = null;
+		}
 
-		// ssi.setPkcs1(pkcs1);
+		ssi.setPkcs1(pkcs1);
 
 		return ssi;
 	}

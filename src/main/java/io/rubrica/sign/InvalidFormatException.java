@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.rubrica.sign.xades;
+package io.rubrica.sign;
 
 import io.rubrica.core.RubricaException;
 
@@ -25,13 +25,15 @@ import io.rubrica.core.RubricaException;
  */
 public class InvalidFormatException extends RubricaException {
 
+	private static final long serialVersionUID = 3204897511735178462L;
+
 	/**
 	 * Crea la excepci&oacute;n con un mensaje determinado.
 	 * 
 	 * @param msg
 	 *            Mensaje descriptivo de la excepci&oacute;n.
 	 */
-	public InvalidFormatException(final String msg) {
+	public InvalidFormatException(String msg) {
 		super(msg);
 	}
 
@@ -43,7 +45,7 @@ public class InvalidFormatException extends RubricaException {
 	 * @param e
 	 *            Excepci&oacute;n que ha causado el lanzamiento de esta.
 	 */
-	public InvalidFormatException(final String msg, final Exception e) {
+	public InvalidFormatException(String msg, Exception e) {
 		super(msg, e);
 	}
 }

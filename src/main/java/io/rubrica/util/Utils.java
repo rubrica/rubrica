@@ -26,9 +26,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.Base64;
 import java.util.Locale;
 import java.util.logging.Logger;
+
+import org.w3c.dom.Node;
 
 /**
  * M&eacute;todos generales de utilidad para toda la aplicaci&oacute;n.
@@ -227,5 +231,30 @@ public class Utils {
 		}
 
 		return null;
+	}
+
+	public static X509Certificate getCertificate(Node certificateNode) {
+		return createCert(certificateNode.getTextContent().trim().replace("\r", "").replace("\n", "").replace(" ", "")
+				.replace("\t", ""));
+	}
+
+	public static X509Certificate createCert(String b64Cert) {
+		if (b64Cert == null || b64Cert.isEmpty()) {
+			logger.severe("Se ha proporcionado una cadena nula o vacia, se devolvera null");
+			return null;
+		}
+		X509Certificate cert;
+		try (InputStream isCert = new ByteArrayInputStream(Base64.getDecoder().decode(b64Cert));) {
+			cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(isCert);
+			try {
+				isCert.close();
+			} catch (Exception e) {
+				logger.warning("Error cerrando el flujo de lectura del certificado: " + e);
+			}
+		} catch (Exception e) {
+			logger.severe("No se pudo decodificar el certificado en Base64, se devolvera null: " + e);
+			return null;
+		}
+		return cert;
 	}
 }

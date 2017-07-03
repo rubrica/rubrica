@@ -30,12 +30,16 @@ import org.junit.Test;
 import io.rubrica.keystore.Alias;
 import io.rubrica.keystore.KeyStoreUtilities;
 import io.rubrica.sign.SignConstants;
+import io.rubrica.sign.SignInfo;
+import io.rubrica.sign.Signer;
+import io.rubrica.util.BouncyCastleUtils;
 import io.rubrica.util.Utils;
 
 public class PdfSignerTest {
-	private static final String CERT_PATH = "cert.p12";
-	private static final String CERT_PASS = "xxxxxxxxxxxxx";
-	private static final String CERT_ALIAS = "alias1";
+
+	private static final String CERT_PATH = "PRUEBA_FPUBLICO_RARGUELLO.p12";
+	private static final String CERT_PASS = "12345678";
+	private static final String CERT_ALIAS = "PRUEBA FPUBLICO MARCO RICARDO ARGUELLO JACOME's SECURITY DATA S.A. ID";
 	private static final String DATA_FILE = "test1.pdf";
 
 	@Test
@@ -49,15 +53,19 @@ public class PdfSignerTest {
 		params.setProperty("format", SignConstants.SIGN_FORMAT_OOXML);
 		params.setProperty("signatureReason", "Comentario : Razon de firma");
 
-		PDFSigner signer = new PDFSigner();
+		Signer signer = new PDFSigner();
 
 		try (FileOutputStream fos = new FileOutputStream(tempFile)) {
 			byte[] result = signer.sign(pdf, SignConstants.SIGN_ALGORITHM_SHA1WITHRSA, pke.getPrivateKey(),
 					pke.getCertificateChain(), params);
 			fos.write(result);
 			fos.flush();
-
 			Assert.assertNotNull(result);
+			
+			List<SignInfo> firmas = signer.getSigners(result);
+			for (SignInfo signInfo : firmas) {
+				System.out.println("firma=" + signInfo);
+			}
 		}
 	}
 

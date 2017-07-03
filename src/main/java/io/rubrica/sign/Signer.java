@@ -20,6 +20,7 @@ package io.rubrica.sign;
 import java.io.IOException;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
+import java.util.List;
 import java.util.Properties;
 
 import io.rubrica.core.RubricaException;
@@ -53,4 +54,6 @@ public interface Signer {
 	 */
 	byte[] sign(byte[] data, String algorithm, PrivateKey key, Certificate[] certChain, Properties extraParams)
 			throws RubricaException, IOException;
+
+	List<SignInfo> getSigners(byte[] sign) throws InvalidFormatException, IOException;
 }

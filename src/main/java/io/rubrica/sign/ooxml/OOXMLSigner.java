@@ -28,12 +28,15 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.ZipFile;
 
 import io.rubrica.core.RubricaException;
+import io.rubrica.sign.InvalidFormatException;
+import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
-import io.rubrica.sign.SimpleSignInfo;
 import io.rubrica.sign.ooxml.relprovider.OOXMLProvider;
 import io.rubrica.sign.xades.XAdESSigner;
+import io.rubrica.xml.FileUtils;
 import io.rubrica.xml.Utils;
 
 public class OOXMLSigner implements Signer {
@@ -59,8 +62,7 @@ public class OOXMLSigner implements Signer {
 		}
 	}
 
-	public byte[] sign( byte[] data,  String algorithm,  PrivateKey key,
-			 Certificate[] certChain,  Properties extraParams)
+	public byte[] sign(byte[] data, String algorithm, PrivateKey key, Certificate[] certChain, Properties extraParams)
 			throws RubricaException, IOException {
 
 		// Comprobamos si es un documento OOXML valido.
@@ -73,7 +75,7 @@ public class OOXMLSigner implements Signer {
 			throw new IllegalArgumentException("Debe proporcionarse a menos el certificado del firmante");
 		}
 
-		 Properties xParams = extraParams != null ? extraParams : new Properties();
+		Properties xParams = extraParams != null ? extraParams : new Properties();
 
 		// Office 2016 no acepta cadenas, solo debe estar el cert del firmante
 		return signOOXML(data, algorithm, key, new X509Certificate[] { (X509Certificate) certChain[0] }, xParams);
@@ -94,39 +96,73 @@ public class OOXMLSigner implements Signer {
 		}
 	}
 
-	public List<SimpleSignInfo> getSignInfos(byte[] sign) {
+	@Override
+	public List<SignInfo> getSigners(byte[] sign) throws InvalidFormatException, IOException {
 		if (sign == null) {
 			throw new IllegalArgumentException("Los datos de firma introducidos son nulos");
 		}
 
-		// if (!isSign(sign)) {
-		// logger.severe("La firma indicada no es de tipo OOXML");
-		// return null;
-		// }
+		if (!isSign(sign)) {
+			logger.severe("La firma indicada no es de tipo OOXML");
+			return null;
+		}
 
 		// Las firmas contenidas en el documento OOXML son de tipo XMLdSig asi
-		// que utilizaremos el signer de este tipo para gestionar el arbol de
-		// firmas
-		XAdESSigner xmldsigSigner = new XAdESSigner();
-
-		// Recuperamos las firmas individuales del documento y creamos el arbol
-		List<SimpleSignInfo> singInfos = new ArrayList<>();
+		// que utilizaremos el signer de este tipo para gestionar las firmas
+		Signer xmldsigSigner = new XAdESSigner();
+		List<SignInfo> sis = new ArrayList<>();
 
 		try {
 			for (byte[] elementSign : OOXMLUtil.getOOXMLSignatures(sign)) {
-				// Recuperamos el arbol de firmas de la firma individual. Ya que
-				// esta sera una firma simple solo debe contener un nodo de
-				// firma.
-				// Ignoramos la raiz del arbol, que contiene el ejemplo
-				// representativo de los datos firmados y no de la propia firma.
-				List<SimpleSignInfo> signInfo = xmldsigSigner.getSignersStructure(elementSign);
-				singInfos.add(signInfo.get(0));
+				List<SignInfo> signInfos = xmldsigSigner.getSigners(elementSign);
+				sis.add(signInfos.get(0));
 			}
 
-			return singInfos;
+			return sis;
 		} catch (Exception e) {
 			logger.severe("La estructura de una de las firmas elementales no es valida: " + e);
 			return null;
 		}
+	}
+
+	/**
+	 * Indica si los datos indicados son un documento OOXML susceptible de
+	 * contener una firma electr&oacute;nica.
+	 * 
+	 * @param sign
+	 *            Datos que deseamos comprobar.
+	 * @return Devuelve <code>true</code> si los datos indicados son un
+	 *         documento OOXML susceptible de contener una firma
+	 *         electr&oacute;nica, <code>false</code> en caso contrario.
+	 */
+	public boolean isSign(byte[] sign) {
+		if (sign == null) {
+			logger.warning("Se ha introducido una firma nula para su comprobacion");
+			return false;
+		}
+		try {
+			return isOOXMLFile(sign) && OOXMLUtil.countOOXMLSignatures(sign) > 0;
+		} catch (final Exception e) {
+			return false;
+		}
+	}
+
+	private static boolean isOOXMLFile(final byte[] data) throws IOException {
+		try (ZipFile zipFile = FileUtils.createTempZipFile(data)) {
+			// Se separa en varios "if" para simplificar la condicional
+			if (zipFile.getEntry("[Content_Types].xml") == null) {
+				return false;
+			}
+			if (zipFile.getEntry("_rels/.rels") == null && zipFile.getEntry("_rels\\.rels") == null) {
+				return false;
+			}
+			if (zipFile.getEntry("docProps/app.xml") == null && zipFile.getEntry("docProps\\app.xml") == null) {
+				return false;
+			}
+			if (zipFile.getEntry("docProps/core.xml") == null && zipFile.getEntry("docProps\\core.xml") == null) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

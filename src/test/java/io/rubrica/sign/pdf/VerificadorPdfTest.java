@@ -20,7 +20,6 @@ package io.rubrica.sign.pdf;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.cert.Certificate;
-import java.security.cert.X509Certificate;
 
 import org.junit.Test;
 
@@ -44,10 +43,9 @@ public class VerificadorPdfTest {
 				new KeyStore.PasswordProtection(CERT_PASS.toCharArray()));
 		Certificate cert = ks.getCertificate(CERT_ALIAS);
 
-		VerificadorFirmaPdf verificador = new VerificadorFirmaPdf(pdf);
+		//VerificadorFirmaPdf verificador = new VerificadorFirmaPdf(pdf);
 		//Verificacion verificacion = verificador.verificar();
 		//System.out.println("verificacion= " + verificacion);
-		
-		verificador.verificarOscp((X509Certificate) cert);
+		//verificador.verificarOscp((X509Certificate) cert);
 	}
 }

@@ -50,18 +50,21 @@ import io.rubrica.core.PrivateKeyAndCertificateChain;
  * @deprecated
  */
 public class PDFUtils {
-	private static final Logger logger = Logger.getLogger(PDFUtils.class
-			.getName());
+	private static final Logger logger = Logger.getLogger(PDFUtils.class.getName());
 
 	public static boolean yaEstaFirmado(byte[] archivoPDF) {
 		try {
 			// Verificar si ya esta firmado?
 			PdfReader reader = new PdfReader(archivoPDF);
 			AcroFields fields = reader.getAcroFields();
+
+			@SuppressWarnings("unchecked")
 			ArrayList<String> nombreLista = fields.getSignatureNames();
+
 			for (String nombre : nombreLista) {
 				System.out.println("Firmante=" + nombre);
 			}
+
 			return (nombreLista.size() == 1);
 		} catch (IOException e) {
 			throw new RuntimeException(e); // FIXME
@@ -76,13 +79,11 @@ public class PDFUtils {
 			KeyStoreSpi keyStoreVeritable = (KeyStoreSpi) field.get(keyStore);
 
 			// Keystore de Windows
-			if ("sun.security.mscapi.KeyStore$MY".equals(keyStoreVeritable
-					.getClass().getName())) {
+			if ("sun.security.mscapi.KeyStore$MY".equals(keyStoreVeritable.getClass().getName())) {
 				String alias, hashCode;
 				X509Certificate[] certificates;
 
-				field = keyStoreVeritable.getClass().getEnclosingClass()
-						.getDeclaredField("entries");
+				field = keyStoreVeritable.getClass().getEnclosingClass().getDeclaredField("entries");
 				field.setAccessible(true);
 				Collection entries = (Collection) field.get(keyStoreVeritable);
 
@@ -109,16 +110,15 @@ public class PDFUtils {
 						field.setAccessible(true);
 						PrivateKey key = (PrivateKey) field.get(entry);
 
-						PrivateKeyAndCertificateChain p = new PrivateKeyAndCertificateChain(
-								alias + " - " + i++, key, certificates);
+						PrivateKeyAndCertificateChain p = new PrivateKeyAndCertificateChain(alias + " - " + i++, key,
+								certificates);
 						privateKeys.add(p);
 					}
 				}
 			}
 
 			return (PrivateKeyAndCertificateChain[]) privateKeys
-					.toArray(new PrivateKeyAndCertificateChain[privateKeys
-							.size()]);
+					.toArray(new PrivateKeyAndCertificateChain[privateKeys.size()]);
 		} catch (SecurityException e) {
 			throw new RuntimeException(e);
 		} catch (NoSuchFieldException e) {
@@ -130,8 +130,7 @@ public class PDFUtils {
 		}
 	}
 
-	public static String getSigningAlias(KeyStore keyStore,
-			char[] privateKeyPassword) {
+	public static String getSigningAlias(KeyStore keyStore, char[] privateKeyPassword) {
 		try {
 			Enumeration<String> aliases = keyStore.aliases();
 
@@ -145,8 +144,7 @@ public class PDFUtils {
 						Certificate cert = certs[0];
 						if (cert instanceof X509Certificate) {
 							X509Certificate signerCertificate = (X509Certificate) cert;
-							boolean[] keyUsage = signerCertificate
-									.getKeyUsage();
+							boolean[] keyUsage = signerCertificate.getKeyUsage();
 							// Digital Signature Key Usage:
 							if (keyUsage[0]) {
 								return alias;
@@ -167,33 +165,30 @@ public class PDFUtils {
 	}
 
 	public static byte[] getBytesFromFile(File file) throws IOException {
-		InputStream is = new FileInputStream(file);
-		long length = file.length();
+		try (InputStream is = new FileInputStream(file)) {
+			long length = file.length();
 
-		if (length > Integer.MAX_VALUE) {
-			throw new IOException("Archivo demasiado grande!");
+			if (length > Integer.MAX_VALUE) {
+				throw new IOException("Archivo demasiado grande!");
+			}
+
+			byte[] bytes = new byte[(int) length];
+			int offset = 0;
+			int numRead = 0;
+
+			while (offset < bytes.length && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
+				offset += numRead;
+			}
+
+			if (offset < bytes.length) {
+				throw new IOException("No se pudo leer el archivo completo: " + file.getName());
+			}
+
+			return bytes;
 		}
-
-		byte[] bytes = new byte[(int) length];
-		int offset = 0;
-		int numRead = 0;
-
-		while (offset < bytes.length
-				&& (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
-			offset += numRead;
-		}
-
-		if (offset < bytes.length) {
-			throw new IOException("No se pudo leer el archivo completo: "
-					+ file.getName());
-		}
-
-		is.close();
-		return bytes;
 	}
 
-	public static String getSigningAlias(KeyStore keyStore)
-			throws AliasesNotFoundException {
+	public static String getSigningAlias(KeyStore keyStore) throws AliasesNotFoundException {
 
 		try {
 			Enumeration<String> aliases = keyStore.aliases();
@@ -211,8 +206,7 @@ public class PDFUtils {
 						if (cert instanceof X509Certificate) {
 							X509Certificate signerCertificate = (X509Certificate) cert;
 							logger.info(" **** cert=" + signerCertificate);
-							boolean[] keyUsage = signerCertificate
-									.getKeyUsage();
+							boolean[] keyUsage = signerCertificate.getKeyUsage();
 							// Digital Signature Key Usage:
 							if (keyUsage[0]) {
 								return alias;
@@ -222,8 +216,7 @@ public class PDFUtils {
 				}
 			}
 
-			throw new AliasesNotFoundException(
-					"No hay llave privada para firmar!");
+			throw new AliasesNotFoundException("No hay llave privada para firmar!");
 		} catch (KeyStoreException e) {
 			throw new RuntimeException(e); // FIXME
 		} catch (UnrecoverableKeyException e) {

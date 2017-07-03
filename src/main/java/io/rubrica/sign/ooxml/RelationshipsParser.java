@@ -40,7 +40,7 @@ import org.xml.sax.SAXException;
 final class RelationshipsParser {
 
 	/** Esquema del XML Relationships. */
-	private static final String RELATIONSHIPS_SCHEMA = "http://schemas.openxmlformats.org/package/2006/relationships";  
+	private static final String RELATIONSHIPS_SCHEMA = "http://schemas.openxmlformats.org/package/2006/relationships";
 
 	/** Listado de relaciones obtenido. */
 	private Relationship[] relations = null;
@@ -86,22 +86,23 @@ final class RelationshipsParser {
 	 * @throws SAXException
 	 *             Cuando el XML de entrada no est&aacute; bien formado.
 	 */
-	private static Relationship[] getRelationships(final InputStream xmlRelationships)
+	private static Relationship[] getRelationships(InputStream xmlRelationships)
 			throws SAXException, IOException, ParserConfigurationException {
 
-		final Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlRelationships);
+		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlRelationships);
 
 		// Obtenemos la raiz
-		final Element root = doc.getDocumentElement();
+		Element root = doc.getDocumentElement();
 
 		// Si no se ajusta a la estructura de las Relationships, devolvemos null
-		if (!root.getNodeName().equals("Relationships") || root.getAttributeNode("xmlns") == null //$NON-NLS-1$ //$NON-NLS-2$
-				|| !root.getAttribute("xmlns").equals(RELATIONSHIPS_SCHEMA)) { //$NON-NLS-1$
-			throw new IOException("El nodo principal no es una etiqueta Relationships"); //$NON-NLS-1$
+		if (!root.getNodeName().equals("Relationships") || root.getAttributeNode("xmlns") == null
+				|| !root.getAttribute("xmlns").equals(RELATIONSHIPS_SCHEMA)) {
+			throw new IOException("El nodo principal no es una etiqueta Relationships");
 		}
 
-		final NodeList relationsList = root.getChildNodes();
-		final List<Relationship> relationsVector = new ArrayList<>();
+		NodeList relationsList = root.getChildNodes();
+		List<Relationship> relationsVector = new ArrayList<>();
+
 		for (int i = 0; i < relationsList.getLength(); i++) {
 			relationsVector.add(RelationshipsParser.getRelationship(relationsList.item(i)));
 		}
@@ -123,25 +124,22 @@ final class RelationshipsParser {
 	 * @throws IOException
 	 *             Cuando el nodo no encaja con el patr&oacute;n Relationship.
 	 */
-	private static Relationship getRelationship(final Node node) throws IOException {
-
+	private static Relationship getRelationship(Node node) throws IOException {
 		// Comprobamos que sea un nodo de relacion
-		if (!node.getNodeName().equals("Relationship")) { //$NON-NLS-1$
-			throw new IOException("Se ha encontrado un nodo que es de relacion: " + node.getNodeName()); //$NON-NLS-1$
+		if (!node.getNodeName().equals("Relationship")) {
+			throw new IOException("Se ha encontrado un nodo que es de relacion: " + node.getNodeName());
 		}
 
 		// Comprobamos que tenga todos sus atributos
-		final NamedNodeMap attributes = node.getAttributes();
+		NamedNodeMap attributes = node.getAttributes();
 
-		if (attributes.getNamedItem("Id") == null || attributes.getNamedItem("Type") == null //$NON-NLS-1$ //$NON-NLS-2$
-				|| attributes.getNamedItem("Target") == null) { //$NON-NLS-1$
-			throw new IOException("Se ha encontrado un nodo de relacion que no disponia de todos sus atributos"); //$NON-NLS-1$
+		if (attributes.getNamedItem("Id") == null || attributes.getNamedItem("Type") == null
+				|| attributes.getNamedItem("Target") == null) {
+			throw new IOException("Se ha encontrado un nodo de relacion que no disponia de todos sus atributos");
 		}
 
 		// Creamos la relacion
-		return new Relationship(attributes.getNamedItem("Id").getNodeValue(), //$NON-NLS-1$
-				attributes.getNamedItem("Type").getNodeValue(), //$NON-NLS-1$
-				attributes.getNamedItem("Target").getNodeValue()); //$NON-NLS-1$
+		return new Relationship(attributes.getNamedItem("Id").getNodeValue(),
+				attributes.getNamedItem("Type").getNodeValue(), attributes.getNamedItem("Target").getNodeValue());
 	}
-
 }
