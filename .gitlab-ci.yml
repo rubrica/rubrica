@@ -1,5 +1,6 @@
 image: maven:3-jdk-7
 
 build:
-  script: "git clone https://github.com/universitatjaumei/jxades.git && cd jxades && mvn install"
-  script: "mvn install -B -DskipTests"
+  script:
+    - "git clone https://github.com/universitatjaumei/jxades.git && cd jxades && mvn install"
+    - "mvn install -B -DskipTests"
