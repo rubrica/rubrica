@@ -36,7 +36,7 @@ public class TestSecurityDataCertificate {
 	private static final String CERT_PASS = "12345678";
 	private static final String CERT_ALIAS = "PRUEBA FPUBLICO MARCO RICARDO ARGUELLO JACOME's SECURITY DATA S.A. ID";
 
-	@Test
+	// @Test
 	public void testSD() throws Exception {
 		KeyStore ks = KeyStore.getInstance("PKCS12");
 		ks.load(ClassLoader.getSystemResourceAsStream(CERT_PATH), CERT_PASS.toCharArray());
@@ -61,7 +61,6 @@ public class TestSecurityDataCertificate {
 						"https://direct.securitydata.net.ec/~crl/autoridad_de_certificacion_sub_security_data_entidad_de_certificacion_de_informacion_curity_data_s.a._c_ec_crlfile.crl"));
 		System.out.println("Validation result: " + result);
 
-		
 		List<String> ocspUrls = CertificateUtils.getAuthorityInformationAccess(cert);
 		for (String ocsp : ocspUrls) {
 			System.out.println("OCSP=" + ocsp);

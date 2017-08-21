@@ -17,88 +17,43 @@
 
 package io.rubrica.sign.xades;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.InvalidKeyException;
 import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
-import java.security.SignatureException;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+import java.util.List;
 
 import org.junit.Test;
 
-import io.rubrica.sign.pdf.X509V1CreateEjemplo;
+import io.rubrica.sign.SignInfo;
+import io.rubrica.sign.TestHelper;
 
 public class XAdESTest {
 
 	@Test
-	public void firmarPfdTest() throws Exception {
-		KeyPairGenerator gen = KeyPairGenerator.getInstance("RSA");
-		gen.initialize(2048);
-		KeyPair keypar = gen.generateKeyPair();
-
-		PrivateKey pk = keypar.getPrivate();
-		Certificate[] certificate = obtenerCertificado(keypar);
-		byte[] xml = "<documento><parrafo>Hola</parrafo></documento>".getBytes();
-
+	public void firmarXml() throws Exception {
 		File tempFile = File.createTempFile("test", ".xml");
 		System.out.println("Temporal para comprobacion manual: " + tempFile.getAbsolutePath());
 
-		try (final FileOutputStream fos = new FileOutputStream(tempFile);) {
+		KeyPair kp = TestHelper.createKeyPair();
+		Certificate[] chain = TestHelper.createCertificate(kp);
+		byte[] xml = "<documento><parrafo>Hola mundo</parrafo></documento>".getBytes();
+
+		try (FileOutputStream fos = new FileOutputStream(tempFile);) {
 			XAdESSigner signer = new XAdESSigner();
-			byte[] result = signer.sign(xml, "SHA1withRSA", pk, certificate, null);
+			byte[] result = signer.sign(xml, "SHA1withRSA", kp.getPrivate(), chain, null);
+
+			assertNotNull(result);
 			fos.write(result);
 			fos.flush();
-			
-			//List<SimpleSignInfo> firmantes=	signer.getSignersStructure(result);
 
-			//for (SimpleSignInfo simpleSignInfo : firmantes) {
-			//	System.out.println(simpleSignInfo.getCerts()[0].getSubjectX500Principal());
-			//}
-			//Assert.assertNotNull(result);
+			List<SignInfo> firmantes = signer.getSigners(result);
+			X509Certificate[] certs = firmantes.get(0).getCerts();
+			assertTrue(((X509Certificate) chain[0]).getSerialNumber().equals(certs[0].getSerialNumber()));
 		}
-	}
-
-	private Certificate[] obtenerCertificado(KeyPair keypar) throws IOException, CertificateEncodingException,
-			InvalidKeyException, NoSuchProviderException, SignatureException, CertificateException {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		baos.write(X509V1CreateEjemplo.generateV1Certificate(keypar).getEncoded());
-		baos.close();
-
-		InputStream in = new ByteArrayInputStream(baos.toByteArray());
-
-		// create the certificate factory
-		CertificateFactory fact = CertificateFactory.getInstance("X.509", "BC");
-
-		Certificate[] certificate = new Certificate[] { fact.generateCertificate(in) };
-		return certificate;
-	}
-
- 
-
-	private static byte[] getBytesFromFile(File file) throws IOException {
-		InputStream is = new FileInputStream(file);
-		long length = file.length();
-		byte[] bytes = new byte[(int) length];
-		int offset = 0;
-		int numRead = 0;
-		while (offset < bytes.length && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
-			offset += numRead;
-		}
-		is.close();
-		if (offset < bytes.length) {
-			throw new IOException("Could not completely read file " + file.getName());
-		}
-		return bytes;
 	}
 }

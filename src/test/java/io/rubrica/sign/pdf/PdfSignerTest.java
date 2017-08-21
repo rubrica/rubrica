@@ -17,68 +17,50 @@
 
 package io.rubrica.sign.pdf;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileOutputStream;
-import java.security.KeyStore;
-import java.security.KeyStore.PrivateKeyEntry;
+import java.security.KeyPair;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Properties;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import io.rubrica.keystore.Alias;
-import io.rubrica.keystore.KeyStoreUtilities;
 import io.rubrica.sign.SignConstants;
 import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
-import io.rubrica.util.BouncyCastleUtils;
-import io.rubrica.util.Utils;
+import io.rubrica.sign.TestHelper;
 
 public class PdfSignerTest {
 
-	private static final String CERT_PATH = "PRUEBA_FPUBLICO_RARGUELLO.p12";
-	private static final String CERT_PASS = "12345678";
-	private static final String CERT_ALIAS = "PRUEBA FPUBLICO MARCO RICARDO ARGUELLO JACOME's SECURITY DATA S.A. ID";
-	private static final String DATA_FILE = "test1.pdf";
-
 	@Test
 	public void testSignPdf() throws Exception {
-		PrivateKeyEntry pke = loadKeyEntry(CERT_PATH, CERT_PASS, CERT_ALIAS);
-		byte[] pdf = Utils.getDataFromInputStream(ClassLoader.getSystemResourceAsStream(DATA_FILE));
-		File tempFile = File.createTempFile("pdfSign", "." + DATA_FILE);
+		File tempFile = File.createTempFile("pdfSign", "." + "test1.pdf");
 		System.out.println("Temporal para comprobacion manual: " + tempFile.getAbsolutePath());
+
+		KeyPair kp = TestHelper.createKeyPair();
+		Certificate[] chain = TestHelper.createCertificate(kp);
+		byte[] pdf = TestHelper.crearPdf();
 
 		Properties params = new Properties();
 		params.setProperty("format", SignConstants.SIGN_FORMAT_OOXML);
 		params.setProperty("signatureReason", "Comentario : Razon de firma");
 
-		Signer signer = new PDFSigner();
-
 		try (FileOutputStream fos = new FileOutputStream(tempFile)) {
-			byte[] result = signer.sign(pdf, SignConstants.SIGN_ALGORITHM_SHA1WITHRSA, pke.getPrivateKey(),
-					pke.getCertificateChain(), params);
+			Signer signer = new PDFSigner();
+			byte[] result = signer.sign(pdf, SignConstants.SIGN_ALGORITHM_SHA1WITHRSA, kp.getPrivate(), chain, params);
+
+			assertNotNull(result);
 			fos.write(result);
 			fos.flush();
-			Assert.assertNotNull(result);
-			
-			List<SignInfo> firmas = signer.getSigners(result);
-			for (SignInfo signInfo : firmas) {
-				System.out.println("firma=" + signInfo);
-			}
+
+			List<SignInfo> firmantes = signer.getSigners(result);
+			X509Certificate[] certs = firmantes.get(0).getCerts();
+			assertTrue(((X509Certificate) chain[0]).getSerialNumber().equals(certs[0].getSerialNumber()));
 		}
-	}
-
-	private static PrivateKeyEntry loadKeyEntry(String certPath, String certPass, String certAlias) throws Exception {
-		KeyStore ks = KeyStore.getInstance("PKCS12");
-		ks.load(ClassLoader.getSystemResourceAsStream(certPath), certPass.toCharArray());
-
-		List<Alias> aliases = KeyStoreUtilities.getSigningAliases(ks);
-		for (Alias alias : aliases) {
-			System.out.println("alias: " + alias.getAlias());
-			System.out.println("name: " + alias.getName());
-		}
-
-		return (PrivateKeyEntry) ks.getEntry(certAlias, new KeyStore.PasswordProtection(certPass.toCharArray()));
 	}
 }

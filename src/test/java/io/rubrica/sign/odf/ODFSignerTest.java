@@ -17,50 +17,46 @@
 
 package io.rubrica.sign.odf;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileOutputStream;
-import java.security.KeyStore;
-import java.security.KeyStore.PrivateKeyEntry;
+import java.security.KeyPair;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
+import io.rubrica.sign.TestHelper;
 import io.rubrica.util.Utils;
 
 public class ODFSignerTest {
 
-	private static final String CERT_PATH = "PRUEBA_FPUBLICO_RARGUELLO.p12";
-	private static final String CERT_PASS = "12345678";
-	private static final String CERT_ALIAS = "PRUEBA FPUBLICO MARCO RICARDO ARGUELLO JACOME's SECURITY DATA S.A. ID";
 	private static final String DATA_FILE = "ejemplo.odt";
 
 	@Test
 	public void testOdfsignature() throws Exception {
-		PrivateKeyEntry pke = loadKeyEntry(CERT_PATH, CERT_PASS, CERT_ALIAS);
 		byte[] odf = Utils.getDataFromInputStream(ClassLoader.getSystemResourceAsStream(DATA_FILE));
 		File tempFile = File.createTempFile("odfSign", "." + DATA_FILE);
 		System.out.println("Temporal para comprobacion manual: " + tempFile.getAbsolutePath());
 
-		try (final FileOutputStream fos = new FileOutputStream(tempFile);) {
+		KeyPair kp = TestHelper.createKeyPair();
+		Certificate[] chain = TestHelper.createCertificate(kp);
+
+		try (FileOutputStream fos = new FileOutputStream(tempFile);) {
 			Signer signer = new ODFSigner();
-			byte[] result = signer.sign(odf, "SHA1withRSA", pke.getPrivateKey(), pke.getCertificateChain(), null);
+			byte[] result = signer.sign(odf, "SHA1withRSA", kp.getPrivate(), chain, null);
 			fos.write(result);
 			fos.flush();
-			Assert.assertNotNull(result);
+			assertNotNull(result);
 
-			List<SignInfo> firmas = signer.getSigners(result);
-			for (SignInfo signInfo : firmas) {
-				System.out.println("firma=" + signInfo);
-			}
+			List<SignInfo> firmantes = signer.getSigners(result);
+			X509Certificate[] certs = firmantes.get(0).getCerts();
+			assertTrue(((X509Certificate) chain[0]).getSerialNumber().equals(certs[0].getSerialNumber()));
 		}
-	}
-
-	private static PrivateKeyEntry loadKeyEntry(String certPath, String certPass, String certAlias) throws Exception {
-		KeyStore ks = KeyStore.getInstance("PKCS12");
-		ks.load(ClassLoader.getSystemResourceAsStream(certPath), certPass.toCharArray());
-		return (PrivateKeyEntry) ks.getEntry(certAlias, new KeyStore.PasswordProtection(certPass.toCharArray()));
 	}
 }

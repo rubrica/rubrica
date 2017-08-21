@@ -17,34 +17,37 @@
 
 package io.rubrica.sign.ooxml;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileOutputStream;
-import java.security.KeyStore;
-import java.security.KeyStore.PrivateKeyEntry;
+import java.security.KeyPair;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Properties;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import io.rubrica.sign.SignConstants;
 import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
+import io.rubrica.sign.TestHelper;
 import io.rubrica.util.Utils;
 
 public class OOXMLTest {
 
-	private static final String CERT_PATH = "PRUEBA_FPUBLICO_RARGUELLO.p12";
-	private static final String CERT_PASS = "12345678";
-	private static final String CERT_ALIAS = "PRUEBA FPUBLICO MARCO RICARDO ARGUELLO JACOME's SECURITY DATA S.A. ID";
 	private static final String DATA_FILE = "prueba.docx";
 
 	@Test
 	public void testOdfsignature() throws Exception {
-		PrivateKeyEntry pke = loadKeyEntry(CERT_PATH, CERT_PASS, CERT_ALIAS);
 		byte[] ooxml = Utils.getDataFromInputStream(ClassLoader.getSystemResourceAsStream(DATA_FILE));
 		File tempFile = File.createTempFile("ooxmlSign", "." + DATA_FILE);
 		System.out.println("Temporal para comprobacion manual: " + tempFile.getAbsolutePath());
+
+		KeyPair kp = TestHelper.createKeyPair();
+		Certificate[] chain = TestHelper.createCertificate(kp);
 
 		Properties p1 = new Properties();
 		p1.setProperty("format", SignConstants.SIGN_FORMAT_OOXML);
@@ -56,22 +59,15 @@ public class OOXMLTest {
 
 		try (FileOutputStream fos = new FileOutputStream(tempFile);) {
 			Signer signer = new OOXMLSigner();
-			byte[] result = signer.sign(ooxml, SignConstants.SIGN_ALGORITHM_SHA1WITHRSA, pke.getPrivateKey(),
-					pke.getCertificateChain(), p1);
+			byte[] result = signer.sign(ooxml, SignConstants.SIGN_ALGORITHM_SHA1WITHRSA, kp.getPrivate(), chain, p1);
+
 			fos.write(result);
 			fos.flush();
-			Assert.assertNotNull(result);
+			assertNotNull(result);
 
-			List<SignInfo> firmas = signer.getSigners(result);
-			for (SignInfo signInfo : firmas) {
-				System.out.println("firma=" + signInfo);
-			}
+			List<SignInfo> firmantes = signer.getSigners(result);
+			X509Certificate[] certs = firmantes.get(0).getCerts();
+			assertTrue(((X509Certificate) chain[0]).getSerialNumber().equals(certs[0].getSerialNumber()));
 		}
-	}
-
-	private static PrivateKeyEntry loadKeyEntry(String certPath, String certPass, String certAlias) throws Exception {
-		KeyStore ks = KeyStore.getInstance("PKCS12");
-		ks.load(ClassLoader.getSystemResourceAsStream(certPath), certPass.toCharArray());
-		return (PrivateKeyEntry) ks.getEntry(certAlias, new KeyStore.PasswordProtection(certPass.toCharArray()));
 	}
 }
