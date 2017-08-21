@@ -57,7 +57,13 @@
 		<dependency>
 			<groupId>net.java.xades</groupId>
 			<artifactId>jxades</artifactId>
-			<version>0.1.6-SNAPSHOT</version>
+			<version>0.1.6</version>
 		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>uji</id>
+			<url>http://devel.uji.es/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
 </project>
