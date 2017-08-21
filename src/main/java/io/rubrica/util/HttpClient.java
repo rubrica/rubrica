@@ -44,6 +44,8 @@ public class HttpClient {
 	private static final HostnameVerifier DEFAULT_HOSTNAME_VERIFIER = HttpsURLConnection.getDefaultHostnameVerifier();
 	private static final SSLSocketFactory DEFAULT_SSL_SOCKET_FACTORY = HttpsURLConnection.getDefaultSSLSocketFactory();
 	private static final boolean DISABLE_SSL_CHECKS = true;
+	private static final int DEFAULT_CONNECT_TIMEOUT = 5000;
+	private static final int DEFAULT_READ_TIMEOUT = 15000;
 
 	private static final TrustManager[] DUMMY_TRUST_MANAGER = new TrustManager[] { new X509TrustManager() {
 		@Override
@@ -88,6 +90,9 @@ public class HttpClient {
 		}
 
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setConnectTimeout(DEFAULT_CONNECT_TIMEOUT);
+		conn.setReadTimeout(DEFAULT_READ_TIMEOUT);
+
 		conn.connect();
 
 		int resCode = conn.getResponseCode();
