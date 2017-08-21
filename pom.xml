@@ -26,9 +26,10 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git://github.com/rubrica/rubrica.git</connection>
-    <developerConnection>scm:git:ssh://github.com:rubrica/rubrica.git</developerConnection>
-    <url>https://github.com/rubrica/rubrica/tree/master</url>
+    <connection>scm:git:https://github.com/rubrica/rubrica.git</connection>
+    <developerConnection>scm:git:git@github.com:rubrica/rubrica.git</developerConnection>
+    <url>https://github.com/rubrica/rubrica</url>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
@@ -146,6 +147,14 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
+        </configuration>
       </plugin>
     </plugins>
   </build>
