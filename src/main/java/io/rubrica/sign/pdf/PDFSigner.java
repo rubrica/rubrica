@@ -25,6 +25,8 @@ import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -43,6 +45,7 @@ import io.rubrica.sign.InvalidFormatException;
 import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
 import io.rubrica.util.BouncyCastleUtils;
+import io.rubrica.util.Utils;
 
 public class PDFSigner implements Signer {
 
@@ -61,6 +64,8 @@ public class PDFSigner implements Signer {
 	 * Localización en la que se realiza la firma.
 	 */
 	public static final String SIGNING_LOCATION = "signingLocation";
+
+	public static final String SIGN_TIME = "signTime";
 
 	static {
 		BouncyCastleUtils.initializeBouncyCastle();
@@ -86,6 +91,9 @@ public class PDFSigner implements Signer {
 		// Lugar de realizacion de la firma
 		String location = extraParams.getProperty(SIGNING_LOCATION);
 
+		// Fecha y hora de la firma, en formato ISO-8601
+		String signTime = extraParams.getProperty(SIGN_TIME);
+
 		// Leer el PDF
 		PdfReader pdfReader = new PdfReader(data);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -109,6 +117,14 @@ public class PDFSigner implements Signer {
 		// Localizacion en donde se produce la firma
 		if (location != null) {
 			sap.setLocation(location);
+		}
+
+		// Fecha y hora de la firma
+		if (signTime != null) {
+			Date date = Utils.getSignTime(signTime);
+			GregorianCalendar calendar = new GregorianCalendar();
+			calendar.setTime(date);
+			sap.setSignDate(calendar);
 		}
 
 		sap.setCrypto(key, (X509Certificate) certChain[0], null, PdfSignatureAppearance.WINCER_SIGNED);

@@ -28,7 +28,12 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.Base64;
+import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Logger;
 
@@ -256,5 +261,18 @@ public class Utils {
 			return null;
 		}
 		return cert;
+	}
+
+	public static Date getSignTime(String fechaHora) {
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+
+		try {
+			TemporalAccessor accessor = timeFormatter.parse(fechaHora);
+			return Date.from(Instant.from(accessor));
+		} catch (DateTimeParseException e) {
+			logger.severe("La fecha indicada ('" + fechaHora
+					+ "') como momento de firma para PDF no sigue el patron ISO-8601: " + e);
+			return new Date();
+		}
 	}
 }
