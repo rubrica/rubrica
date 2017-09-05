@@ -24,14 +24,14 @@ import java.util.regex.Pattern;
 
 import org.ietf.jgss.Oid;
 
+import es.uji.crypto.xades.jxades.security.xml.XAdES.SignaturePolicyIdentifier;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.SignaturePolicyIdentifierImpl;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.SignatureProductionPlace;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.SignatureProductionPlaceImpl;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.SignerRole;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.SignerRoleImpl;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.XAdES_EPES;
 import io.rubrica.core.RubricaException;
-import net.java.xades.security.xml.XAdES.SignaturePolicyIdentifier;
-import net.java.xades.security.xml.XAdES.SignaturePolicyIdentifierImpl;
-import net.java.xades.security.xml.XAdES.SignatureProductionPlace;
-import net.java.xades.security.xml.XAdES.SignatureProductionPlaceImpl;
-import net.java.xades.security.xml.XAdES.SignerRole;
-import net.java.xades.security.xml.XAdES.SignerRoleImpl;
-import net.java.xades.security.xml.XAdES.XAdES_EPES;
 
 final class XAdESCommonMetadataUtil {
 

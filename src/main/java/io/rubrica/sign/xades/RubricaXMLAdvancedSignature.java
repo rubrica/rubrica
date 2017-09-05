@@ -43,10 +43,10 @@ import javax.xml.crypto.dsig.spec.C14NMethodParameterSpec;
 
 import org.w3c.dom.Element;
 
-import net.java.xades.security.xml.WrappedKeyStorePlace;
-import net.java.xades.security.xml.XmlWrappedKeyInfo;
-import net.java.xades.security.xml.XAdES.XAdES_BES;
-import net.java.xades.security.xml.XAdES.XMLAdvancedSignature;
+import es.uji.crypto.xades.jxades.security.xml.WrappedKeyStorePlace;
+import es.uji.crypto.xades.jxades.security.xml.XmlWrappedKeyInfo;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.XAdES_BES;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.XMLAdvancedSignature;
 
 /**
  * Derivado de

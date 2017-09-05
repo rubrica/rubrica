@@ -91,17 +91,11 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>net.java.xades</groupId>
+			<groupId>es.uji.crypto.xades</groupId>
 			<artifactId>jxades</artifactId>
-			<version>0.1.6</version>
+			<version>0.2.0</version>
 		</dependency>
 	</dependencies>
-	<repositories>
-		<repository>
-			<id>uji</id>
-			<url>http://devel.uji.es/nexus/content/groups/public/</url>
-		</repository>
-	</repositories>
 
 	<build>
 		<plugins>

@@ -46,17 +46,17 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import es.uji.crypto.xades.jxades.security.xml.XAdES.CommitmentTypeIndication;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.DataObjectFormat;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.DataObjectFormatImpl;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.ObjectIdentifierImpl;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.XAdES;
+import es.uji.crypto.xades.jxades.security.xml.XAdES.XAdES_EPES;
 import io.rubrica.core.RubricaException;
 import io.rubrica.core.Util;
 import io.rubrica.sign.XMLConstants;
 import io.rubrica.util.MimeHelper;
 import io.rubrica.xml.Utils;
-import net.java.xades.security.xml.XAdES.CommitmentTypeIndication;
-import net.java.xades.security.xml.XAdES.DataObjectFormat;
-import net.java.xades.security.xml.XAdES.DataObjectFormatImpl;
-import net.java.xades.security.xml.XAdES.ObjectIdentifierImpl;
-import net.java.xades.security.xml.XAdES.XAdES;
-import net.java.xades.security.xml.XAdES.XAdES_EPES;
 
 /**
  * Firmador simple XAdES.

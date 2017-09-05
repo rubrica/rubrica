@@ -38,14 +38,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import es.uji.crypto.xades.jxades.util.Base64;
+import es.uji.crypto.xades.jxades.util.XMLUtils;
 import io.rubrica.core.RubricaException;
 import io.rubrica.sign.InvalidFormatException;
 import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
 import io.rubrica.sign.XMLConstants;
 import io.rubrica.xml.Utils;
-import net.java.xades.util.Base64;
-import net.java.xades.util.XMLUtils;
 
 /**
  * Manejador de firmas XML XAdES
