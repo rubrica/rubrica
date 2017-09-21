@@ -42,6 +42,9 @@ public class PdfSignerTest {
 		File tempFile = File.createTempFile("pdfSign", "." + "test1.pdf");
 		System.out.println("Temporal para comprobacion manual: " + tempFile.getAbsolutePath());
 
+		File tempFile2 = File.createTempFile("pdfSign", "." + "test2.pdf");
+		System.out.println("Temporal2 para comprobacion manual: " + tempFile2.getAbsolutePath());
+
 		KeyPair kp = TestHelper.createKeyPair();
 		Certificate[] chain = TestHelper.createCertificate(kp);
 		byte[] pdf = TestHelper.crearPdf();
@@ -50,15 +53,31 @@ public class PdfSignerTest {
 		params.setProperty("format", SignConstants.SIGN_FORMAT_OOXML);
 		params.setProperty("signatureReason", "Comentario : Razon de firma");
 
+		byte[] result;
+
 		try (FileOutputStream fos = new FileOutputStream(tempFile)) {
 			Signer signer = new PDFSigner();
-			byte[] result = signer.sign(pdf, SignConstants.SIGN_ALGORITHM_SHA1WITHRSA, kp.getPrivate(), chain, params);
+			result = signer.sign(pdf, SignConstants.SIGN_ALGORITHM_SHA1WITHRSA, kp.getPrivate(), chain, params);
 
 			assertNotNull(result);
 			fos.write(result);
 			fos.flush();
 
 			List<SignInfo> firmantes = signer.getSigners(result);
+			X509Certificate[] certs = firmantes.get(0).getCerts();
+			assertTrue(((X509Certificate) chain[0]).getSerialNumber().equals(certs[0].getSerialNumber()));
+		}
+
+		try (FileOutputStream fos = new FileOutputStream(tempFile2)) {
+			Signer signer = new PDFSigner();
+			byte[] result2 = signer.sign(result, SignConstants.SIGN_ALGORITHM_SHA1WITHRSA, kp.getPrivate(), chain,
+					params);
+
+			assertNotNull(result2);
+			fos.write(result2);
+			fos.flush();
+
+			List<SignInfo> firmantes = signer.getSigners(result2);
 			X509Certificate[] certs = firmantes.get(0).getCerts();
 			assertTrue(((X509Certificate) chain[0]).getSerialNumber().equals(certs[0].getSerialNumber()));
 		}
