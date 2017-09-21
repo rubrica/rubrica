@@ -101,7 +101,7 @@ public class PDFSigner implements Signer {
 		PdfStamper stp;
 
 		try {
-			stp = PdfStamper.createSignature(pdfReader, baos, '\0');
+			stp = PdfStamper.createSignature(pdfReader, baos, '\0', null, true);
 		} catch (DocumentException e) {
 			logger.severe("Error al crear la firma para estampar: " + e);
 			throw new RubricaException("Error al crear la firma para estampar", e);
