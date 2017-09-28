@@ -17,7 +17,7 @@ Rubrica es una librería Java para aplicaciones de firma digital licenciada como
 Una vez instalados los pre-requisitos se puede compilar usando Maven:
 
 ----
-mvn clean install
+mvn clean install -Dgpg.skip=true
 ----
 
 
