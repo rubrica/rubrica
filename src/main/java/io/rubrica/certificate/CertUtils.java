@@ -63,17 +63,29 @@ public class CertUtils {
 						ASN1InputStream decoder = new ASN1InputStream((byte[]) item.get(1));
 						Object object = decoder.readObject();
 						ASN1Sequence otherNameSeq = null;
-						if (object != null && object instanceof ASN1Sequence)
+						if (object != null && object instanceof ASN1Sequence) {
 							otherNameSeq = (ASN1Sequence) object;
-						else
-							continue;
-						// Check the object identifier
-						ASN1ObjectIdentifier objectId = (ASN1ObjectIdentifier) otherNameSeq.getObjectAt(0);
-						if (objectId.toString().equals(oid)) {
-							DERTaggedObject objectDetail = ((DERTaggedObject) otherNameSeq.getObjectAt(1));
-							decoded = objectDetail.getObject().toASN1Primitive().toString();
-							decoded = decoded.substring(3);
-							break;
+							// Check the object identifier
+							ASN1ObjectIdentifier objectId = (ASN1ObjectIdentifier) otherNameSeq.getObjectAt(0);
+							if (objectId.toString().equals(oid)) {
+								DERTaggedObject objectDetail = ((DERTaggedObject) otherNameSeq.getObjectAt(1));
+								decoded = objectDetail.getObject().toASN1Primitive().toString();
+								decoded = decoded.substring(3);
+								break;
+							}
+						} else if (object != null && object instanceof DERTaggedObject) {
+							DERTaggedObject derTaggedObject = (DERTaggedObject) object;
+							Object obj = derTaggedObject.getObject();
+							if (obj != null && obj instanceof ASN1Sequence) {
+								otherNameSeq = (ASN1Sequence) obj;
+								// Check the object identifier
+								ASN1ObjectIdentifier objectId = (ASN1ObjectIdentifier) otherNameSeq.getObjectAt(0);
+								if (objectId.toString().equals(oid)) {
+									DERTaggedObject objectDetail = ((DERTaggedObject) otherNameSeq.getObjectAt(1));
+									decoded = objectDetail.getObject().toASN1Primitive().toString();
+									break;
+								}
+							}
 						}
 					} catch (UnsupportedEncodingException e) {
 						System.out.println("Error decoding subjectAltName" + e.getLocalizedMessage());
@@ -86,6 +98,7 @@ public class CertUtils {
 			System.out.println("Error parsing SubjectAltName in certificate: " + certificate + "\r\nerror:"
 					+ e.getLocalizedMessage());
 		}
+
 		return decoded;
 	}
 

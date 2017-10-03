@@ -33,55 +33,46 @@ import java.util.logging.Logger;
 
 /**
  * Permite construir certificados tipo CertificadoConsejoJudicatura a partir de
- certificados X509Certificate.
+ * certificados X509Certificate.
  * 
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoConsejoJudicaturaDataFactory {
 
-	public static boolean esCertificadoDelConsejoJudicatura(
-			X509Certificate certificado) {
-                String valor = null;
-                try {
-                    valor = io.rubrica.certificate.CertUtils.getExtensionValueSubjectAlternativeNames(certificado, OID_CEDULA_PASAPORTE);
-                } catch (IOException ex) {
-                    Logger.getLogger(CertificadoConsejoJudicaturaDataFactory.class.getName()).log(Level.SEVERE, null, ex);
-                }
-		return (valor != null);
+	public static boolean esCertificadoDelConsejoJudicatura(X509Certificate certificado) {
+		return (certificateHasPolicy(certificado, OID_CERTIFICADO_PERSONA_NATURAL)
+				|| certificateHasPolicy(certificado, OID_CERTIFICADO_PERSONA_JURIDICA_PRIVADA)
+				|| certificateHasPolicy(certificado, OID_CERTIFICADO_PERSONA_JURIDICA_PUBLICA)
+				|| certificateHasPolicy(certificado, OID_CERTIFICADO_MIEMBRO_EMPRESA)
+				|| certificateHasPolicy(certificado, OID_CERTIFICADO_EMPRESA)
+				|| certificateHasPolicy(certificado, OID_CERTIFICADO_DEPARTAMENTO_EMPRESA));
 	}
 
 	public static CertificadoConsejoJudicatura construir(X509Certificate certificado) {
 		if (!esCertificadoDelConsejoJudicatura(certificado)) {
-			throw new IllegalStateException(
-					"Este no es un certificado emitido por el Consejo de la Judicatura");
+			throw new IllegalStateException("Este no es un certificado emitido por el Consejo de la Judicatura");
 		}
 
 		if (certificateHasPolicy(certificado, OID_CERTIFICADO_PERSONA_NATURAL)) {
-                        System.out.println("OID_CERTIFICADO_PERSONA_NATURAL");
+			System.out.println("OID_CERTIFICADO_PERSONA_NATURAL");
 			return new CertificadoPersonaNaturalConsejoJudicatura(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_CERTIFICADO_PERSONA_JURIDICA_PRIVADA)) {
-                        System.out.println("OID_CERTIFICADO_PERSONA_JURIDICA_PRIVADA");
+		} else if (certificateHasPolicy(certificado, OID_CERTIFICADO_PERSONA_JURIDICA_PRIVADA)) {
+			System.out.println("OID_CERTIFICADO_PERSONA_JURIDICA_PRIVADA");
 			return new CertificadoPersonaJuridicaPrivadaConsejoJudicatura(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_CERTIFICADO_PERSONA_JURIDICA_PUBLICA)) {
-                        System.out.println("OID_CERTIFICADO_PERSONA_JURIDICA_PUBLICA");
+		} else if (certificateHasPolicy(certificado, OID_CERTIFICADO_PERSONA_JURIDICA_PUBLICA)) {
+			System.out.println("OID_CERTIFICADO_PERSONA_JURIDICA_PUBLICA");
 			return new CertificadoPersonaJuridicaPublicaConsejoJudicatura(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_CERTIFICADO_MIEMBRO_EMPRESA)) {
-                        System.out.println("OID_CERTIFICADO_MIEMBRO_EMPRESA");
+		} else if (certificateHasPolicy(certificado, OID_CERTIFICADO_MIEMBRO_EMPRESA)) {
+			System.out.println("OID_CERTIFICADO_MIEMBRO_EMPRESA");
 			return new CertificadoMiembroEmpresaConsejoJudicatura(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_CERTIFICADO_EMPRESA)) {
-                        System.out.println("OID_CERTIFICADO_EMPRESA");
+		} else if (certificateHasPolicy(certificado, OID_CERTIFICADO_EMPRESA)) {
+			System.out.println("OID_CERTIFICADO_EMPRESA");
 			return new CertificadoEmpresaConsejoJudicatura(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_CERTIFICADO_DEPARTAMENTO_EMPRESA)) {
-                        System.out.println("OID_CERTIFICADO_DEPARTAMENTO_EMPRESA");
-                        return new CertificadoDepartamentoEmpresaConsejoJudicatura(certificado);
+		} else if (certificateHasPolicy(certificado, OID_CERTIFICADO_DEPARTAMENTO_EMPRESA)) {
+			System.out.println("OID_CERTIFICADO_DEPARTAMENTO_EMPRESA");
+			return new CertificadoDepartamentoEmpresaConsejoJudicatura(certificado);
 		} else {
-			throw new RuntimeException(
-					"Certificado del Consejo de la Judicatura de tipo desconocido!");
+			throw new RuntimeException("Certificado del Consejo de la Judicatura de tipo desconocido!");
 		}
 	}
 }
