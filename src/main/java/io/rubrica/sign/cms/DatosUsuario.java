@@ -20,7 +20,7 @@ package io.rubrica.sign.cms;
 
 /**
  * Datos del usuario para contruir la validacion CMS.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class DatosUsuario {

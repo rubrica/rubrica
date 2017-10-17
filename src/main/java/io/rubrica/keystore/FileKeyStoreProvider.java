@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 
 /**
  * Implementacion de KeyStoreProvider para leer de un archivo.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class FileKeyStoreProvider implements KeyStoreProvider {

@@ -24,7 +24,7 @@ import io.rubrica.certificate.CertUtils;
 
 /**
  * Certificado emitido por Security Data.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public abstract class CertificadoSecurityData {

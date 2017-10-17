@@ -91,7 +91,7 @@ import io.rubrica.xml.Utils;
  * Un ejemplo de este tipo de firmas ser&iacute;a la siguiente estructura
  * (resumida) XML:
  * </p>
- * 
+ *
  * <pre>
  *   &lt;?xml version="1.0" encoding="UTF-8"?&gt;
  *    &lt;ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#"&gt;
@@ -124,7 +124,7 @@ import io.rubrica.xml.Utils;
  * <p>
  * Un ejemplo de esta estructura XML ser&iacute;a:
  * </p>
- * 
+ *
  * <pre>
  *    &lt;?xml version="1.0" encoding="UTF-8"?&gt;
  *    &lt;internally-detached&gt;
@@ -166,7 +166,7 @@ import io.rubrica.xml.Utils;
  * Para unificar las superestructuras creadas dentro de un formato "Detached
  * Interno", el Cliente @firma construye siempre el siguiente esqueleto XML:
  * </p>
- * 
+ *
  * <pre>
  *    &lt;CONTENT Id="id" Encoding="codificacion" MimeType="MimeType" Algorithm=""&gt;
  *     &lt;!  CONTENIDO FIRMADO --&gt;
@@ -185,7 +185,7 @@ import io.rubrica.xml.Utils;
  * pero si no es XML se codifica en Base64 antes de insertarse, resultando una
  * estructura con una forma similar a la siguiente:
  * </p>
- * 
+ *
  * <pre>
  *    &lt;CONTENT Id="id" Encoding="Base64" MimeType="application/octect-stream" Algorithm=""&gt;
  *     SFGJKASGFJKASEGUYFGEYGEYRGADFJKASGDFSUYFGAUYEGWEYJGDFYKGYKGWJKEGYFWYJ=
@@ -203,7 +203,7 @@ import io.rubrica.xml.Utils;
  * de firma es la &uacute;nica en el documento de firma, y esta contiene
  * internamente el contenido firmado (en un nodo propio).
  * </p>
- * 
+ *
  * <pre>
  *    &lt;?xml version="1.0" encoding="UTF-8"?&gt;
  *    &lt;ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#"&gt;
@@ -241,7 +241,7 @@ import io.rubrica.xml.Utils;
  * Un ejemplo simple del resultado de una firma <i>Enveloped</i> podr&iacute;a
  * ser el siguiente:
  * </p>
- * 
+ *
  * <pre>
  *    &lt;!DOCTYPE Enveloped [
  *     &lt;!ENTITY ds "http://www.w3.org/2000/09/xmldsig#"&gt;

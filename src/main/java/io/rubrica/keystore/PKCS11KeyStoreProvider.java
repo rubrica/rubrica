@@ -36,11 +36,11 @@ import javax.security.auth.login.LoginException;
 /**
  * Implementacion de <code>KeyStoreProvider</code> para utilizar con
  * dispositivos fisicos tipo PKCS#11 (Token USB, Smart Card, etc).
- * 
+ *
  * Utiliza internamente la clase <code>sun.security.pkcs11.SunPKCS11</code> para
  * acceder al API de PKCS#11 provisto en Java, por tanto funciona solo con el
  * JVM de Sun Microsystems.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public abstract class PKCS11KeyStoreProvider implements KeyStoreProvider {

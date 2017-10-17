@@ -27,7 +27,7 @@ import io.rubrica.core.RubricaException;
 
 /**
  * Permite la firma digital de documentos.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public interface Signer {

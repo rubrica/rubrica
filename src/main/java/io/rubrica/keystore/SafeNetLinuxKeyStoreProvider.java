@@ -22,7 +22,7 @@ import java.io.File;
 /**
  * Implementacion de <code>KeyStoreProvider</code> para utilizar con librerias
  * PKCS#11 de SafeNet, instaladas previamente.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class SafeNetLinuxKeyStoreProvider extends PKCS11KeyStoreProvider {

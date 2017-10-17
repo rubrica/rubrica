@@ -23,7 +23,7 @@ import io.rubrica.certificate.ec.CertificadoPersonaJuridica;
 
 /**
  * Certificado de Persona Juridica emitido por el Banco Central del Ecuador.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoDepartamentoEmpresaConsejoJudicatura extends

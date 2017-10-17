@@ -19,7 +19,7 @@ package io.rubrica.core;
 
 /**
  * Excepcion genérica de Rubrica.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class RubricaException extends Exception {

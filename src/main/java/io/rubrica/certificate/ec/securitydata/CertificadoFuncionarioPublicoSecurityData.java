@@ -23,7 +23,7 @@ import io.rubrica.certificate.ec.CertificadoFuncionarioPublico;
 
 /**
  * Certificado de Funcionario Publico emitido por Security Data.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoFuncionarioPublicoSecurityData extends

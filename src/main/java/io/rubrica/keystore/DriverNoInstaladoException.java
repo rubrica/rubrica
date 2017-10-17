@@ -19,7 +19,7 @@ package io.rubrica.keystore;
 
 /**
  * Excepcion que se lanza si un driver de token no esta instalado.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class DriverNoInstaladoException extends Exception {

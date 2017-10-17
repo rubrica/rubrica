@@ -27,10 +27,10 @@ import java.util.logging.Logger;
 /**
  * Implementacion de KeyStoreProvider para acceder a Microsoft Crypto API del
  * sistema operativo Microsoft Windows.
- * 
+ *
  * Utiliza funcionalidad disponible desde el JDK6 en adelante para acceder al MS
  * CAPI.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class WindowsKeyStoreProvider implements KeyStoreProvider {

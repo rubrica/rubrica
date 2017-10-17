@@ -40,7 +40,7 @@ import java.util.Set;
 /**
  * Certificado raiz para pruebas del Banco Central del Ecuador, representado
  * como un objeto <code>X509Certificate</code>.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class BceCaTestCert extends X509Certificate {

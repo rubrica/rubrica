@@ -22,9 +22,9 @@ import java.io.File;
 /**
  * Implementacion de KeyStoreProvider para acceder al keystore del sistema
  * operativo Microsoft Windows.
- * 
+ *
  * Funciona en JDK 5, accede a las librerias PKCS#11 del sistema operativo.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class SafeNetWindowsKeyStoreProvider extends PKCS11KeyStoreProvider {

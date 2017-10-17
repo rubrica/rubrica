@@ -29,7 +29,7 @@ import java.security.cert.CertificateException;
 
 /**
  * Implementacion de KeyStoreProvider para archivos PKCS#12.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class Pkcs12FileKeyStoreProvider implements KeyStoreProvider {

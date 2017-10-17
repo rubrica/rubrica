@@ -19,7 +19,7 @@ package io.rubrica.certificate.ec;
 
 /**
  * Certificado para un miembro de una empresa.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public interface CertificadoMiembroEmpresa extends CertificadoPersonaJuridica {

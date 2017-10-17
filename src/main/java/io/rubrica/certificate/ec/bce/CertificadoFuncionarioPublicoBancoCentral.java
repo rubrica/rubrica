@@ -23,7 +23,7 @@ import io.rubrica.certificate.ec.CertificadoFuncionarioPublico;
 
 /**
  * Certificado de Funcionario Publico emitido por el Banco Central del Ecuador.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoFuncionarioPublicoBancoCentral extends

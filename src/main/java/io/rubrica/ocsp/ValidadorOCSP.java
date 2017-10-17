@@ -56,7 +56,7 @@ import io.rubrica.core.RubricaException;
 
 /**
  * Clase que permite la validacion de un certificado utilizando OCSP.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class ValidadorOCSP {

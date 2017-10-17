@@ -45,7 +45,7 @@ import io.rubrica.core.PrivateKeyAndCertificateChain;
 
 /**
  * Clase utilitaria para firmar PDFs.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  * @deprecated
  */

@@ -19,7 +19,7 @@ package io.rubrica.keystore;
 
 /**
  * Alias de un certificado dentro de un KeyStore.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class Alias {

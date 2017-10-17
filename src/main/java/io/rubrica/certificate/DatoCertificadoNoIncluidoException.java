@@ -19,7 +19,7 @@ package io.rubrica.certificate;
 
 /**
  * Excepcion que se lanza en caso de que el certificado no incluya un campo.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class DatoCertificadoNoIncluidoException extends RuntimeException {

@@ -24,7 +24,7 @@ package io.rubrica.certificate.ec;
  * personas que actuen en su representacion, quienes seran responsables en tal
  * calidad de todo lo que firmen dentro del ambito de su competencia y limites
  * de uso que correspondan.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public interface CertificadoPersonaJuridica {

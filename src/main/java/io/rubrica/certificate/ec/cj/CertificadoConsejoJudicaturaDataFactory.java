@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 /**
  * Permite construir certificados tipo CertificadoConsejoJudicatura a partir de
  * certificados X509Certificate.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoConsejoJudicaturaDataFactory {

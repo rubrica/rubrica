@@ -23,7 +23,7 @@ import io.rubrica.certificate.ec.CertificadoPersonaNatural;
 
 /**
  * Certificado de Persona Natural emitido por Security Data.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoPersonaNaturalSecurityData extends

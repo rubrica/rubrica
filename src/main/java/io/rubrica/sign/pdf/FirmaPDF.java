@@ -47,7 +47,7 @@ import io.rubrica.certificate.ec.securitydata.SecurityDataSubCaCert;
 
 /**
  * Clase para firmar documentos PDF usando la libreria iText.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  * @deprecated
  */

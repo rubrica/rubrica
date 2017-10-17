@@ -22,7 +22,7 @@ import java.security.KeyStoreException;
 
 /**
  * Obtiene un KeyStore.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public interface KeyStoreProvider {

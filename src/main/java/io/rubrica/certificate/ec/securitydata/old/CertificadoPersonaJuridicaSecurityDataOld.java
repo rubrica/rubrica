@@ -24,7 +24,7 @@ import io.rubrica.certificate.ec.CertificadoPersonaJuridica;
 
 /**
  * Certificado de Persona Juridica emitido por Security Data.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoPersonaJuridicaSecurityDataOld extends

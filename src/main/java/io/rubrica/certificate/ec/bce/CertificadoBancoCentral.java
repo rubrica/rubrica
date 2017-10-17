@@ -24,7 +24,7 @@ import io.rubrica.certificate.CertUtils;
 
 /**
  * Certificado emitido por el Banco Central del Ecuador.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public abstract class CertificadoBancoCentral {

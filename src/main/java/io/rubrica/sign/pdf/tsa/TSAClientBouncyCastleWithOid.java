@@ -37,7 +37,7 @@ import com.lowagie.text.pdf.TSAClientBouncyCastle;
 /**
  * Implementacion de TSAClient que permite establecer un Policy OID para su
  * utilizacion. Extiende de TSAClientBouncyCastle.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  * @deprecated
  */

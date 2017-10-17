@@ -37,7 +37,7 @@ import org.bouncycastle.asn1.DERTaggedObject;
 
 /**
  * Utilidades para trabajar con Certificados.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertUtils {

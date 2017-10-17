@@ -27,7 +27,7 @@ import java.security.cert.CertificateException;
 /**
  * Implementacion de <code>KeyStoreProvider</code> para el sistema operativo Mac
  * OS X.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class AppleKeyStoreProvider implements KeyStoreProvider {

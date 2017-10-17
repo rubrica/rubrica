@@ -38,7 +38,7 @@ import javax.security.auth.login.LoginException;
 /**
  * Esta clase se usa para obtener el keystore (Con el se pueden obtener luego
  * los certificados dentro del token) en Windows
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  * @version $Revision: 15 $
  * @author Modificado , Jose garcia <jose.garcia@presidencia.gov.ec>

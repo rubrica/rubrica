@@ -23,7 +23,7 @@ import io.rubrica.certificate.ec.CertificadoMiembroEmpresa;
 
 /**
  * Certificado de Miembro de Empresa emitido por Security Data.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoMiembroEmpresaSecurityData extends

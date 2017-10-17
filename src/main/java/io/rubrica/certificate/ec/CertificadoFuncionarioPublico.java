@@ -22,7 +22,7 @@ package io.rubrica.certificate.ec;
  * quien actuara a titulo de la Institucion publica que representa y sera
  * responsable de todo lo que firme electronicamente dentro del ambito de su
  * actividad y limites de uso que correspondan.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public interface CertificadoFuncionarioPublico {

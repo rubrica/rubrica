@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2009-2013 Rubrica.ec
- * 
+ *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
@@ -15,7 +15,7 @@ import io.rubrica.certificate.ec.CertificadoPersonaNatural;
 
 /**
  * Certificado de Persona Natural emitido por Security Data.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoPersonaNaturalSecurityDataOld extends

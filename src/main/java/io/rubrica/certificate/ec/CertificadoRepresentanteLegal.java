@@ -19,7 +19,7 @@ package io.rubrica.certificate.ec;
 
 /**
  * Certificado para Representante Legal.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public interface CertificadoRepresentanteLegal extends

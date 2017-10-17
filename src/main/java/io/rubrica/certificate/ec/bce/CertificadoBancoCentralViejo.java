@@ -21,9 +21,9 @@ import java.security.cert.X509Certificate;
 
 /**
  * Certificado emitido por el Banco Central del Ecuador, version anterior.
- * 
+ *
  * @deprecated
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoBancoCentralViejo {

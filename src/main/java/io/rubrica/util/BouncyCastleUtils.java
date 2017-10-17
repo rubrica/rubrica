@@ -38,7 +38,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  * Utilidades para la libreria BouncyCastle.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class BouncyCastleUtils {

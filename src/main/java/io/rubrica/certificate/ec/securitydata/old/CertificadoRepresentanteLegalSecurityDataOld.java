@@ -23,7 +23,7 @@ import io.rubrica.certificate.ec.CertificadoRepresentanteLegal;
 
 /**
  * Certificado de Representante Legal emitido por Security Data.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoRepresentanteLegalSecurityDataOld extends

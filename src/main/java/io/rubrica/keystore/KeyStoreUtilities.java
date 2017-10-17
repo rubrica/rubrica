@@ -39,7 +39,7 @@ import io.rubrica.util.CertificateUtils;
  * Tratamos los alias repetidos, situacion problematica afectada por el bug
  * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6483657 Este solo se da
  * con SunMSCAPI
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class KeyStoreUtilities {

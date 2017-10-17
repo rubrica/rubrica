@@ -55,7 +55,7 @@ import io.rubrica.util.BouncyCastleUtils;
 
 /**
  * Verifica datos CMS.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class VerificadorCMS {

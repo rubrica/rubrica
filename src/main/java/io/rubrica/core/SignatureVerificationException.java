@@ -19,7 +19,7 @@ package io.rubrica.core;
 
 /**
  * Excepcion lanzada si ocurre un error al verificar una firma.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class SignatureVerificationException extends Exception {

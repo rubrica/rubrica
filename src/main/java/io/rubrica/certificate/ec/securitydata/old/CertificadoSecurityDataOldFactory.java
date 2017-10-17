@@ -30,7 +30,7 @@ import java.security.cert.X509Certificate;
 /**
  * Permite construir certificados tipo CertificadoSecurityData a partir de
  * certificados X509Certificate.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class CertificadoSecurityDataOldFactory {

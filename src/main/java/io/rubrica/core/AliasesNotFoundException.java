@@ -19,7 +19,7 @@ package io.rubrica.core;
 
 /**
  * Excecion lanzada al no encontrar un alias en un KeyStore.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  * @deprecated
  */

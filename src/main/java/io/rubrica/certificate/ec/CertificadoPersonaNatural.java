@@ -21,7 +21,7 @@ package io.rubrica.certificate.ec;
  * Certificado que identifica al suscriptos como una persona natural o fisica, y
  * sera responsable a titulo personal de todo lo que firme electronicamente,
  * dentro del ambito de su actividad y limites de uso que correspondan.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public interface CertificadoPersonaNatural {

@@ -25,7 +25,7 @@ import io.rubrica.util.Utils;
 
 /**
  * Representa una firma digital sobre un documento PDF.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class SignInfo {

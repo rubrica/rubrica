@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 /**
  * Utilidades varias.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class OsUtils {

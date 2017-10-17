@@ -21,7 +21,7 @@ import java.io.File;
 
 /**
  * KeyStoreProvider para tokens de Bit4id.
- * 
+ *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
 public class Bit4idStoreProvider extends PKCS11KeyStoreProvider {
