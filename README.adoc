@@ -29,7 +29,7 @@ Para usarlo como una dependencia en Maven (pom.xml):
 <dependency>
   <groupId>io.rubrica</groupId>
   <artifactId>rubrica</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.5</version>
 </dependency>
 ----
 
