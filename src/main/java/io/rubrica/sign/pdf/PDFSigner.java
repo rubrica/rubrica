@@ -32,6 +32,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.AcroFields;
 import com.lowagie.text.pdf.PdfDictionary;
 import com.lowagie.text.pdf.PdfName;
@@ -53,6 +54,10 @@ public class PDFSigner implements Signer {
 	private static final PdfName PDFNAME_ETSI_RFC3161 = new PdfName("ETSI.RFC3161");
 	private static final PdfName PDFNAME_DOCTIMESTAMP = new PdfName("DocTimeStamp");
 
+	/** Referencia a la &uacute;ltima p&aacute;gina del documento PDF. */
+	public static final int LAST_PAGE = -1;
+	public static final int NEW_PAGE = -2;
+
 	private static final Logger logger = Logger.getLogger(PDFSigner.class.getName());
 
 	/**
@@ -67,13 +72,15 @@ public class PDFSigner implements Signer {
 
 	public static final String SIGN_TIME = "signTime";
 
+	public static final String SIGNATURE_PAGE = "signingPage";
+
 	static {
 		BouncyCastleUtils.initializeBouncyCastle();
 	}
 
 	/**
 	 * Algoritmos soportados:
-	 * 
+	 *
 	 * <li><i>SHA1withRSA</i></li>
 	 * <li><i>SHA256withRSA</i></li>
 	 * <li><i>SHA384withRSA</i></li>
@@ -94,6 +101,18 @@ public class PDFSigner implements Signer {
 		// Fecha y hora de la firma, en formato ISO-8601
 		String signTime = extraParams.getProperty(SIGN_TIME);
 
+		// Pagina donde situar la firma visible
+		int page = LAST_PAGE;
+
+		String pageStr = extraParams.getProperty(SIGNATURE_PAGE, "-2");
+
+		try {
+			page = Integer.parseInt(pageStr.trim());
+		} catch (final Exception e) {
+			logger.warning(
+					"Se ha indicado un numero de pagina invalido ('" + pageStr + "'), se usara la ultima pagina: " + e);
+		}
+
 		// Leer el PDF
 		PdfReader pdfReader = new PdfReader(data);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -108,6 +127,7 @@ public class PDFSigner implements Signer {
 		}
 
 		PdfSignatureAppearance sap = stp.getSignatureAppearance();
+		sap.setAcro6Layers(true);
 
 		// Razon de firma
 		if (reason != null) {
@@ -125,6 +145,22 @@ public class PDFSigner implements Signer {
 			GregorianCalendar calendar = new GregorianCalendar();
 			calendar.setTime(date);
 			sap.setSignDate(calendar);
+		}
+
+		Rectangle signaturePositionOnPage = getSignaturePositionOnPage(extraParams);
+
+		if (page == NEW_PAGE && signaturePositionOnPage != null) {
+			stp.insertPage(pdfReader.getNumberOfPages() + 1, pdfReader.getPageSizeWithRotation(1));
+			// La pagina pasa a ser la nueva, que es la ultima,
+			page = LAST_PAGE;
+		}
+
+		if (page == LAST_PAGE) {
+			page = pdfReader.getNumberOfPages();
+		}
+
+		if (signaturePositionOnPage != null) {
+			sap.setVisibleSignature(signaturePositionOnPage, page, null);
 		}
 
 		sap.setCrypto(key, (X509Certificate) certChain[0], null, PdfSignatureAppearance.WINCER_SIGNED);
@@ -249,5 +285,9 @@ public class PDFSigner implements Signer {
 		}
 
 		return true;
+	}
+
+	private static Rectangle getSignaturePositionOnPage(Properties extraParams) {
+		return PdfUtil.getPositionOnPage(extraParams);
 	}
 }
