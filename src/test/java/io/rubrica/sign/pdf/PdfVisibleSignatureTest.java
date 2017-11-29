@@ -40,7 +40,7 @@ import io.rubrica.sign.TestHelper;
 
 public class PdfVisibleSignatureTest {
 
-	@Test
+//	@Test
 	public void testSignPdf() throws Exception {
 		File tempFile = File.createTempFile("pdfSign", "." + "test1.pdf");
 		System.out.println("Temporal para comprobacion manual: " + tempFile.getAbsolutePath());

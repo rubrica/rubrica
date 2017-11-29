@@ -131,6 +131,13 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
 				<version>1.6</version>
+                <!--evitar firmar código-->
+                <!--
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+                -->
+                <!--evitar firmar código-->
 				<executions>
 					<execution>
 						<id>sign-artifacts</id>
