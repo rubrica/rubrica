@@ -50,6 +50,20 @@ public class PdfUtil {
 				logger.severe("Se ha indicado una posicion invalida para la firma: " + e);
 			}
 		}
+		
+		if (extraParams.getProperty(positionOnPageLowerLeftX) != null
+				&& extraParams.getProperty(positionOnPageLowerLeftY) != null
+				&& extraParams.getProperty(positionOnPageUpperRightX) == null
+				&& extraParams.getProperty(positionOnPageUpperRightY) == null) {
+			try {
+				return new Rectangle(Integer.parseInt(extraParams.getProperty(positionOnPageLowerLeftX).trim()),
+						Integer.parseInt(extraParams.getProperty(positionOnPageLowerLeftY).trim()),
+						Integer.parseInt(extraParams.getProperty(positionOnPageLowerLeftX).trim())+110, 
+						Integer.parseInt(extraParams.getProperty(positionOnPageLowerLeftY).trim())-36);
+			} catch (final Exception e) {
+				logger.severe("Se ha indicado una posicion invalida para la firma: " + e);
+			}
+		}
 
 		return null;
 	}

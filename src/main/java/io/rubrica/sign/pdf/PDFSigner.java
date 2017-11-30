@@ -32,14 +32,18 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.Paragraph;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.AcroFields;
+import com.lowagie.text.pdf.ColumnText;
 import com.lowagie.text.pdf.PdfDictionary;
 import com.lowagie.text.pdf.PdfName;
 import com.lowagie.text.pdf.PdfPKCS7;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfSignatureAppearance;
 import com.lowagie.text.pdf.PdfStamper;
+import com.lowagie.text.pdf.PdfTemplate;
 
 import io.rubrica.core.RubricaException;
 import io.rubrica.sign.InvalidFormatException;
@@ -47,6 +51,7 @@ import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
 import io.rubrica.util.BouncyCastleUtils;
 import io.rubrica.util.Utils;
+import java.awt.Color;
 
 public class PDFSigner implements Signer {
 
@@ -55,9 +60,6 @@ public class PDFSigner implements Signer {
 	private static final PdfName PDFNAME_DOCTIMESTAMP = new PdfName("DocTimeStamp");
 
 	/** Referencia a la &uacute;ltima p&aacute;gina del documento PDF. */
-	public static final int LAST_PAGE = -1;
-	public static final int NEW_PAGE = -2;
-
 	private static final Logger logger = Logger.getLogger(PDFSigner.class.getName());
 
 	/**
@@ -73,6 +75,8 @@ public class PDFSigner implements Signer {
 	public static final String SIGN_TIME = "signTime";
 
 	public static final String SIGNATURE_PAGE = "signingPage";
+	
+	public static final String LAST_PAGE = "0";
 
 	static {
 		BouncyCastleUtils.initializeBouncyCastle();
@@ -102,15 +106,15 @@ public class PDFSigner implements Signer {
 		String signTime = extraParams.getProperty(SIGN_TIME);
 
 		// Pagina donde situar la firma visible
-		int page = LAST_PAGE;
-
-		String pageStr = extraParams.getProperty(SIGNATURE_PAGE, "-2");
-
+		int page=0;
 		try {
-			page = Integer.parseInt(pageStr.trim());
+			if (extraParams.getProperty(LAST_PAGE)==null)
+				page=0;
+			else
+				page = Integer.parseInt(extraParams.getProperty(LAST_PAGE).trim());
 		} catch (final Exception e) {
 			logger.warning(
-					"Se ha indicado un numero de pagina invalido ('" + pageStr + "'), se usara la ultima pagina: " + e);
+					"Se ha indicado un numero de pagina invalido ('" + extraParams.getProperty(LAST_PAGE) + "'), se usara la ultima pagina: " + e);
 		}
 
 		// Leer el PDF
@@ -146,23 +150,56 @@ public class PDFSigner implements Signer {
 			calendar.setTime(date);
 			sap.setSignDate(calendar);
 		}
-
+		
+		if(page==0 || page>pdfReader.getNumberOfPages())
+			page = pdfReader.getNumberOfPages();			
+		
 		Rectangle signaturePositionOnPage = getSignaturePositionOnPage(extraParams);
-
-		if (page == NEW_PAGE && signaturePositionOnPage != null) {
-			stp.insertPage(pdfReader.getNumberOfPages() + 1, pdfReader.getPageSizeWithRotation(1));
-			// La pagina pasa a ser la nueva, que es la ultima,
-			page = LAST_PAGE;
-		}
-
-		if (page == LAST_PAGE) {
-			page = pdfReader.getNumberOfPages();
-		}
-
+		
 		if (signaturePositionOnPage != null) {
 			sap.setVisibleSignature(signaturePositionOnPage, page, null);
+			
+			X509Certificate x509Certificate = (X509Certificate) certChain[0];
+			String informacionCertificado = x509Certificate.getSubjectDN().getName();
+			String nombreFirmante = (informacionCertificado.substring(
+					informacionCertificado.lastIndexOf("CN=")+3, informacionCertificado.indexOf(","))).toUpperCase();
+			try {
+				// Creating the appearance for layer 0
+				PdfTemplate pdfTemplate = sap.getLayer(0);
+				float x = pdfTemplate.getBoundingBox().getLeft();
+				float y = pdfTemplate.getBoundingBox().getBottom();
+				float width = pdfTemplate.getBoundingBox().getWidth();
+				float height = pdfTemplate.getBoundingBox().getHeight();
+				pdfTemplate.rectangle(x, y, width, height);
+				// Creating the appearance for layer 2
+				//Nombre Firmante
+				PdfTemplate pdfTemplate1 = sap.getLayer(2);
+				ColumnText columnText1 = new ColumnText(pdfTemplate1);
+				columnText1.setSimpleColumn(x, y, (width/2)-1, height);
+				Font font1 = new Font(Font.ITALIC, 5.0f, Font.BOLD, Color.BLACK);
+				Paragraph paragraph1 = new Paragraph(nombreFirmante.trim(), font1);
+				paragraph1.setAlignment(Paragraph.ALIGN_RIGHT);
+				columnText1.addElement(paragraph1);
+				columnText1.go();
+				//Información
+				PdfTemplate pdfTemplate2 = sap.getLayer(2);
+				ColumnText columnText2 = new ColumnText(pdfTemplate2);
+				columnText2.setSimpleColumn(x+(width/2)+1, y, width, height);
+				Font font2 = new Font(Font.ITALIC, 3f, Font.NORMAL, Color.DARK_GRAY);
+				Paragraph paragraph2 = new Paragraph(3, 
+						"Nombre de reconocimiento "+
+						informacionCertificado.trim()+
+						"\nRazón: "+reason+
+						"\nFecha: "+signTime, font2);
+				paragraph2.setAlignment(Paragraph.ALIGN_LEFT);
+				columnText2.addElement(paragraph2);
+				columnText2.go();
+			} catch (DocumentException e) {
+				logger.severe("Error al estampar la firma: " + e);
+				throw new RubricaException("Error al estampar la firma", e);
+			}
 		}
-
+		
 		sap.setCrypto(key, (X509Certificate) certChain[0], null, PdfSignatureAppearance.WINCER_SIGNED);
 
 		try {
