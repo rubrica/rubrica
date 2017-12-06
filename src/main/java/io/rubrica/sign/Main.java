@@ -28,8 +28,8 @@ import java.util.Properties;
  */
 public class Main {	
 	public static void main(String args[]) throws KeyStoreException, IOException, Exception {
-		String archivo="/home/mfernandez/Firmas/2017/cn=misael_vladimir_fernandez_correa+27112017+sn=0028.p12";
-		String password="Password#1";
+		String archivo="Ruta certificado digital";
+		String password="Clave";
 		
 		// La fecha actual en formato ISO-8601 (2017-08-27T17:54:43.562-05:00)
         String fechaHora = ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
