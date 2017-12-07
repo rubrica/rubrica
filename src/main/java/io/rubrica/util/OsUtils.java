@@ -30,11 +30,20 @@ public class OsUtils {
 
 	public static boolean isWindows() {
 		String osName = System.getProperty("os.name");
-		String javaVersion = System.getProperty("java.version");
 		logger.finer("Operating System:" + osName);
-		logger.finer("Java Version:" + javaVersion);
-
 		return (osName.toUpperCase().indexOf("WINDOWS") == 0);
+	}
+	
+	public static String getOs() {
+		String osName = System.getProperty("os.name");
+		logger.finer("Operating System:" + osName);
+		return osName.toUpperCase();
+	}
+	
+	public static String getJavaVersion() {
+		String javaVersion = System.getProperty("java.version");
+		logger.finer("Java Version:" + javaVersion);
+		return javaVersion.toUpperCase();
 	}
 
 	public static boolean is64Bits() {

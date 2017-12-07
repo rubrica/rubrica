@@ -41,7 +41,7 @@ public class Main {
 		
 		Properties params = new Properties();
         params.setProperty(PDFSigner.SIGNING_LOCATION, "");
-		params.setProperty(PDFSigner.SIGNING_REASON, "Se firmó con FirmaEC");
+		params.setProperty(PDFSigner.SIGNING_REASON, "Firmado digitalmente por FirmaEC");
         params.setProperty(PDFSigner.SIGN_TIME, fechaHora);
         params.setProperty(PDFSigner.LAST_PAGE, "200");
         // Posicion firma

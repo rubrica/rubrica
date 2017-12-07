@@ -151,7 +151,7 @@ public class PDFSigner implements Signer {
 			sap.setSignDate(calendar);
 		}
 		
-		if(page==0 || page>pdfReader.getNumberOfPages())
+		if(page==0 || page<0 || page>pdfReader.getNumberOfPages())
 			page = pdfReader.getNumberOfPages();			
 		
 		Rectangle signaturePositionOnPage = getSignaturePositionOnPage(extraParams);
