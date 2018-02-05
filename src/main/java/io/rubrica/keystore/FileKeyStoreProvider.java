@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package io.rubrica.keystore;
 
 import java.io.File;
@@ -35,46 +34,44 @@ import java.util.logging.Logger;
  */
 public class FileKeyStoreProvider implements KeyStoreProvider {
 
-	private static final Logger log = Logger
-			.getLogger(FileKeyStoreProvider.class.getName());
+    private static final Logger log = Logger
+            .getLogger(FileKeyStoreProvider.class.getName());
 
-	private File keyStoreFile;
+    private File keyStoreFile;
 
-	public FileKeyStoreProvider(File keyStoreFile) {
-		this.keyStoreFile = keyStoreFile;
-	}
+    public FileKeyStoreProvider(File keyStoreFile) {
+        this.keyStoreFile = keyStoreFile;
+    }
 
-	public FileKeyStoreProvider(String keyStoreFile) {
-		this.keyStoreFile = new File(keyStoreFile);
-	}
+    public FileKeyStoreProvider(String keyStoreFile) {
+        this.keyStoreFile = new File(keyStoreFile);
+    }
 
-	public KeyStore getKeystore() throws KeyStoreException {
-		return getKeystore(null);
-	}
+    @Override
+    public KeyStore getKeystore() throws KeyStoreException {
+        return getKeystore(null);
+    }
 
-	public KeyStore getKeystore(char[] password) throws KeyStoreException {
-		InputStream input = null;
-		try {
-			input = new FileInputStream(keyStoreFile);
-			KeyStore keyStore = KeyStore.getInstance("JKS");
-			keyStore.load(input, password);
-			return keyStore;
-		} catch (FileNotFoundException e) {
-			throw new KeyStoreException(e);
-		} catch (NoSuchAlgorithmException e) {
-			throw new KeyStoreException(e);
-		} catch (CertificateException e) {
-			throw new KeyStoreException(e);
-		} catch (IOException e) {
-			throw new KeyStoreException(e);
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (IOException e) {
-					log.warning(e.getMessage());
-				}
-			}
-		}
-	}
+    @Override
+    public KeyStore getKeystore(char[] password) throws KeyStoreException {
+        InputStream input = null;
+        try {
+            input = new FileInputStream(keyStoreFile);
+            KeyStore keyStore = KeyStore.getInstance("JKS");
+            keyStore.load(input, password);
+            return keyStore;
+        } catch (FileNotFoundException e) {
+            throw new KeyStoreException(e);
+        } catch (NoSuchAlgorithmException | CertificateException | IOException e) {
+            throw new KeyStoreException(e);
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    log.warning(e.getMessage());
+                }
+            }
+        }
+    }
 }

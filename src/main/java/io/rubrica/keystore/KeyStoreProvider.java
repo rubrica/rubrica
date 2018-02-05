@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package io.rubrica.keystore;
 
 import java.security.KeyStore;
@@ -27,7 +26,7 @@ import java.security.KeyStoreException;
  */
 public interface KeyStoreProvider {
 
-	KeyStore getKeystore() throws KeyStoreException;
+    KeyStore getKeystore() throws KeyStoreException;
 
-	KeyStore getKeystore(char[] password) throws KeyStoreException;
+    KeyStore getKeystore(char[] password) throws KeyStoreException;
 }

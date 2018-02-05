@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package io.rubrica.keystore;
 
 import java.io.IOException;
@@ -32,27 +31,23 @@ import java.security.cert.CertificateException;
  */
 public class AppleKeyStoreProvider implements KeyStoreProvider {
 
-	private static final String APPLE_PROVIDER_TYPE = "KeychainStore";
-	private static final String APPLE_PROVIDER_NAME = "Apple";
+    private static final String APPLE_PROVIDER_TYPE = "KeychainStore";
+    private static final String APPLE_PROVIDER_NAME = "Apple";
 
-	public KeyStore getKeystore() throws KeyStoreException {
-		try {
-			KeyStore keyStore = KeyStore.getInstance(APPLE_PROVIDER_TYPE,
-					APPLE_PROVIDER_NAME);
-			keyStore.load(null, null);
-			return keyStore;
-		} catch (NoSuchProviderException e) {
-			throw new KeyStoreException(e);
-		} catch (NoSuchAlgorithmException e) {
-			throw new KeyStoreException(e);
-		} catch (CertificateException e) {
-			throw new KeyStoreException(e);
-		} catch (IOException e) {
-			throw new KeyStoreException(e);
-		}
-	}
+    @Override
+    public KeyStore getKeystore() throws KeyStoreException {
+        try {
+            KeyStore keyStore = KeyStore.getInstance(APPLE_PROVIDER_TYPE,
+                    APPLE_PROVIDER_NAME);
+            keyStore.load(null, null);
+            return keyStore;
+        } catch (NoSuchProviderException | NoSuchAlgorithmException | CertificateException | IOException e) {
+            throw new KeyStoreException(e);
+        }
+    }
 
-	public KeyStore getKeystore(char[] password) throws KeyStoreException {
-		return getKeystore();
-	}
+    @Override
+    public KeyStore getKeystore(char[] password) throws KeyStoreException {
+        return getKeystore();
+    }
 }

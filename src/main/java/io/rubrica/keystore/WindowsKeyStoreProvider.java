@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package io.rubrica.keystore;
 
 import java.io.IOException;
@@ -35,31 +34,29 @@ import java.util.logging.Logger;
  */
 public class WindowsKeyStoreProvider implements KeyStoreProvider {
 
-	private static final Logger logger = Logger
-			.getLogger(WindowsKeyStoreProvider.class.getName());
+    private static final Logger logger = Logger
+            .getLogger(WindowsKeyStoreProvider.class.getName());
 
-	public KeyStore getKeystore() throws KeyStoreException {
-		try {
-			KeyStore keyStore = KeyStore.getInstance("Windows-MY");
-			keyStore.load(null, null);
+    @Override
+    public KeyStore getKeystore() throws KeyStoreException {
+        try {
+            KeyStore keyStore = KeyStore.getInstance("Windows-MY");
+            keyStore.load(null, null);
 
-			// Corregir bug en el MSCAPI
-			if (KeyStoreUtilities.tieneAliasRepetidos(keyStore)) {
-				logger.fine("El KeyStore tiene alias repetidos, fixing...");
-				KeyStoreUtilities.fixAliases(keyStore);
-			}
+            // Corregir bug en el MSCAPI
+            if (KeyStoreUtilities.tieneAliasRepetidos(keyStore)) {
+                logger.fine("El KeyStore tiene alias repetidos, fixing...");
+                KeyStoreUtilities.fixAliases(keyStore);
+            }
 
-			return keyStore;
-		} catch (NoSuchAlgorithmException e) {
-			throw new KeyStoreException(e);
-		} catch (CertificateException e) {
-			throw new KeyStoreException(e);
-		} catch (IOException e) {
-			throw new KeyStoreException(e);
-		}
-	}
+            return keyStore;
+        } catch (NoSuchAlgorithmException | CertificateException | IOException e) {
+            throw new KeyStoreException(e);
+        }
+    }
 
-	public KeyStore getKeystore(char[] ignore) throws KeyStoreException {
-		return getKeystore();
-	}
+    @Override
+    public KeyStore getKeystore(char[] ignore) throws KeyStoreException {
+        return getKeystore();
+    }
 }

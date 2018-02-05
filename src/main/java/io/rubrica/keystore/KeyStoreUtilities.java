@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package io.rubrica.keystore;
 
 import java.lang.reflect.Field;
@@ -44,99 +43,99 @@ import io.rubrica.util.CertificateUtils;
  */
 public class KeyStoreUtilities {
 
-	private static final Logger logger = Logger.getLogger(KeyStoreUtilities.class.getName());
+    private static final Logger logger = Logger.getLogger(KeyStoreUtilities.class.getName());
 
-	public static boolean tieneAliasRepetidos(KeyStore keyStore) {
-		try {
-			ArrayList<String> aliases = Collections.list(keyStore.aliases());
-			HashSet<String> uniqAliases = new HashSet<String>(aliases);
-			return (aliases.size() > uniqAliases.size());
-		} catch (KeyStoreException e) {
-			throw new IllegalStateException(e);
-		}
-	}
+    public static boolean tieneAliasRepetidos(KeyStore keyStore) {
+        try {
+            ArrayList<String> aliases = Collections.list(keyStore.aliases());
+            HashSet<String> uniqAliases = new HashSet<String>(aliases);
+            return (aliases.size() > uniqAliases.size());
+        } catch (KeyStoreException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 
-	/**
-	 * For WINDOWS-MY keystore fixes problem with non-unique aliases
-	 * 
-	 * @param keyStore
-	 */
-	@SuppressWarnings("unchecked")
-	public static void fixAliases(final KeyStore keyStore) {
-		Field field;
-		KeyStoreSpi keyStoreVeritable;
-		final Set<String> tmpAliases = new HashSet<String>();
-		try {
-			field = keyStore.getClass().getDeclaredField("keyStoreSpi");
-			field.setAccessible(true);
-			keyStoreVeritable = (KeyStoreSpi) field.get(keyStore);
+    /**
+     * For WINDOWS-MY keystore fixes problem with non-unique aliases
+     *
+     * @param keyStore
+     */
+    @SuppressWarnings("unchecked")
+    public static void fixAliases(final KeyStore keyStore) {
+        Field field;
+        KeyStoreSpi keyStoreVeritable;
+        final Set<String> tmpAliases = new HashSet<String>();
+        try {
+            field = keyStore.getClass().getDeclaredField("keyStoreSpi");
+            field.setAccessible(true);
+            keyStoreVeritable = (KeyStoreSpi) field.get(keyStore);
 
-			if ("sun.security.mscapi.KeyStore$MY".equals(keyStoreVeritable.getClass().getName())) {
-				Collection<Object> entries;
-				String alias, hashCode;
-				X509Certificate[] certificates;
+            if ("sun.security.mscapi.KeyStore$MY".equals(keyStoreVeritable.getClass().getName())) {
+                Collection<Object> entries;
+                String alias, hashCode;
+                X509Certificate[] certificates;
 
-				field = keyStoreVeritable.getClass().getEnclosingClass().getDeclaredField("entries");
-				field.setAccessible(true);
-				entries = (Collection<Object>) field.get(keyStoreVeritable);
+                field = keyStoreVeritable.getClass().getEnclosingClass().getDeclaredField("entries");
+                field.setAccessible(true);
+                entries = (Collection<Object>) field.get(keyStoreVeritable);
 
-				for (Object entry : entries) {
-					field = entry.getClass().getDeclaredField("certChain");
-					field.setAccessible(true);
-					certificates = (X509Certificate[]) field.get(entry);
+                for (Object entry : entries) {
+                    field = entry.getClass().getDeclaredField("certChain");
+                    field.setAccessible(true);
+                    certificates = (X509Certificate[]) field.get(entry);
 
-					hashCode = Integer.toString(certificates[0].hashCode());
+                    hashCode = Integer.toString(certificates[0].hashCode());
 
-					field = entry.getClass().getDeclaredField("alias");
-					field.setAccessible(true);
-					alias = (String) field.get(entry);
-					String tmpAlias = alias;
-					int i = 0;
-					while (tmpAliases.contains(tmpAlias)) {
-						i++;
-						tmpAlias = alias + "-" + i;
-					}
-					tmpAliases.add(tmpAlias);
-					if (!alias.equals(hashCode)) {
-						field.set(entry, tmpAlias);
-					}
-				}
-			}
-		} catch (Exception e) {
-			logger.severe(e.getMessage());
-		}
-	}
+                    field = entry.getClass().getDeclaredField("alias");
+                    field.setAccessible(true);
+                    alias = (String) field.get(entry);
+                    String tmpAlias = alias;
+                    int i = 0;
+                    while (tmpAliases.contains(tmpAlias)) {
+                        i++;
+                        tmpAlias = alias + "-" + i;
+                    }
+                    tmpAliases.add(tmpAlias);
+                    if (!alias.equals(hashCode)) {
+                        field.set(entry, tmpAlias);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+        }
+    }
 
-	public static List<Alias> getSigningAliases(KeyStore keyStore) {
-		try {
-			Enumeration<String> aliases = keyStore.aliases();
-			List<Alias> aliasList = new ArrayList<>();
+    public static List<Alias> getSigningAliases(KeyStore keyStore) {
+        try {
+            Enumeration<String> aliases = keyStore.aliases();
+            List<Alias> aliasList = new ArrayList<>();
 
-			while (aliases.hasMoreElements()) {
-				String alias = aliases.nextElement();
-				X509Certificate certificate = (X509Certificate) keyStore.getCertificate(alias);
+            while (aliases.hasMoreElements()) {
+                String alias = aliases.nextElement();
+                X509Certificate certificate = (X509Certificate) keyStore.getCertificate(alias);
 
-				try {
-					certificate.checkValidity();
-				} catch (CertificateExpiredException | CertificateNotYetValidException e) {
-					logger.warning("Certificado expirado: " + certificate.getIssuerX500Principal().toString());
-					continue;
-				}
+                try {
+                    certificate.checkValidity();
+                } catch (CertificateExpiredException | CertificateNotYetValidException e) {
+                    logger.warning("Certificado expirado: " + certificate.getIssuerX500Principal().toString());
+                    continue;
+                }
 
-				String name = CertificateUtils.getCN(certificate);
-				boolean[] keyUsage = certificate.getKeyUsage();
+                String name = CertificateUtils.getCN(certificate);
+                boolean[] keyUsage = certificate.getKeyUsage();
 
-				if (keyUsage != null) {
-					// Certificado para Firma Digital
-					if (keyUsage[0]) {
-						aliasList.add(new Alias(alias, name));
-					}
-				}
-			}
+                if (keyUsage != null) {
+                    // Certificado para Firma Digital
+                    if (keyUsage[0]) {
+                        aliasList.add(new Alias(alias, name));
+                    }
+                }
+            }
 
-			return aliasList;
-		} catch (KeyStoreException e) {
-			throw new IllegalStateException(e);
-		}
-	}
+            return aliasList;
+        } catch (KeyStoreException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 }
