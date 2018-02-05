@@ -3,7 +3,7 @@
 
 	<groupId>io.rubrica</groupId>
 	<artifactId>rubrica</artifactId>
-	<version>0.1.6-SNAPSHOT</version>
+	<version>0.1.6</version>
 	<packaging>jar</packaging>
 
 	<name>Rubrica</name>
@@ -29,7 +29,7 @@
 		<connection>scm:git:https://github.com/rubrica/rubrica.git</connection>
 		<developerConnection>scm:git:git@github.com:rubrica/rubrica.git</developerConnection>
 		<url>https://github.com/rubrica/rubrica</url>
-		<tag>HEAD</tag>
+		<tag>v0.1.6</tag>
 	</scm>
 	<distributionManagement>
 		<snapshotRepository>
