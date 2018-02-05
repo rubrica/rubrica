@@ -14,40 +14,35 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package io.rubrica.keystore;
 
 import java.io.File;
 
 /**
- * Implementacion de KeyStoreProvider para acceder al keystore del sistema
- * operativo Microsoft Windows.
- *
- * Funciona en JDK 5, accede a las librerias PKCS#11 del sistema operativo.
+ * KeyStoreProvider para tokens de Bit4id.
  *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
-public class SafeNetWindowsKeyStoreProvider extends PKCS11KeyStoreProvider {
+public class Bit4idLinuxKeyStoreProvider extends PKCS11KeyStoreProvider {
 
-	private static final String CONFIG;
-	private static final String DRIVER_FILE = "C:\\WINDOWS\\SYSTEM32\\dkck201.dll";
+    private static final String CONFIG;
+    private static final String DRIVER_FILE = "/usr/lib/libbit4xpki.so";
 
-	static {
-		StringBuffer sb = new StringBuffer();
-		sb.append("name=Safenetikey2032\n");
-		sb.append("library=" + DRIVER_FILE + "\n");
-		sb.append("disabledMechanisms={ CKM_SHA1_RSA_PKCS }");
-		CONFIG = sb.toString();
-	}
+    static {
+        StringBuffer sb = new StringBuffer();
+        sb.append("name=Bit4Id\n");
+        sb.append("library=").append(DRIVER_FILE).append("\n");
+        CONFIG = sb.toString();
+    }
 
-	@Override
-	public String getConfig() {
-		return CONFIG;
-	}
+    @Override
+    public String getConfig() {
+        return CONFIG;
+    }
 
-	@Override
-	public boolean existeDriver() {
-		File driver = new File(DRIVER_FILE);
-		return driver.exists();
-	}
+    @Override
+    public boolean existeDriver() {
+        File driver = new File(DRIVER_FILE);
+        return driver.exists();
+    }
 }

@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package io.rubrica.keystore;
 
 import java.io.File;
@@ -24,27 +23,27 @@ import java.io.File;
  *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
-public class EPass3003KeyStoreProvider extends PKCS11KeyStoreProvider {
+public class EPass3003LinuxKeyStoreProvider extends PKCS11KeyStoreProvider {
 
-	private static final String CONFIG;
-	private static final String DRIVER_FILE_32_BITS = "/opt/SecurityData_Linux/redist/i386/libshuttle_p11v220.so.1.0.0";
-	private static final String DRIVER_FILE_64_BITS = "/opt/SecurityData_Linux/redist/x86_64/libshuttle_p11v220.so.1.0.0";
+    private static final String CONFIG;
+    private static final String DRIVER_FILE_32_BITS = "/opt/SecurityData_Linux/redist/i386/libshuttle_p11v220.so.1.0.0";
+    private static final String DRIVER_FILE_64_BITS = "/opt/SecurityData_Linux/redist/x86_64/libshuttle_p11v220.so.1.0.0";
 
-	static {
-		StringBuffer sb = new StringBuffer();
-		sb.append("name=ePass3003\n");
-		sb.append("library=").append(is64bit() ? DRIVER_FILE_64_BITS : DRIVER_FILE_32_BITS).append("\n");
-		CONFIG = sb.toString();
-	}
+    static {
+        StringBuilder config = new StringBuilder();
+        config.append("name=ePass3003\n");
+        config.append("library=").append(is64bit() ? DRIVER_FILE_64_BITS : DRIVER_FILE_32_BITS);
+        CONFIG = config.toString();
+    }
 
-	@Override
-	public String getConfig() {
-		return CONFIG;
-	}
+    @Override
+    public String getConfig() {
+        return CONFIG;
+    }
 
-	@Override
-	public boolean existeDriver() {
-		File driver = is64bit() ? new File(DRIVER_FILE_64_BITS) : new File(DRIVER_FILE_32_BITS);
-		return driver.exists();
-	}
+    @Override
+    public boolean existeDriver() {
+        File driver = is64bit() ? new File(DRIVER_FILE_64_BITS) : new File(DRIVER_FILE_32_BITS);
+        return driver.exists();
+    }
 }

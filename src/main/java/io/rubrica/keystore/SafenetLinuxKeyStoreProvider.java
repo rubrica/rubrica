@@ -14,37 +14,37 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package io.rubrica.keystore;
 
 import java.io.File;
 
 /**
  * Implementacion de <code>KeyStoreProvider</code> para utilizar con librerias
- * PKCS#11 de Alladin, instaladas previamente.
+ * PKCS#11 de eToken Pro 72k, instaladas previamente.
  *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
-public class AlladinKeyStoreProvider extends PKCS11KeyStoreProvider {
+public class SafenetLinuxKeyStoreProvider extends PKCS11KeyStoreProvider {
 
-	private static final String CONFIG;
-	private static final String DRIVER_FILE = "C:\\WINDOWS\\SYSTEM32\\eTPKCS11.dll";
+    private static final String CONFIG;
+    private static final String DRIVER_FILE_32_BITS = "/usr/lib/libeTPkcs11.so";
+    private static final String DRIVER_FILE_64_BITS = "/usr/lib64/libeTPkcs11.so";
 
-	static {
-		StringBuffer sb = new StringBuffer();
-		sb.append("name=Aladdin-eToken\n");
-		sb.append("library=" + DRIVER_FILE + "\n");
-		CONFIG = sb.toString();
-	}
+    static {
+        StringBuilder config = new StringBuilder();
+        config.append("name=Safenet\n");
+        config.append("library=").append(is64bit() ? DRIVER_FILE_64_BITS : DRIVER_FILE_32_BITS);
+        CONFIG = config.toString();
+    }
 
-	@Override
-	public String getConfig() {
-		return CONFIG;
-	}
+    @Override
+    public String getConfig() {
+        return CONFIG;
+    }
 
-	@Override
-	public boolean existeDriver() {
-		File driver = new File(DRIVER_FILE);
-		return driver.exists();
-	}
+    @Override
+    public boolean existeDriver() {
+        File driver = is64bit() ? new File(DRIVER_FILE_64_BITS) : new File(DRIVER_FILE_32_BITS);
+        return driver.exists();
+    }
 }

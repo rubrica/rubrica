@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package io.rubrica.keystore;
 
 import java.io.File;
@@ -25,27 +24,26 @@ import java.io.File;
  *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
-public class SafeNetLinuxKeyStoreProvider extends PKCS11KeyStoreProvider {
+public class SafenetIKey2032LinuxKeyStoreProvider extends PKCS11KeyStoreProvider {
 
-	private static final String CONFIG;
-	private static final String DRIVER_FILE = "/usr/local/SafeNet/lib/libsfntpkcs11.so";
+    private static final String CONFIG;
+    private static final String DRIVER_FILE = "/usr/local/SafeNet/lib/libsfntpkcs11.so";
 
-	static {
-		StringBuffer config = new StringBuffer();
-		config.append("name=Safenetikey2032\n");
-		config.append("library=" + DRIVER_FILE + "\n");
-		config.append("disabledMechanisms={ CKM_SHA1_RSA_PKCS }");
-		CONFIG = config.toString();
-	}
+    static {
+        StringBuilder config = new StringBuilder();
+        config.append("name=SafenetIKey2032\n");
+        config.append("library=" + DRIVER_FILE);
+        CONFIG = config.toString();
+    }
 
-	@Override
-	public String getConfig() {
-		return CONFIG;
-	}
+    @Override
+    public String getConfig() {
+        return CONFIG;
+    }
 
-	@Override
-	public boolean existeDriver() {
-		File driver = new File(DRIVER_FILE);
-		return driver.exists();
-	}
+    @Override
+    public boolean existeDriver() {
+        File driver = new File(DRIVER_FILE);
+        return driver.exists();
+    }
 }
