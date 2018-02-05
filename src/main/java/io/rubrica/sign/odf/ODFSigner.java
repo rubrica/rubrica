@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -118,8 +118,8 @@ public class ODFSigner implements Signer {
 	 * 
 	 * @param data
 	 *            Datos a comprobar
-	 * @return <code>true</code> si los datos son un documento ODF susceptible
-	 *         de ser firmado, <code>false</code> en caso contrario
+	 * @return <code>true</code> si los datos son un documento ODF susceptible de
+	 *         ser firmado, <code>false</code> en caso contrario
 	 */
 	public boolean isValidDataFile(byte[] data) {
 		File odfFile;
@@ -560,8 +560,8 @@ public class ODFSigner implements Signer {
 		try {
 			pkcs1 = Base64.getDecoder()
 					.decode(((Element) signature.getElementsByTagNameNS(XMLConstants.DSIGNNS, "SignatureValue").item(0))
-							.getTextContent().trim().replace("\r", "").replace("\n", "").replace(" ", "").replace("\t",
-									""));
+							.getTextContent().trim().replace("\r", "").replace("\n", "").replace(" ", "")
+							.replace("\t", ""));
 		} catch (Exception e) {
 			logger.warning("No se pudo extraer el PKCS#1 de una firma: " + e);
 			pkcs1 = null;
@@ -571,5 +571,4 @@ public class ODFSigner implements Signer {
 
 		return signInfo;
 	}
-
 }

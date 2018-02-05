@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -53,17 +53,15 @@ public class OcspUtils {
 	static {
 		Security.addProvider(new BouncyCastleProvider());
 	}
+
 	public static boolean isValidCertificate(X509Certificate certificate) throws RubricaException {
 		List<X509Certificate> certs = new ArrayList<X509Certificate>();
 		certs.add(certificate);
 
-		if (CertificadoSecurityDataFactory
-				.esCertificadoDeSecurityData(certificate)
-				|| CertificadoSecurityDataOldFactory
-						.esCertificadoDeSecurityDataOld(certificate)) {
+		if (CertificadoSecurityDataFactory.esCertificadoDeSecurityData(certificate)
+				|| CertificadoSecurityDataOldFactory.esCertificadoDeSecurityDataOld(certificate)) {
 			certs.add(new SecurityDataSubCaCert());
-		} else if (CertificadoBancoCentralFactory
-				.esCertificadoDelBancoCentral(certificate)) {
+		} else if (CertificadoBancoCentralFactory.esCertificadoDelBancoCentral(certificate)) {
 			if (CertificadoBancoCentralFactory.estTestCa(certificate)) {
 				certs.add(new BceSubTestCert());
 			} else {
@@ -90,7 +88,7 @@ public class OcspUtils {
 		X509Certificate rootCACert2 = new BceCaCert();
 		X509Certificate rootCACert3 = new BceCaTestCert();
 		X509Certificate rootCACert4 = new SecurityDataSubCaCert();
-		
+
 		// init root trusted certs
 		TrustAnchor ta1 = new TrustAnchor(rootCACert1, null);
 		TrustAnchor ta2 = new TrustAnchor(rootCACert2, null);
@@ -102,11 +100,11 @@ public class OcspUtils {
 		trustedCertsSet.add(ta2);
 		trustedCertsSet.add(ta3);
 		trustedCertsSet.add(ta4);
-	
+
 		// init PKIX parameters
-		 PKIXParameters params;
+		PKIXParameters params;
 		try {
-			 params = new PKIXParameters(trustedCertsSet);
+			params = new PKIXParameters(trustedCertsSet);
 		} catch (InvalidAlgorithmParameterException e) {
 			throw new RuntimeException(e);
 		}
@@ -114,10 +112,10 @@ public class OcspUtils {
 		params.setRevocationEnabled(false);
 
 		// enable OCSP
-		//Security.setProperty("ocsp.enable", "true");
+		// Security.setProperty("ocsp.enable", "true");
 
 		// Activate CRLDP
-		//System.setProperty("com.sun.security.enableCRLDP", "true");
+		// System.setProperty("com.sun.security.enableCRLDP", "true");
 
 		// perform validation
 		CertPathValidator validator;

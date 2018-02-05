@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -21,8 +21,8 @@ package io.rubrica.sign.xades;
 public final class CannotDereferenceException extends StyleException {
 
 	/**
-	 * Construye una excepci&oacute;n que indica la imposibilidad de
-	 * dereferenciar una hoja de estilo.
+	 * Construye una excepci&oacute;n que indica la imposibilidad de dereferenciar
+	 * una hoja de estilo.
 	 * 
 	 * @param s
 	 *            Mesaje de excepci&oacute;n
@@ -32,8 +32,8 @@ public final class CannotDereferenceException extends StyleException {
 	}
 
 	/**
-	 * Construye una excepci&oacute;n que indica la imposibilidad de
-	 * dereferenciar una hoja de estilo.
+	 * Construye una excepci&oacute;n que indica la imposibilidad de dereferenciar
+	 * una hoja de estilo.
 	 * 
 	 * @param s
 	 *            Mesaje de excepci&oacute;n

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -71,9 +71,9 @@ public final class Utils {
 	private static final Logger logger = Logger.getLogger(Utils.class.getName());
 
 	/**
-	 * A&ntilde;ade transformaciones seg&uacute; la sintaxis de
-	 * par&aacute;metros adicionales en fichero de propiedades del
-	 * Cliente @firma a una lista pre-existente.
+	 * A&ntilde;ade transformaciones seg&uacute; la sintaxis de par&aacute;metros
+	 * adicionales en fichero de propiedades del Cliente @firma a una lista
+	 * pre-existente.
 	 * 
 	 * @param transforms
 	 *            Lista a la que a&ntilde;adir las transformaciones
@@ -153,8 +153,8 @@ public final class Utils {
 
 	/**
 	 * Obtiene de un nodo de referencia de tipo <i>Object</i> la lista de
-	 * transformaciones definidas. Si no tiene transfgormaciones definidas,
-	 * devuelve {@code null}.
+	 * transformaciones definidas. Si no tiene transfgormaciones definidas, devuelve
+	 * {@code null}.
 	 * 
 	 * @param referenceNode
 	 *            Nodo de tipo referencia.
@@ -162,8 +162,8 @@ public final class Utils {
 	 *            Prefijo del espacio de nombres de la firma (opcional).
 	 * @return Listado de transformaciones.
 	 * @throws InvalidAlgorithmParameterException
-	 *             Cuando se encuentre un par&aacute;metro inv&aacute;lido para
-	 *             el algoritmo de transformaci&oacute;n.
+	 *             Cuando se encuentre un par&aacute;metro inv&aacute;lido para el
+	 *             algoritmo de transformaci&oacute;n.
 	 * @throws NoSuchAlgorithmException
 	 *             Cuando se encuentre un algoritmo de transformaci&oacute;n no
 	 *             soportado.
@@ -201,9 +201,8 @@ public final class Utils {
 	}
 
 	/**
-	 * Recupera el identificador del algoritmo de un nodo de
-	 * transformaci&oacute;n. Si no existe el atributo de algoritmo, se devuelve
-	 * {@code null}.
+	 * Recupera el identificador del algoritmo de un nodo de transformaci&oacute;n.
+	 * Si no existe el atributo de algoritmo, se devuelve {@code null}.
 	 * 
 	 * @param transformNode
 	 *            Nodo de transformaci&oacute;n.
@@ -221,12 +220,12 @@ public final class Utils {
 	}
 
 	/**
-	 * Recupera los par&aacute;metros de una transformaci&oacute;n. En el caso
-	 * de las transformaciones XPATH y XPATH2, se devolveran los
-	 * par&aacute;metros especificados y, en las transformacion Base64,
-	 * Enveloped y de Canonicalizaci&oacute;n (que no reciben par&aacute;metros)
-	 * se devolver&aacute; {@code null}, al igual que cuando no se reconozca el
-	 * tipo de transformaci&oacute;n.
+	 * Recupera los par&aacute;metros de una transformaci&oacute;n. En el caso de
+	 * las transformaciones XPATH y XPATH2, se devolveran los par&aacute;metros
+	 * especificados y, en las transformacion Base64, Enveloped y de
+	 * Canonicalizaci&oacute;n (que no reciben par&aacute;metros) se
+	 * devolver&aacute; {@code null}, al igual que cuando no se reconozca el tipo de
+	 * transformaci&oacute;n.
 	 * 
 	 * @param transformNode
 	 *            Nodo de transformaci&oacute;n.
@@ -234,8 +233,8 @@ public final class Utils {
 	 *            Prefijo del espacio de nombres XML
 	 * @return Par&aacute;metros de la transformaci&oacute;n.
 	 * @throws InvalidAlgorithmParameterException
-	 *             Cuando no se especifiquen correctamente los
-	 *             par&aacute;mnetros de las transformaciones XPATH y XPATH2.
+	 *             Cuando no se especifiquen correctamente los par&aacute;mnetros de
+	 *             las transformaciones XPATH y XPATH2.
 	 */
 	private static TransformParameterSpec getTransformParameterSpec(final Node transformNode,
 			final String namespacePrefix) throws InvalidAlgorithmParameterException {
@@ -331,11 +330,10 @@ public final class Utils {
 	 * @param uri
 	 *            URI del objeto a firmar
 	 * @param externallyDetachedHashAlgorithm
-	 *            Algoritmo de huella digital en el caso de estar esta
-	 *            pre-calculada
+	 *            Algoritmo de huella digital en el caso de estar esta pre-calculada
 	 * @param xades
-	 *            <code>true</code> si la firma es XAdES, <code>false</code> si
-	 *            es XMLDSig
+	 *            <code>true</code> si la firma es XAdES, <code>false</code> si es
+	 *            XMLDSig
 	 */
 	public static void checkIllegalParams(final String format, final String mode, final URI uri,
 			final String externallyDetachedHashAlgorithm, final boolean xades) {
@@ -469,8 +467,8 @@ public final class Utils {
 	}
 
 	/**
-	 * Cuenta las repeticiones de una subcadena dentro de una cadena. Las
-	 * subcadenas no pueden estar acopladas.
+	 * Cuenta las repeticiones de una subcadena dentro de una cadena. Las subcadenas
+	 * no pueden estar acopladas.
 	 * 
 	 * @param text
 	 *            Texto en el que realizar la b&uacute;squeda.
@@ -498,8 +496,7 @@ public final class Utils {
 	 *            Propiedades del XML (<i>version</i>, <i>encoding</i>,
 	 *            <i>standalone</i>)
 	 * @param styleHref
-	 *            Referencia (enlace) a la hoja de estilo del XML (puede ser
-	 *            nulo)
+	 *            Referencia (enlace) a la hoja de estilo del XML (puede ser nulo)
 	 * @param styleType
 	 *            Tipo de la hoja de estilo del XML (puede ser nulo)
 	 * @return Cadena de texto con el XML en forma de array de octetos
@@ -638,9 +635,9 @@ public final class Utils {
 	}
 
 	/**
-	 * Recupera el identificador (id) de la firma sobre la que se ha realizado
-	 * una contrafirma. Si no se encuentra la firma a la que se referencia se
-	 * devuelve cadena vac&iacute;a.
+	 * Recupera el identificador (id) de la firma sobre la que se ha realizado una
+	 * contrafirma. Si no se encuentra la firma a la que se referencia se devuelve
+	 * cadena vac&iacute;a.
 	 * 
 	 * @param signature
 	 *            Nodo de la contrafirma.
@@ -703,8 +700,8 @@ public final class Utils {
 	private static final String XMLDSIG = "XMLDSig";
 
 	/**
-	 * Instala el proveedor de firmas XMLDSig para el entorno de
-	 * ejecuci&oacute;n de Java en uso.
+	 * Instala el proveedor de firmas XMLDSig para el entorno de ejecuci&oacute;n de
+	 * Java en uso.
 	 * 
 	 * @param forceApacheProvider
 	 *            Indica si debe forzarse al uso de uno de los proveedores de

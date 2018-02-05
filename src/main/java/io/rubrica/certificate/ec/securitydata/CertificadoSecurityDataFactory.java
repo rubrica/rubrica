@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -37,8 +37,7 @@ import java.security.cert.X509Certificate;
  */
 public class CertificadoSecurityDataFactory {
 
-	public static boolean esCertificadoDeSecurityData(
-			X509Certificate certificado) {
+	public static boolean esCertificadoDeSecurityData(X509Certificate certificado) {
 		byte[] valor = certificado.getExtensionValue(OID_CEDULA_PASAPORTE);
 		return (valor != null);
 	}
@@ -46,25 +45,20 @@ public class CertificadoSecurityDataFactory {
 	public static CertificadoSecurityData construir(X509Certificate certificado) {
 		if (certificateHasPolicy(certificado, OID_TIPO_PERSONA_NATURAL)) {
 			return new CertificadoPersonaNaturalSecurityData(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_TIPO_PERSONA_JURIDICA_EMPRESA)) {
+		} else if (certificateHasPolicy(certificado, OID_TIPO_PERSONA_JURIDICA_EMPRESA)) {
 			return new CertificadoPersonaJuridicaSecurityData(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_TIPO_REPRESENTANTE_LEGAL)) {
+		} else if (certificateHasPolicy(certificado, OID_TIPO_REPRESENTANTE_LEGAL)) {
 			return new CertificadoRepresentanteLegalSecurityData(certificado);
 		} else if (certificateHasPolicy(certificado, OID_TIPO_MIEMBRO_EMPRESA)) {
 			return new CertificadoMiembroEmpresaSecurityData(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_TIPO_FUNCIONARIO_PUBLICO)) {
+		} else if (certificateHasPolicy(certificado, OID_TIPO_FUNCIONARIO_PUBLICO)) {
 			return new CertificadoFuncionarioPublicoSecurityData(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_TIPO_PERSONA_NATURAL_PROFESIONAL)) {
+		} else if (certificateHasPolicy(certificado, OID_TIPO_PERSONA_NATURAL_PROFESIONAL)) {
 			return new CertificadoPersonaNaturalSecurityData(certificado);
 		} else if (certificateHasPolicy(certificado, OID_TIPO_PRUEBA)) {
 			return new CertificadoPruebaSecurityData(certificado);
 		} else {
-			throw new RuntimeException(
-					"Tipo Certificado de SecurityData desconocido!");
+			throw new RuntimeException("Tipo Certificado de SecurityData desconocido!");
 		}
 	}
 }

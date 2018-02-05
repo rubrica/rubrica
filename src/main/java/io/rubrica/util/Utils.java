@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -49,8 +49,8 @@ public class Utils {
 	private static final Logger logger = Logger.getLogger(Utils.class.getName());
 
 	/**
-	 * Obtiene el flujo de entrada de un fichero (para su lectura) a partir de
-	 * su URI.
+	 * Obtiene el flujo de entrada de un fichero (para su lectura) a partir de su
+	 * URI.
 	 * 
 	 * @param uri
 	 *            URI del fichero a leer
@@ -87,9 +87,8 @@ public class Utils {
 	}
 
 	/**
-	 * Lee un flujo de datos de entrada y los recupera en forma de array de
-	 * bytes. Este m&eacute;todo consume pero no cierra el flujo de datos de
-	 * entrada.
+	 * Lee un flujo de datos de entrada y los recupera en forma de array de bytes.
+	 * Este m&eacute;todo consume pero no cierra el flujo de datos de entrada.
 	 * 
 	 * @param input
 	 *            Flujo de donde se toman los datos.
@@ -116,10 +115,9 @@ public class Utils {
 	 * organizativa (Organization Unit, OU).
 	 * 
 	 * @param c
-	 *            Certificado X.509 del cual queremos obtener el nombre
-	 *            com&uacute;n
-	 * @return Nombre com&uacute;n (Common Name, CN) del titular de un
-	 *         certificado X.509
+	 *            Certificado X.509 del cual queremos obtener el nombre com&uacute;n
+	 * @return Nombre com&uacute;n (Common Name, CN) del titular de un certificado
+	 *         X.509
 	 */
 	public static String getCN(X509Certificate c) {
 		if (c == null) {
@@ -134,10 +132,8 @@ public class Utils {
 	 * (Organization Unit, OU).
 	 * 
 	 * @param principal
-	 *            <i>Principal</i> del cual queremos obtener el nombre
-	 *            com&uacute;n
-	 * @return Nombre com&uacute;n (Common Name, CN) de un <i>Principal</i>
-	 *         X.400
+	 *            <i>Principal</i> del cual queremos obtener el nombre com&uacute;n
+	 * @return Nombre com&uacute;n (Common Name, CN) de un <i>Principal</i> X.400
 	 */
 	public static String getCN(final String principal) {
 		if (principal == null) {
@@ -166,10 +162,10 @@ public class Utils {
 
 	/**
 	 * Recupera el valor de un RDN (<i>Relative Distinguished Name</i>) de un
-	 * principal. El valor de retorno no incluye el nombre del RDN, el igual, ni
-	 * las posibles comillas que envuelvan el valor. La funci&oacute;n no es
-	 * sensible a la capitalizaci&oacute;n del RDN. Si no se encuentra, se
-	 * devuelve {@code null}.
+	 * principal. El valor de retorno no incluye el nombre del RDN, el igual, ni las
+	 * posibles comillas que envuelvan el valor. La funci&oacute;n no es sensible a
+	 * la capitalizaci&oacute;n del RDN. Si no se encuentra, se devuelve
+	 * {@code null}.
 	 * 
 	 * @param rdn
 	 *            RDN que deseamos encontrar.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -28,8 +28,6 @@ import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Properties;
 
-import org.junit.Test;
-
 import io.rubrica.sign.SignConstants;
 import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
@@ -37,7 +35,7 @@ import io.rubrica.sign.TestHelper;
 
 public class PdfSignerTest {
 
-//	@Test
+	// @Test
 	public void testSignPdf() throws Exception {
 		File tempFile = File.createTempFile("pdfSign", "." + "test1.pdf");
 		System.out.println("Temporal para comprobacion manual: " + tempFile.getAbsolutePath());

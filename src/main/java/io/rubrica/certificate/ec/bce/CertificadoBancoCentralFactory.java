@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -33,8 +33,7 @@ import java.security.cert.X509Certificate;
  */
 public class CertificadoBancoCentralFactory {
 
-	public static boolean esCertificadoDelBancoCentral(
-			X509Certificate certificado) {
+	public static boolean esCertificadoDelBancoCentral(X509Certificate certificado) {
 		byte[] valor = certificado.getExtensionValue(OID_CEDULA_PASAPORTE);
 		return (valor != null);
 	}
@@ -45,21 +44,17 @@ public class CertificadoBancoCentralFactory {
 
 	public static CertificadoBancoCentral construir(X509Certificate certificado) {
 		if (!esCertificadoDelBancoCentral(certificado)) {
-			throw new IllegalStateException(
-					"Este no es un certificado emitido por el Banco Central del Ecuador");
+			throw new IllegalStateException("Este no es un certificado emitido por el Banco Central del Ecuador");
 		}
 
 		if (certificateHasPolicy(certificado, OID_CERTIFICADO_PERSONA_NATURAL)) {
 			return new CertificadoPersonaNaturalBancoCentral(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_CERTIFICADO_PERSONA_JURIDICA)) {
+		} else if (certificateHasPolicy(certificado, OID_CERTIFICADO_PERSONA_JURIDICA)) {
 			return new CertificadoPersonaJuridicaBancoCentral(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_CERTIFICADO_FUNCIONARIO_PUBLICO)) {
+		} else if (certificateHasPolicy(certificado, OID_CERTIFICADO_FUNCIONARIO_PUBLICO)) {
 			return new CertificadoFuncionarioPublicoBancoCentral(certificado);
 		} else {
-			throw new RuntimeException(
-					"Certificado del Banco Central del Ecuador de tipo desconocido!");
+			throw new RuntimeException("Certificado del Banco Central del Ecuador de tipo desconocido!");
 		}
 	}
 }

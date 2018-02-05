@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,7 +17,6 @@
 
 package io.rubrica.certificate.ec.cj;
 
-import static io.rubrica.certificate.ec.cj.CertificadoConsejoJudicatura.OID_CEDULA_PASAPORTE;
 import static io.rubrica.certificate.ec.cj.CertificadoConsejoJudicatura.OID_CERTIFICADO_DEPARTAMENTO_EMPRESA;
 import static io.rubrica.certificate.ec.cj.CertificadoConsejoJudicatura.OID_CERTIFICADO_EMPRESA;
 import static io.rubrica.certificate.ec.cj.CertificadoConsejoJudicatura.OID_CERTIFICADO_MIEMBRO_EMPRESA;
@@ -26,10 +25,7 @@ import static io.rubrica.certificate.ec.cj.CertificadoConsejoJudicatura.OID_CERT
 import static io.rubrica.certificate.ec.cj.CertificadoConsejoJudicatura.OID_CERTIFICADO_PERSONA_NATURAL;
 import static io.rubrica.util.BouncyCastleUtils.certificateHasPolicy;
 
-import java.io.IOException;
 import java.security.cert.X509Certificate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Permite construir certificados tipo CertificadoConsejoJudicatura a partir de

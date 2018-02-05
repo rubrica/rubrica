@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -53,8 +53,7 @@ final class RelationshipsParser {
 	 * @throws ParserConfigurationException
 	 *             Cuando hay problemas con el analizador SAX.
 	 * @throws IOException
-	 *             Cuando hay incosistencias de formato OOXML en el XML de
-	 *             entrada.
+	 *             Cuando hay incosistencias de formato OOXML en el XML de entrada.
 	 * @throws SAXException
 	 *             Cuando el XML de entrada no est&aacute; bien formado.
 	 */
@@ -81,8 +80,7 @@ final class RelationshipsParser {
 	 * @throws ParserConfigurationException
 	 *             Cuando hay problemas con el analizador SAX.
 	 * @throws IOException
-	 *             Cuando hay incosistencias de formato OOXML en el XML de
-	 *             entrada.
+	 *             Cuando hay incosistencias de formato OOXML en el XML de entrada.
 	 * @throws SAXException
 	 *             Cuando el XML de entrada no est&aacute; bien formado.
 	 */

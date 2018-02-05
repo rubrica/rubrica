@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -89,8 +89,8 @@ public class SignInfo {
 	}
 
 	/**
-	 * Recupera el PKCS#1 de la firma en cuesti&oacute;n. Devuelve {@code null}
-	 * si no se preestablecio.
+	 * Recupera el PKCS#1 de la firma en cuesti&oacute;n. Devuelve {@code null} si
+	 * no se preestablecio.
 	 * 
 	 * @return PKCS#1 de la firma.
 	 */

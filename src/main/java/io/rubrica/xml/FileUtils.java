@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -52,8 +52,8 @@ public final class FileUtils {
 	 * @throws java.util.zip.ZipException
 	 *             Cuando los datos no eran realmente un Zip.
 	 * @throws IOException
-	 *             Cuando ocurre un error al leer los datos o crear el temporal
-	 *             para abrir el Zip.
+	 *             Cuando ocurre un error al leer los datos o crear el temporal para
+	 *             abrir el Zip.
 	 */
 	public static ZipFile createTempZipFile(final byte[] zipFileData) throws IOException {
 
@@ -72,8 +72,8 @@ public final class FileUtils {
 	 * 
 	 * @param data
 	 *            Datos a evaluar.
-	 * @return {@code true} cuando los datos son un XML bien formado.
-	 *         {@code false} en caso contrario.
+	 * @return {@code true} cuando los datos son un XML bien formado. {@code false}
+	 *         en caso contrario.
 	 */
 	public static boolean isXML(final byte[] data) {
 

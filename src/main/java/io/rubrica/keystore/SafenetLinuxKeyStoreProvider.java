@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,25 +26,25 @@ import java.io.File;
  */
 public class SafenetLinuxKeyStoreProvider extends PKCS11KeyStoreProvider {
 
-    private static final String CONFIG;
-    private static final String DRIVER_FILE_32_BITS = "/usr/lib/libeTPkcs11.so";
-    private static final String DRIVER_FILE_64_BITS = "/usr/lib64/libeTPkcs11.so";
+	private static final String CONFIG;
+	private static final String DRIVER_FILE_32_BITS = "/usr/lib/libeTPkcs11.so";
+	private static final String DRIVER_FILE_64_BITS = "/usr/lib64/libeTPkcs11.so";
 
-    static {
-        StringBuilder config = new StringBuilder();
-        config.append("name=Safenet\n");
-        config.append("library=").append(is64bit() ? DRIVER_FILE_64_BITS : DRIVER_FILE_32_BITS);
-        CONFIG = config.toString();
-    }
+	static {
+		StringBuilder config = new StringBuilder();
+		config.append("name=Safenet\n");
+		config.append("library=").append(is64bit() ? DRIVER_FILE_64_BITS : DRIVER_FILE_32_BITS);
+		CONFIG = config.toString();
+	}
 
-    @Override
-    public String getConfig() {
-        return CONFIG;
-    }
+	@Override
+	public String getConfig() {
+		return CONFIG;
+	}
 
-    @Override
-    public boolean existeDriver() {
-        File driver = is64bit() ? new File(DRIVER_FILE_64_BITS) : new File(DRIVER_FILE_32_BITS);
-        return driver.exists();
-    }
+	@Override
+	public boolean existeDriver() {
+		File driver = is64bit() ? new File(DRIVER_FILE_64_BITS) : new File(DRIVER_FILE_32_BITS);
+		return driver.exists();
+	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -38,8 +38,7 @@ final class OOXMLUtil {
 	private static final String OOXML_SIGNATURE_RELATIONSHIP_TYPE = "http://schemas.openxmlformats.org/package/2006/relationships/digital-signature/signature";
 
 	/**
-	 * Tipo de relaci&oacute;n correspondiente a la relaci&oacute;n de firmas
-	 * OOXML.
+	 * Tipo de relaci&oacute;n correspondiente a la relaci&oacute;n de firmas OOXML.
 	 */
 	private static final String OOXML_SIGNATURE_ORIGIN_RELATIONSHIP_TYPE = "http://schemas.openxmlformats.org/package/2006/relationships/digital-signature/origin";
 
@@ -54,11 +53,11 @@ final class OOXMLUtil {
 	 * @throws ParserConfigurationException
 	 *             Cuando hay problemas con el analizador SAX.
 	 * @throws IOException
-	 *             Cuando hay incosistencias de formato OOXML en los XML
-	 *             internos del fichero.
+	 *             Cuando hay incosistencias de formato OOXML en los XML internos
+	 *             del fichero.
 	 * @throws SAXException
-	 *             Cuando alguno de los XML internos del fichero no est&aacute;
-	 *             bien formado.
+	 *             Cuando alguno de los XML internos del fichero no est&aacute; bien
+	 *             formado.
 	 */
 	static int countOOXMLSignatures(final byte[] ooxmlFile)
 			throws IOException, SAXException, ParserConfigurationException {
@@ -77,11 +76,11 @@ final class OOXMLUtil {
 	 * @throws ParserConfigurationException
 	 *             Cuando hay problemas con el analizador SAX.
 	 * @throws IOException
-	 *             Cuando hay incosistencias de formato OOXML en los XML
-	 *             internos del fichero.
+	 *             Cuando hay incosistencias de formato OOXML en los XML internos
+	 *             del fichero.
 	 * @throws SAXException
-	 *             Cuando alguno de los XML internos del fichero no est&aacute;
-	 *             bien formado.
+	 *             Cuando alguno de los XML internos del fichero no est&aacute; bien
+	 *             formado.
 	 */
 	private static Relationship[] getOOXMLSignaturesRelationships(byte[] ooxmlFile)
 			throws IOException, SAXException, ParserConfigurationException {
@@ -119,11 +118,11 @@ final class OOXMLUtil {
 	 * @throws ParserConfigurationException
 	 *             Cuando hay problemas con el analizador SAX.
 	 * @throws IOException
-	 *             Cuando hay incosistencias de formato OOXML en los XML
-	 *             internos del fichero.
+	 *             Cuando hay incosistencias de formato OOXML en los XML internos
+	 *             del fichero.
 	 * @throws SAXException
-	 *             Cuando alguno de los XML internos del fichero no est&aacute;
-	 *             bien formado.
+	 *             Cuando alguno de los XML internos del fichero no est&aacute; bien
+	 *             formado.
 	 */
 	static byte[][] getOOXMLSignatures(byte[] ooxmlFile)
 			throws IOException, SAXException, ParserConfigurationException {

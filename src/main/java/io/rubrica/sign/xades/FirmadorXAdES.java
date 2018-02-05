@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -90,16 +90,15 @@ public final class FirmadorXAdES {
 	 * </li>
 	 * <li>Hola de estilo remota con ruta absoluta
 	 * <ul>
-	 * <li>Se restaura la declaraci&oacute;n de hoja de estilo tal y como estaba
-	 * en el XML original</li>
-	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja
-	 * remota</li>
+	 * <li>Se restaura la declaraci&oacute;n de hoja de estilo tal y como estaba en
+	 * el XML original</li>
+	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja remota</li>
 	 * </ul>
 	 * </li>
 	 * <li>Hoja de estilo empotrada
 	 * <ul>
-	 * <li>Se restaura la declaraci&oacute;n de hoja de estilo tal y como estaba
-	 * en el XML original</li>
+	 * <li>Se restaura la declaraci&oacute;n de hoja de estilo tal y como estaba en
+	 * el XML original</li>
 	 * </ul>
 	 * </li>
 	 * </ul>
@@ -113,8 +112,7 @@ public final class FirmadorXAdES {
 	 * </li>
 	 * <li>Hola de estilo remota con ruta absoluta
 	 * <ul>
-	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja
-	 * remota</li>
+	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja remota</li>
 	 * </ul>
 	 * </li>
 	 * <li>Hoja de estilo empotrada
@@ -133,8 +131,7 @@ public final class FirmadorXAdES {
 	 * </li>
 	 * <li>Hola de estilo remota con ruta absoluta
 	 * <ul>
-	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja
-	 * remota</li>
+	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja remota</li>
 	 * </ul>
 	 * </li>
 	 * <li>Hoja de estilo empotrada
@@ -153,8 +150,7 @@ public final class FirmadorXAdES {
 	 * </li>
 	 * <li>Hola de estilo remota con ruta absoluta
 	 * <ul>
-	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja
-	 * remota</li>
+	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja remota</li>
 	 * </ul>
 	 * </li>
 	 * <li>Hoja de estilo empotrada
@@ -286,7 +282,8 @@ public final class FirmadorXAdES {
 		URI uri = null;
 		try {
 			uri = extraParams.getProperty(XAdESExtraParams.URI) != null
-					? Util.createURI(extraParams.getProperty(XAdESExtraParams.URI)) : null;
+					? Util.createURI(extraParams.getProperty(XAdESExtraParams.URI))
+					: null;
 		} catch (final Exception e) {
 			logger.warning("Se ha pasado una URI invalida como referencia a los datos a firmar: " + e);
 		}
@@ -425,8 +422,8 @@ public final class FirmadorXAdES {
 			if (!facturaeSign && !avoidXpathExtraTransformsOnEnveloped) {
 				transformList.add(fac.newTransform(Transform.XPATH,
 						new XPathFilterParameterSpec(
-								"not(ancestor-or-self::" + XAdESSigner.XML_SIGNATURE_PREFIX + ":Signature)", Collections
-										.singletonMap(XAdESSigner.XML_SIGNATURE_PREFIX, XMLSignature.XMLNS))));
+								"not(ancestor-or-self::" + XAdESSigner.XML_SIGNATURE_PREFIX + ":Signature)",
+								Collections.singletonMap(XAdESSigner.XML_SIGNATURE_PREFIX, XMLSignature.XMLNS))));
 			}
 
 			// Crea la referencia
@@ -474,8 +471,10 @@ public final class FirmadorXAdES {
 			}
 		}
 
-		ObjectIdentifierImpl objectIdentifier = oid != null ? new ObjectIdentifierImpl("OIDAsURN",
-				(oid.startsWith("urn:oid:") ? "" : "urn:oid:") + oid, null, new ArrayList<String>(0)) : null;
+		ObjectIdentifierImpl objectIdentifier = oid != null
+				? new ObjectIdentifierImpl("OIDAsURN", (oid.startsWith("urn:oid:") ? "" : "urn:oid:") + oid, null,
+						new ArrayList<String>(0))
+				: null;
 
 		ArrayList<DataObjectFormat> objectFormats = new ArrayList<>();
 		DataObjectFormat objectFormat = new DataObjectFormatImpl(null, objectIdentifier,

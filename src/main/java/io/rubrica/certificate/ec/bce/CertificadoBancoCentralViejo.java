@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -51,12 +51,10 @@ public class CertificadoBancoCentralViejo {
 	}
 
 	public String getRepresentante() {
-		String representante = obtenerExtension(OID_NOMBRES) + " "
-				+ obtenerExtension(OID_APELLIDO_PATERNO);
+		String representante = obtenerExtension(OID_NOMBRES) + " " + obtenerExtension(OID_APELLIDO_PATERNO);
 
 		if (!obtenerExtension(OID_APELLIDO_MATERNO).isEmpty()) {
-			representante = representante + " "
-					+ obtenerExtension(OID_APELLIDO_MATERNO);
+			representante = representante + " " + obtenerExtension(OID_APELLIDO_MATERNO);
 		}
 
 		return representante;

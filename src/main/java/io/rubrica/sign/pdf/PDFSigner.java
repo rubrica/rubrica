@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,6 +17,7 @@
 
 package io.rubrica.sign.pdf;
 
+import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -51,7 +52,6 @@ import io.rubrica.sign.SignInfo;
 import io.rubrica.sign.Signer;
 import io.rubrica.util.BouncyCastleUtils;
 import io.rubrica.util.Utils;
-import java.awt.Color;
 
 public class PDFSigner implements Signer {
 
@@ -75,7 +75,7 @@ public class PDFSigner implements Signer {
 	public static final String SIGN_TIME = "signTime";
 
 	public static final String SIGNATURE_PAGE = "signingPage";
-	
+
 	public static final String LAST_PAGE = "0";
 
 	static {
@@ -106,15 +106,15 @@ public class PDFSigner implements Signer {
 		String signTime = extraParams.getProperty(SIGN_TIME);
 
 		// Pagina donde situar la firma visible
-		int page=0;
+		int page = 0;
 		try {
-			if (extraParams.getProperty(LAST_PAGE)==null)
-				page=0;
+			if (extraParams.getProperty(LAST_PAGE) == null)
+				page = 0;
 			else
 				page = Integer.parseInt(extraParams.getProperty(LAST_PAGE).trim());
 		} catch (final Exception e) {
-			logger.warning(
-					"Se ha indicado un numero de pagina invalido ('" + extraParams.getProperty(LAST_PAGE) + "'), se usara la ultima pagina: " + e);
+			logger.warning("Se ha indicado un numero de pagina invalido ('" + extraParams.getProperty(LAST_PAGE)
+					+ "'), se usara la ultima pagina: " + e);
 		}
 
 		// Leer el PDF
@@ -150,19 +150,19 @@ public class PDFSigner implements Signer {
 			calendar.setTime(date);
 			sap.setSignDate(calendar);
 		}
-		
-		if(page==0 || page<0 || page>pdfReader.getNumberOfPages())
-			page = pdfReader.getNumberOfPages();			
-		
+
+		if (page == 0 || page < 0 || page > pdfReader.getNumberOfPages())
+			page = pdfReader.getNumberOfPages();
+
 		Rectangle signaturePositionOnPage = getSignaturePositionOnPage(extraParams);
-		
+
 		if (signaturePositionOnPage != null) {
 			sap.setVisibleSignature(signaturePositionOnPage, page, null);
-			
+
 			X509Certificate x509Certificate = (X509Certificate) certChain[0];
 			String informacionCertificado = x509Certificate.getSubjectDN().getName();
-			String nombreFirmante = (informacionCertificado.substring(
-					informacionCertificado.lastIndexOf("CN=")+3, informacionCertificado.indexOf(","))).toUpperCase();
+			String nombreFirmante = (informacionCertificado.substring(informacionCertificado.lastIndexOf("CN=") + 3,
+					informacionCertificado.indexOf(","))).toUpperCase();
 			try {
 				// Creating the appearance for layer 0
 				PdfTemplate pdfTemplate = sap.getLayer(0);
@@ -172,25 +172,22 @@ public class PDFSigner implements Signer {
 				float height = pdfTemplate.getBoundingBox().getHeight();
 				pdfTemplate.rectangle(x, y, width, height);
 				// Creating the appearance for layer 2
-				//Nombre Firmante
+				// Nombre Firmante
 				PdfTemplate pdfTemplate1 = sap.getLayer(2);
 				ColumnText columnText1 = new ColumnText(pdfTemplate1);
-				columnText1.setSimpleColumn(x, y, (width/2)-1, height);
+				columnText1.setSimpleColumn(x, y, (width / 2) - 1, height);
 				Font font1 = new Font(Font.ITALIC, 5.0f, Font.BOLD, Color.BLACK);
 				Paragraph paragraph1 = new Paragraph(nombreFirmante.trim(), font1);
 				paragraph1.setAlignment(Paragraph.ALIGN_RIGHT);
 				columnText1.addElement(paragraph1);
 				columnText1.go();
-				//Información
+				// Información
 				PdfTemplate pdfTemplate2 = sap.getLayer(2);
 				ColumnText columnText2 = new ColumnText(pdfTemplate2);
-				columnText2.setSimpleColumn(x+(width/2)+1, y, width, height);
+				columnText2.setSimpleColumn(x + (width / 2) + 1, y, width, height);
 				Font font2 = new Font(Font.ITALIC, 3f, Font.NORMAL, Color.DARK_GRAY);
-				Paragraph paragraph2 = new Paragraph(3, 
-						"Nombre de reconocimiento "+
-						informacionCertificado.trim()+
-						"\nRazón: "+reason+
-						"\nFecha: "+signTime, font2);
+				Paragraph paragraph2 = new Paragraph(3, "Nombre de reconocimiento " + informacionCertificado.trim()
+						+ "\nRazón: " + reason + "\nFecha: " + signTime, font2);
 				paragraph2.setAlignment(Paragraph.ALIGN_LEFT);
 				columnText2.addElement(paragraph2);
 				columnText2.go();
@@ -199,7 +196,7 @@ public class PDFSigner implements Signer {
 				throw new RubricaException("Error al estampar la firma", e);
 			}
 		}
-		
+
 		sap.setCrypto(key, (X509Certificate) certChain[0], null, PdfSignatureAppearance.WINCER_SIGNED);
 
 		try {

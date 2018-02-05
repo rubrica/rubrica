@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -149,8 +149,8 @@ public final class SignConstants {
 	public static final String MASSIVE_OPERATION_COUNTERSIGN_TREE = "CONTRAFIRMAR_ARBOL";
 
 	/**
-	 * Identificador de la operaci&oacute;n de contrafirma masiva de nodos hoja
-	 * de firma.
+	 * Identificador de la operaci&oacute;n de contrafirma masiva de nodos hoja de
+	 * firma.
 	 */
 	public static final String MASSIVE_OPERATION_COUNTERSIGN_LEAFS = "CONTRAFIRMAR_HOJAS";
 
@@ -158,8 +158,7 @@ public final class SignConstants {
 	public static final String DEFAULT_MASSIVE_OPERATION = MASSIVE_OPERATION_SIGN;
 
 	/**
-	 * Envoltorio binario de tipo Data (datos envueltos en un envoltorio
-	 * PKCS#7).
+	 * Envoltorio binario de tipo Data (datos envueltos en un envoltorio PKCS#7).
 	 */
 	public static final String CMS_CONTENTTYPE_DATA = "Data";
 
@@ -269,8 +268,8 @@ public final class SignConstants {
 	}
 
 	/**
-	 * Obtiene el nombre de un algoritmo de huella digital a partir de una de
-	 * las variantes de este.
+	 * Obtiene el nombre de un algoritmo de huella digital a partir de una de las
+	 * variantes de este.
 	 * 
 	 * @param pseudoName
 	 *            Nombre o variante del nombre del algoritmo de huella digital
@@ -319,8 +318,8 @@ public final class SignConstants {
 	 * 
 	 * @param algorithm
 	 *            Algoritmo de firma.
-	 * @return {@code true} cuando el algoritmo es un SHA2, {@code false} en
-	 *         caso contrario.
+	 * @return {@code true} cuando el algoritmo es un SHA2, {@code false} en caso
+	 *         contrario.
 	 */
 	public static boolean isSHA2SignatureAlgorithm(final String algorithm) {
 		return SIGN_ALGORITHM_SHA256WITHRSA.equals(algorithm) || SIGN_ALGORITHM_SHA384WITHRSA.equals(algorithm)

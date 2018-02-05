@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -105,8 +105,7 @@ public class ConsejoJudicaturaCaCert extends X509Certificate {
 		cer.append("-----END CERTIFICATE-----");
 
 		try {
-			InputStream is = new ByteArrayInputStream(cer.toString().getBytes(
-					"UTF-8"));
+			InputStream is = new ByteArrayInputStream(cer.toString().getBytes("UTF-8"));
 			CertificateFactory cf = CertificateFactory.getInstance("X.509");
 			this.certificate = (X509Certificate) cf.generateCertificate(is);
 		} catch (UnsupportedEncodingException e) {
@@ -117,14 +116,12 @@ public class ConsejoJudicaturaCaCert extends X509Certificate {
 	}
 
 	@Override
-	public void checkValidity() throws CertificateExpiredException,
-			CertificateNotYetValidException {
+	public void checkValidity() throws CertificateExpiredException, CertificateNotYetValidException {
 		certificate.checkValidity();
 	}
 
 	@Override
-	public void checkValidity(Date date) throws CertificateExpiredException,
-			CertificateNotYetValidException {
+	public void checkValidity(Date date) throws CertificateExpiredException, CertificateNotYetValidException {
 		certificate.checkValidity(date);
 	}
 
@@ -219,15 +216,13 @@ public class ConsejoJudicaturaCaCert extends X509Certificate {
 	}
 
 	@Override
-	public void verify(PublicKey key) throws CertificateException,
-			NoSuchAlgorithmException, InvalidKeyException,
+	public void verify(PublicKey key) throws CertificateException, NoSuchAlgorithmException, InvalidKeyException,
 			NoSuchProviderException, SignatureException {
 		certificate.verify(key);
 	}
 
 	@Override
-	public void verify(PublicKey key, String sigProvider)
-			throws CertificateException, NoSuchAlgorithmException,
+	public void verify(PublicKey key, String sigProvider) throws CertificateException, NoSuchAlgorithmException,
 			InvalidKeyException, NoSuchProviderException, SignatureException {
 		certificate.verify(key, sigProvider);
 	}

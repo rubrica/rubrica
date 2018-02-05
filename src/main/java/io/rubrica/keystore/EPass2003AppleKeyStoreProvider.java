@@ -12,24 +12,24 @@ import java.io.File;
 
 public class EPass2003AppleKeyStoreProvider extends PKCS11KeyStoreProvider {
 
-    private static final String CONFIG;
-    private static final String DRIVER_FILE = "/usr/local/lib/SecurityDataCsp11_2003auto.dylib";
+	private static final String CONFIG;
+	private static final String DRIVER_FILE = "/usr/local/lib/SecurityDataCsp11_2003auto.dylib";
 
-    static {
-        StringBuilder config = new StringBuilder();
-        config.append("name=ePass2003\n");
-        config.append("library=" + DRIVER_FILE);
-        CONFIG = config.toString();
-    }
+	static {
+		StringBuilder config = new StringBuilder();
+		config.append("name=ePass2003\n");
+		config.append("library=" + DRIVER_FILE);
+		CONFIG = config.toString();
+	}
 
-    @Override
-    public String getConfig() {
-        return CONFIG;
-    }
+	@Override
+	public String getConfig() {
+		return CONFIG;
+	}
 
-    @Override
-    public boolean existeDriver() {
-        File driver = new File(DRIVER_FILE);
-        return driver.exists();
-    }
+	@Override
+	public boolean existeDriver() {
+		File driver = new File(DRIVER_FILE);
+		return driver.exists();
+	}
 }

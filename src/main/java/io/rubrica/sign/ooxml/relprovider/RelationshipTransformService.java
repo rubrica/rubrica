@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -217,8 +217,7 @@ public class RelationshipTransformService extends TransformService {
 				nodeIdx--;
 			}
 			/*
-			 * See: ISO/IEC 29500-2:2008(E) - 13.2.4.24 Relationships Transform
-			 * Algorithm.
+			 * See: ISO/IEC 29500-2:2008(E) - 13.2.4.24 Relationships Transform Algorithm.
 			 */
 			if (null == childElement.getAttributeNode("TargetMode")) {
 				childElement.setAttribute("TargetMode", "Internal");
@@ -255,8 +254,7 @@ public class RelationshipTransformService extends TransformService {
 		Result result = new StreamResult(stringWriter);
 		Transformer transformer = TransformerFactory.newInstance().newTransformer();
 		/*
-		 * We have to omit the ?xml declaration if we want to embed the
-		 * document.
+		 * We have to omit the ?xml declaration if we want to embed the document.
 		 */
 		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 		transformer.transform(source, result);

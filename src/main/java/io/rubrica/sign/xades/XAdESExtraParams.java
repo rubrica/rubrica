@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,35 +24,35 @@ import java.util.Map;
  * Clase con los par&aacute;metros extra que pueden configurarse para el formato
  * de firma XAdES.
  */
-  final class XAdESExtraParams {
+final class XAdESExtraParams {
 
 	/**
 	 * Si se indica <code>true</code>, <u>no</u> se firma una referencia al nodo
-	 * <code>KeyInfo</code>, si no se establece valor o se establece a otro
-	 * valor distinto de <code>true</code>, se firma el nodo incluyendo una
-	 * referencia a &eacute;l.
+	 * <code>KeyInfo</code>, si no se establece valor o se establece a otro valor
+	 * distinto de <code>true</code>, se firma el nodo incluyendo una referencia a
+	 * &eacute;l.
 	 */
 	static final String KEEP_KEYINFO_UNSIGNED = "keepKeyInfoUnsigned"; //$NON-NLS-1$
 
 	/**
-	 * URL en la que se encuentra el documento a firmar, necesario en el caso
-	 * del formato <i>XAdES Externally Detached</i> (no aplica a contrafirmas).
+	 * URL en la que se encuentra el documento a firmar, necesario en el caso del
+	 * formato <i>XAdES Externally Detached</i> (no aplica a contrafirmas).
 	 */
 	public static final String URI = "uri"; //$NON-NLS-1$
 
 	/**
 	 * Indica si se debe evitar la inclusi&oacute;n de la transformaci&oacute;n
-	 * XPATH2 que normalmente se a&ntilde;ade para posibilitar las cofirmas y
-	 * que elimina todas las firmas del documento para dejar &uacute;nicamente
-	 * el contenido. Por defecto, se encuentra a <code>false</code>.
-	 * &Uacute;nicamente aplica a firmas <i>enveloped</i>.
+	 * XPATH2 que normalmente se a&ntilde;ade para posibilitar las cofirmas y que
+	 * elimina todas las firmas del documento para dejar &uacute;nicamente el
+	 * contenido. Por defecto, se encuentra a <code>false</code>. &Uacute;nicamente
+	 * aplica a firmas <i>enveloped</i>.
 	 */
 	static final String AVOID_XPATH_EXTRA_TRANSFORMS_ON_ENVELOPED = "avoidXpathExtraTransformsOnEnveloped";//$NON-NLS-1$
 
 	/**
 	 * Indica, mediante un <code>true</code> o <code>false</code>, que debe
-	 * incluirse en la firma &uacute;nicamente el certificado utilizado para
-	 * firmar y no su cadena de certificaci&oacute;n completa. Por defecto, se
+	 * incluirse en la firma &uacute;nicamente el certificado utilizado para firmar
+	 * y no su cadena de certificaci&oacute;n completa. Por defecto, se
 	 * incluir&aacute; toda la cadena de certificaci&oacute;n. <br>
 	 * Propiedad compartida con CAdES y PAdES.
 	 */
@@ -61,33 +61,32 @@ import java.util.Map;
 	/**
 	 * Indica, mediante <code>true</code> o <code>false</code> (por defecto), si
 	 * debe usarse un
-	 * <a href="http://www.w3.org/TR/xmldsig-core1/#sec-o-Manifest">Manifest</a>
-	 * de XMLDSig con las referencias de firma en vez de firmar directamente
-	 * estas referencias.<br>
-	 * Esto permite que sea opcional la comprobaci&oacute;n del destino y
-	 * huellas digitales de las referencias.
+	 * <a href="http://www.w3.org/TR/xmldsig-core1/#sec-o-Manifest">Manifest</a> de
+	 * XMLDSig con las referencias de firma en vez de firmar directamente estas
+	 * referencias.<br>
+	 * Esto permite que sea opcional la comprobaci&oacute;n del destino y huellas
+	 * digitales de las referencias.
 	 */
 	public static final String USE_MANIFEST = "useManifest";//$NON-NLS-1$
 
 	/**
-	 * Indica, mediante una expresi&oacute;n XPath (v1), el nodo bajo el cual
-	 * debe insertarse el nodo de firma en el caso de una firma
-	 * <i>Enveloped</i>.<br>
+	 * Indica, mediante una expresi&oacute;n XPath (v1), el nodo bajo el cual debe
+	 * insertarse el nodo de firma en el caso de una firma <i>Enveloped</i>.<br>
 	 * Si la expresi&oacute;n devuelve m&aacute;s de un nodo, se usa solo el
 	 * primero. Si la expresi&oacute;n no devuelve nodos o est&aacute; mal
 	 * construida se lanzar&aacute; una excepci&oacute;n.<br>
 	 * Este par&aacute;metro solo tiene efecto en firmas <i>Enveloped</i>.
 	 */
-	static final String INSERT_ENVELOPED_SIGNATURE_ON_NODE_BY_XPATH = "insertEnvelopedSignatureOnNodeByXPath";  
+	static final String INSERT_ENVELOPED_SIGNATURE_ON_NODE_BY_XPATH = "insertEnvelopedSignatureOnNodeByXPath";
 
 	/**
 	 * Indica si se debe evitar la inclusi&oacute;n de la transformaci&oacute;n
-	 * XPATH2 que normalmente se a&ntilde;ade para posibilitar las cofirmas y
-	 * que elimina todas las firmas del documento para dejar &uacute;nicamente
-	 * el contenido. Por defecto, se encuentra a <code>false</code>. No aplica a
+	 * XPATH2 que normalmente se a&ntilde;ade para posibilitar las cofirmas y que
+	 * elimina todas las firmas del documento para dejar &uacute;nicamente el
+	 * contenido. Por defecto, se encuentra a <code>false</code>. No aplica a
 	 * contrafirmas.
 	 */
-	static final String NODE_TOSIGN = "nodeToSign"; 
+	static final String NODE_TOSIGN = "nodeToSign";
 
 	/**
 	 * Formato de firma. Se aceptan los siguientes valores:<br>
@@ -112,8 +111,8 @@ import java.util.Map;
 
 	/**
 	 * Algoritmo de huella digital a usar en las referencias XML
-	 * (referencesDigestMethod). Debe indicarse como una URL, acept&aacute;ndose
-	 * los siguientes valores:
+	 * (referencesDigestMethod). Debe indicarse como una URL, acept&aacute;ndose los
+	 * siguientes valores:
 	 * <ul>
 	 * <li><i>http://www.w3.org/2000/09/xmldsig#sha1</i> (SHA-1)</li>
 	 * <li><i>http://www.w3.org/2001/04/xmlenc#sha256</i> (SHA-256, valor
@@ -137,10 +136,10 @@ import java.util.Map;
 
 	/**
 	 * URL de definici&oacute;n del tipo de las propiedades firmadas (<i>Signed
-	 * Properties</i>) de XAdES. Si se establece este par&aacute;metro es
-	 * posible que se necesite establecer tambi&eacute;n el par&aacute;metro
-	 * <code>xadesNamespace</code> para evitar incoherencias en la
-	 * versi&oacute;n de XAdES.<br>
+	 * Properties</i>) de XAdES. Si se establece este par&aacute;metro es posible
+	 * que se necesite establecer tambi&eacute;n el par&aacute;metro
+	 * <code>xadesNamespace</code> para evitar incoherencias en la versi&oacute;n de
+	 * XAdES.<br>
 	 * Si no se establece se usa el valor por defecto:
 	 * <a href="http://uri.etsi.org/01903#SignedProperties"
 	 * >http://uri.etsi.org/01903#SignedProperties</a>.
@@ -148,19 +147,17 @@ import java.util.Map;
 	static final String SIGNED_PROPERTIES_TYPE_URL = "signedPropertiesTypeUrl";//$NON-NLS-1$
 
 	/**
-	 * Ignora las hojas de estilo externas de los XML (no las firma) si se
-	 * establece a <code>true</code>, si se establece a <code>false</code>
-	 * act&uacute;a normalmente (s&iacute; las firma). (s&iacute; las firma).
-	 * <br>
+	 * Ignora las hojas de estilo externas de los XML (no las firma) si se establece
+	 * a <code>true</code>, si se establece a <code>false</code> act&uacute;a
+	 * normalmente (s&iacute; las firma). (s&iacute; las firma). <br>
 	 * No aplica a contrafirmas.
 	 */
 	static final String IGNORE_STYLE_SHEETS = "ignoreStyleSheets";//$NON-NLS-1$
 
 	/**
-	 * No declara transformaciones Base64 incluso si son necesarias si se
-	 * establece a <code>true</code>, si se establece a <code>false</code>
-	 * act&uacute;a normalmente (s&iacute; las declara). (s&iacute; las
-	 * declara). <br>
+	 * No declara transformaciones Base64 incluso si son necesarias si se establece
+	 * a <code>true</code>, si se establece a <code>false</code> act&uacute;a
+	 * normalmente (s&iacute; las declara). (s&iacute; las declara). <br>
 	 * No aplica a contrafirmas)
 	 */
 	static final String AVOID_BASE64_TRANSFORMS = "avoidBase64Transforms";//$NON-NLS-1$
@@ -169,8 +166,8 @@ import java.util.Map;
 	 * Evita cualquier interacci&oacute;n con el usuario si se establece a
 	 * <code>true</code>, si se establece a <code>false</code> act&uacute;a
 	 * normalmente (puede mostrar di&aacute;logos, por ejemplo, para la
-	 * dereferenciaci&oacute;n de hojas de estilo enlazadas con rutas
-	 * relativas). &Uacute;til para los procesos desatendidos y por lotes.
+	 * dereferenciaci&oacute;n de hojas de estilo enlazadas con rutas relativas).
+	 * &Uacute;til para los procesos desatendidos y por lotes.
 	 */
 	static final String HEADLESS = "headless";//$NON-NLS-1$
 
@@ -199,10 +196,9 @@ import java.util.Map;
 	 * <ul>
 	 * <li>La huella digital debe indicarse en lugar de los datos, en el mismo
 	 * par&aacute;metro del m&eacute;todo de firma.</li>
-	 * <li>Solo puede indicarse una huella cuando no se incluyan los datos
-	 * dentro de la propia firma, es decir, en firmas <i>externally
-	 * detached</i>, siendo conveniente adem&aacute;s hacer uso de un
-	 * <i>Manifest</i>.</li>
+	 * <li>Solo puede indicarse una huella cuando no se incluyan los datos dentro de
+	 * la propia firma, es decir, en firmas <i>externally detached</i>, siendo
+	 * conveniente adem&aacute;s hacer uso de un <i>Manifest</i>.</li>
 	 * </ul>
 	 */
 	static final String PRECALCULATED_HASH_ALGORITHM = "precalculatedHashAlgorithm";//$NON-NLS-1$
@@ -211,8 +207,8 @@ import java.util.Map;
 	 * Indica, mediante un <code>true</code> o <code>false</code>, si se deben
 	 * realizar las necesarias restricciones de comportamiento para la firma de
 	 * facturas electr&oacute;nicas (FACTURAe). Estas restricciones son, no
-	 * introducir la transformaci&oacute;n de canonicalizaci&oacute;n de la
-	 * firma, ni la transformaci&oacute;n XPATH en las firmas <i>Enveloped</i>.
+	 * introducir la transformaci&oacute;n de canonicalizaci&oacute;n de la firma,
+	 * ni la transformaci&oacute;n XPATH en las firmas <i>Enveloped</i>.
 	 */
 	static final String FACTURAE_SIGN = "facturaeSign";//$NON-NLS-1$
 
@@ -224,8 +220,8 @@ import java.util.Map;
 
 	/**
 	 * Codificaci&oacute;n de los datos a firmar.<br>
-	 * No aplica a contrafirmas. Por restricc&oacute;n de esquema de XMLDsig
-	 * debe ser una URI:
+	 * No aplica a contrafirmas. Por restricc&oacute;n de esquema de XMLDsig debe
+	 * ser una URI:
 	 * 
 	 * <pre>
 	 *    &lt;element name="Object" type="ds:ObjectType"/&gt;
@@ -242,9 +238,8 @@ import java.util.Map;
 	static final String XMLDSIG_OBJECT_ENCODING = "encoding";//$NON-NLS-1$
 
 	/**
-	 * Codificaci&oacute;n del XML de salida. Si no se indica este valor se
-	 * intenta auto-detectar a partir del XML de entrada (si los datos a firmar
-	 * son un XML).
+	 * Codificaci&oacute;n del XML de salida. Si no se indica este valor se intenta
+	 * auto-detectar a partir del XML de entrada (si los datos a firmar son un XML).
 	 */
 	static final String OUTPUT_XML_ENCODING = "outputXmlEncoding"; //$NON-NLS-1$
 
@@ -255,24 +250,24 @@ import java.util.Map;
 	static final String CONTENT_TYPE_OID = "contentTypeOid";//$NON-NLS-1$
 
 	/**
-	 * Identificador de la pol&iacute;tica de firma (normalmente una URL hacia
-	 * la pol&iacute;tica en formato XML procesable o una URN de tipo OID). <br>
+	 * Identificador de la pol&iacute;tica de firma (normalmente una URL hacia la
+	 * pol&iacute;tica en formato XML procesable o una URN de tipo OID). <br>
 	 * Propiedad compartida con CAdES y PAdES.
 	 */
 	static final String POLICY_IDENTIFIER = "policyIdentifier";//$NON-NLS-1$
 
 	/**
 	 * Huella digital del documento de pol&iacute;tica de firma (normalmente del
-	 * mismo fichero en formato XML procesable). Si no se indica, es obligatorio
-	 * que el par&aacute;metro <code>policyIdentifier</code> sea una URL
-	 * accesible universalmente. <br>
+	 * mismo fichero en formato XML procesable). Si no se indica, es obligatorio que
+	 * el par&aacute;metro <code>policyIdentifier</code> sea una URL accesible
+	 * universalmente. <br>
 	 * Propiedad compartida con CAdES y PAdES.
 	 */
 	static final String POLICY_IDENTIFIER_HASH = "policyIdentifierHash";//$NON-NLS-1$
 
 	/**
-	 * Algoritmo usado para el c&uacute;lculo de la huella digital indicada en
-	 * el par&uacute;metro policyIdentifierHash. <br>
+	 * Algoritmo usado para el c&uacute;lculo de la huella digital indicada en el
+	 * par&uacute;metro policyIdentifierHash. <br>
 	 * Propiedad compartida con CAdES y PAdES.
 	 */
 	static final String POLICY_IDENTIFIER_HASH_ALGORITHM = "policyIdentifierHashAlgorithm";//$NON-NLS-1$
@@ -290,9 +285,9 @@ import java.util.Map;
 	static final String POLICY_QUALIFIER = "policyQualifier";//$NON-NLS-1$
 
 	/**
-	 * Lista de cargos atribuidos al firmante separados por el car&uacute;cter
-	 * '|'. Los cargos de la lista no pueden contener el car&uacute;cter '|' (ya
-	 * que este se usa como separador).
+	 * Lista de cargos atribuidos al firmante separados por el car&uacute;cter '|'.
+	 * Los cargos de la lista no pueden contener el car&uacute;cter '|' (ya que este
+	 * se usa como separador).
 	 */
 	static final String SIGNER_CLAIMED_ROLES = "signerClaimedRoles";//$NON-NLS-1$
 
@@ -320,18 +315,18 @@ import java.util.Map;
 	static final String SIGNATURE_PRODUCTION_COUNTRY = "signatureProductionCountry";//$NON-NLS-1$
 
 	/**
-	 * N&uacute;mero de CommitmentTypeIndications a a&ntilde;adir a la firma
-	 * XAdES. En los par&uacute;metros siguientes, los CommitmentTypeIndications
-	 * se numeran a partir de 0 (cero).
+	 * N&uacute;mero de CommitmentTypeIndications a a&ntilde;adir a la firma XAdES.
+	 * En los par&uacute;metros siguientes, los CommitmentTypeIndications se numeran
+	 * a partir de 0 (cero).
 	 */
 	static final String COMMITMENT_TYPE_INDICATIONS = "commitmentTypeIndications";//$NON-NLS-1$
 
 	/**
 	 * Prefijo de las claves con las que se indican las propiedades de los
-	 * <i>Commitment Type Indications</i>. Se utilizar&aacute; este prefijo,
-	 * seguido el n&uacute;mero del commitmentTypeIndication al que queramos
-	 * referirnos y la clave de la propiedad en cuesti&oacute;n. As&iacute;
-	 * pues, los par&aacute;metros son:
+	 * <i>Commitment Type Indications</i>. Se utilizar&aacute; este prefijo, seguido
+	 * el n&uacute;mero del commitmentTypeIndication al que queramos referirnos y la
+	 * clave de la propiedad en cuesti&oacute;n. As&iacute; pues, los
+	 * par&aacute;metros son:
 	 * <ul>
 	 * <li>commitmentTypeIndication<i>n</i>Identifier</li>
 	 * <li>commitmentTypeIndication<i>n</i>Description</li>
@@ -342,8 +337,8 @@ import java.util.Map;
 	static final String COMMITMENT_TYPE_INDICATION_PREFIX = "commitmentTypeIndication"; //$NON-NLS-1$
 
 	/**
-	 * Tipo de <i>CommitmentTypeIndication</i> (atributo obligatorio, se debe
-	 * usar el ordinal, nunca el OID directamente):
+	 * Tipo de <i>CommitmentTypeIndication</i> (atributo obligatorio, se debe usar
+	 * el ordinal, nunca el OID directamente):
 	 * <ul>
 	 * <li><i>1</i> = Prueba de origen</li>
 	 * <li><i>2</i> = Prueba de recepci&oacute;n</li>
@@ -364,20 +359,20 @@ import java.util.Map;
 	static final String COMMITMENT_TYPE_INDICATION_DESCRIPTION = "Description";//$NON-NLS-1$
 
 	/**
-	 * Lista de URL separadas por el car&aacute;cter '<i>|</i>' que se aportan
-	 * como referencias documentales del <i>CommitmentTypeIndication</i>
-	 * n&uacute;mero <i>n</i> (atributo opcional).<br>
-	 * Las URL de la lista no pueden contener el car&aacute;cter '<i>|</i>' (ya
-	 * que este se usa como separador)
+	 * Lista de URL separadas por el car&aacute;cter '<i>|</i>' que se aportan como
+	 * referencias documentales del <i>CommitmentTypeIndication</i> n&uacute;mero
+	 * <i>n</i> (atributo opcional).<br>
+	 * Las URL de la lista no pueden contener el car&aacute;cter '<i>|</i>' (ya que
+	 * este se usa como separador)
 	 */
 	static final String COMMITMENT_TYPE_INDICATION_DOCUMENTATION_REFERENCE = "DocumentationReferences"; //$NON-NLS-1$
 
 	/**
-	 * Lista de indicadores textuales separados por el car&aacute;cter '|' que
-	 * se aportan como calificadores adicionales del CommitmentTypeIndication
-	 * n&uacute;mero n (atributo opcional). Normalmente son OID. Los elementos
-	 * de la lista no pueden contener el car&aacute;cter '|' (ya que este se usa
-	 * como separador). <br>
+	 * Lista de indicadores textuales separados por el car&aacute;cter '|' que se
+	 * aportan como calificadores adicionales del CommitmentTypeIndication
+	 * n&uacute;mero n (atributo opcional). Normalmente son OID. Los elementos de la
+	 * lista no pueden contener el car&aacute;cter '|' (ya que este se usa como
+	 * separador). <br>
 	 * Propiedad compartida con CAdES.
 	 */
 	static final String COMMITMENT_TYPE_INDICATION_QUALIFIERS = "CommitmentTypeQualifiers"; //$NON-NLS-1$
@@ -402,16 +397,16 @@ import java.util.Map;
 	}
 
 	/**
-	 * Modo de firma a usar. El valor explicit indica que no se incluyen los
-	 * datos firmados, sino una referencia a estos, mientras que el valor
-	 * implicit indica que s&iacute; se incluir&aacute;n dentro de la propia
-	 * firma los datos firmados.
+	 * Modo de firma a usar. El valor explicit indica que no se incluyen los datos
+	 * firmados, sino una referencia a estos, mientras que el valor implicit indica
+	 * que s&iacute; se incluir&aacute;n dentro de la propia firma los datos
+	 * firmados.
 	 */
 	static final String MODE = "mode";//$NON-NLS-1$
 
 	/**
-	 * Nombre del par&aacute;metro que almacena el identificador de la firma
-	 * durante un proceso de firma de lote.
+	 * Nombre del par&aacute;metro que almacena el identificador de la firma durante
+	 * un proceso de firma de lote.
 	 */
 	static final String BATCH_SIGNATURE_ID = "SignatureId"; //$NON-NLS-1$
 
@@ -431,8 +426,8 @@ import java.util.Map;
 	public static final String ROOT_XML_NODE_NAMESPACE_PREFIX = "RootXmlNodeNamespacePrefix"; //$NON-NLS-1$
 
 	/**
-	 * Constructor vac&iacute;o privado para que no se pueda instanciar la clase
-	 * ya que es est&aacute;tico.
+	 * Constructor vac&iacute;o privado para que no se pueda instanciar la clase ya
+	 * que es est&aacute;tico.
 	 */
 	private XAdESExtraParams() {
 		// No instanciable

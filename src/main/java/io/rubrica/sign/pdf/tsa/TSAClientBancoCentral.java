@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,14 +26,13 @@ import com.lowagie.text.pdf.TSAClient;
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  * @deprecated
  */
-public class TSAClientBancoCentral extends TSAClientBouncyCastleWithOid
-		implements TSAClient {
+public class TSAClientBancoCentral extends TSAClientBouncyCastleWithOid implements TSAClient {
 
 	// OID del Banco Central
 	private static final String OID = "1.3.6.1.4.1.37947.4.10";
 
 	public TSAClientBancoCentral(String url) {
-		//super(url, OID);
+		// super(url, OID);
 		super(url);
 	}
 }

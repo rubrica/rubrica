@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -117,8 +117,8 @@ public final class OfficeAnalizer {
 
 	/**
 	 * Devuelve el MimeType correspondiente al documento ofim&aacute;tico
-	 * proporcionado (ODF u OOXML). Si el fichero no se corresponde con ninguno
-	 * de ellos pero es un Zip se devolver&aacute; el MimeType del Zip
+	 * proporcionado (ODF u OOXML). Si el fichero no se corresponde con ninguno de
+	 * ellos pero es un Zip se devolver&aacute; el MimeType del Zip
 	 * (application/zip) y si no es Zip se devolver&aacute; {@code null}.
 	 * 
 	 * @param data
@@ -186,10 +186,10 @@ public final class OfficeAnalizer {
 	}
 
 	/**
-	 * Devuelve la extensi&oacute;n correspondiente al documento
-	 * ofim&aacute;tico proporcionado (ODF u OOXML). Si el fichero no se
-	 * corresponde con ninguno de ellos pero es un Zip se devolver&aacute; la
-	 * extensi&oacute;n "zip" y si no es Zip se devolver&aacute; {@code null}.
+	 * Devuelve la extensi&oacute;n correspondiente al documento ofim&aacute;tico
+	 * proporcionado (ODF u OOXML). Si el fichero no se corresponde con ninguno de
+	 * ellos pero es un Zip se devolver&aacute; la extensi&oacute;n "zip" y si no es
+	 * Zip se devolver&aacute; {@code null}.
 	 * 
 	 * @param zipData
 	 *            Fichero ODF u OOXML
@@ -223,8 +223,7 @@ public final class OfficeAnalizer {
 	}
 
 	/**
-	 * Indica si un fichero Zip tiene la estructura de un documento OOXML
-	 * soportado.
+	 * Indica si un fichero Zip tiene la estructura de un documento OOXML soportado.
 	 * 
 	 * @param zipFile
 	 *            Fichero zip que deseamos comprobar.
@@ -307,8 +306,7 @@ public final class OfficeAnalizer {
 	}
 
 	/**
-	 * Indica si un fichero Zip tiene la estructura de un documento ODF
-	 * soportado.
+	 * Indica si un fichero Zip tiene la estructura de un documento ODF soportado.
 	 * 
 	 * @param zipFile
 	 *            Fichero zip que deseamos comprobar.
@@ -341,9 +339,8 @@ public final class OfficeAnalizer {
 	}
 
 	/**
-	 * Recupera la extensi&oacute;n apropiada para un documento ODF. Si el
-	 * fichero no era un documento ODF soportado, se devolver&aacute;
-	 * <code>null</code>.
+	 * Recupera la extensi&oacute;n apropiada para un documento ODF. Si el fichero
+	 * no era un documento ODF soportado, se devolver&aacute; <code>null</code>.
 	 * 
 	 * @param contentTypeIs
 	 *            Fichero del que deseamos obtener la extensi&oacute;n.

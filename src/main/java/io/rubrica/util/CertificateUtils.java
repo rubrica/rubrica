@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -85,8 +85,8 @@ public class CertificateUtils {
 	}
 
 	/**
-	 * Return the OCSP Responder address contained in the certificate More
-	 * precisely the it is contained in the authorityInfoAccess extension
+	 * Return the OCSP Responder address contained in the certificate More precisely
+	 * the it is contained in the authorityInfoAccess extension
 	 */
 	public static List<String> getAuthorityInformationAccess(X509Certificate cert) throws IOException {
 		byte[] authInfoExt = cert.getExtensionValue(Extension.authorityInfoAccess.getId());
@@ -113,10 +113,9 @@ public class CertificateUtils {
 	 * organizativa (Organization Unit, OU).
 	 * 
 	 * @param c
-	 *            Certificado X.509 del cual queremos obtener el nombre
-	 *            com&uacute;n
-	 * @return Nombre com&uacute;n (Common Name, CN) del titular de un
-	 *         certificado X.509
+	 *            Certificado X.509 del cual queremos obtener el nombre com&uacute;n
+	 * @return Nombre com&uacute;n (Common Name, CN) del titular de un certificado
+	 *         X.509
 	 */
 	public static String getCN(X509Certificate c) {
 		if (c == null) {
@@ -126,9 +125,9 @@ public class CertificateUtils {
 	}
 
 	/**
-	 * Obtiene el nombre común (Common Name, CN) de un <i>Principal</i> X.400.
-	 * Si no se encuentra el CN, se devuelve la unidad organizativa
-	 * (Organization Unit, OU).
+	 * Obtiene el nombre común (Common Name, CN) de un <i>Principal</i> X.400. Si no
+	 * se encuentra el CN, se devuelve la unidad organizativa (Organization Unit,
+	 * OU).
 	 * 
 	 * @param principal
 	 *            <i>Principal</i> del cual queremos obtener el nombre común
@@ -161,9 +160,9 @@ public class CertificateUtils {
 
 	/**
 	 * Recupera el valor de un RDN (<i>Relative Distinguished Name</i>) de un
-	 * principal. El valor de retorno no incluye el nombre del RDN, el igual, ni
-	 * las posibles comillas que envuelvan el valor. La función no es sensible a
-	 * la capitalización del RDN. Si no se encuentra, se devuelve {@code null}.
+	 * principal. El valor de retorno no incluye el nombre del RDN, el igual, ni las
+	 * posibles comillas que envuelvan el valor. La función no es sensible a la
+	 * capitalización del RDN. Si no se encuentra, se devuelve {@code null}.
 	 * 
 	 * @param rdn
 	 *            RDN que deseamos encontrar.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -73,8 +73,7 @@ final class OOXMLAdvancedSignature extends XMLAdvancedSignature {
 		}
 
 		addXMLObject(marshalXMLSignature(this.xadesNamespace, this.signedPropertiesTypeUrl, signatureIdPrefix,
-				referencesIdList,
-				Arrays.asList( // En OOXML las SignedProperties se canonicalizan
+				referencesIdList, Arrays.asList( // En OOXML las SignedProperties se canonicalizan
 						Utils.getDOMFactory().newTransform("http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
 								(TransformParameterSpec) null))));
 

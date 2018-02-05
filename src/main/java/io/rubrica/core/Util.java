@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -50,8 +50,8 @@ public final class Util {
 	 *            Nombre del fichero local o URL
 	 * @return URI (<code>file://</code>) del fichero local o URL
 	 * @throws URISyntaxException
-	 *             Si no se puede crear una URI soportada a partir de la cadena
-	 *             de entrada
+	 *             Si no se puede crear una URI soportada a partir de la cadena de
+	 *             entrada
 	 */
 	public static URI createURI(final String file) throws URISyntaxException {
 
@@ -104,8 +104,8 @@ public final class Util {
 	}
 
 	/**
-	 * Obtiene el flujo de entrada de un fichero (para su lectura) a partir de
-	 * su URI.
+	 * Obtiene el flujo de entrada de un fichero (para su lectura) a partir de su
+	 * URI.
 	 * 
 	 * @param uri
 	 *            URI del fichero a leer
@@ -142,9 +142,8 @@ public final class Util {
 	}
 
 	/**
-	 * Lee un flujo de datos de entrada y los recupera en forma de array de
-	 * bytes. Este m&eacute;todo consume pero no cierra el flujo de datos de
-	 * entrada.
+	 * Lee un flujo de datos de entrada y los recupera en forma de array de bytes.
+	 * Este m&eacute;todo consume pero no cierra el flujo de datos de entrada.
 	 * 
 	 * @param input
 	 *            Flujo de donde se toman los datos.
@@ -171,10 +170,9 @@ public final class Util {
 	 * organizativa (Organization Unit, OU).
 	 * 
 	 * @param c
-	 *            Certificado X.509 del cual queremos obtener el nombre
-	 *            com&uacute;n
-	 * @return Nombre com&uacute;n (Common Name, CN) del titular de un
-	 *         certificado X.509
+	 *            Certificado X.509 del cual queremos obtener el nombre com&uacute;n
+	 * @return Nombre com&uacute;n (Common Name, CN) del titular de un certificado
+	 *         X.509
 	 */
 	public static String getCN(final X509Certificate c) {
 		if (c == null) {
@@ -189,10 +187,8 @@ public final class Util {
 	 * (Organization Unit, OU).
 	 * 
 	 * @param principal
-	 *            <i>Principal</i> del cual queremos obtener el nombre
-	 *            com&uacute;n
-	 * @return Nombre com&uacute;n (Common Name, CN) de un <i>Principal</i>
-	 *         X.400
+	 *            <i>Principal</i> del cual queremos obtener el nombre com&uacute;n
+	 * @return Nombre com&uacute;n (Common Name, CN) de un <i>Principal</i> X.400
 	 */
 	public static String getCN(final String principal) {
 		if (principal == null) {
@@ -221,10 +217,10 @@ public final class Util {
 
 	/**
 	 * Recupera el valor de un RDN (<i>Relative Distinguished Name</i>) de un
-	 * principal. El valor de retorno no incluye el nombre del RDN, el igual, ni
-	 * las posibles comillas que envuelvan el valor. La funci&oacute;n no es
-	 * sensible a la capitalizaci&oacute;n del RDN. Si no se encuentra, se
-	 * devuelve {@code null}.
+	 * principal. El valor de retorno no incluye el nombre del RDN, el igual, ni las
+	 * posibles comillas que envuelvan el valor. La funci&oacute;n no es sensible a
+	 * la capitalizaci&oacute;n del RDN. Si no se encuentra, se devuelve
+	 * {@code null}.
 	 * 
 	 * @param rdn
 	 *            RDN que deseamos encontrar.
@@ -295,22 +291,22 @@ public final class Util {
 	}
 
 	/**
-	 * Equivalencias de hexadecimal a texto por la posici&oacute;n del vector.
-	 * Para ser usado en <code>hexify()</code>
+	 * Equivalencias de hexadecimal a texto por la posici&oacute;n del vector. Para
+	 * ser usado en <code>hexify()</code>
 	 */
 	private static final char[] HEX_CHARS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
 			'F' };
 
 	/**
-	 * Convierte un vector de octetos en una cadena de caracteres que contiene
-	 * la representaci&oacute;n hexadecimal. Copiado directamente de
+	 * Convierte un vector de octetos en una cadena de caracteres que contiene la
+	 * representaci&oacute;n hexadecimal. Copiado directamente de
 	 * opencard.core.util.HexString
 	 * 
 	 * @param abyte0
 	 *            Vector de octetos que deseamos representar textualmente
 	 * @param separator
-	 *            Indica si han o no de separarse los octetos con un
-	 *            gui&oacute;n y en l&iacute;neas de 16
+	 *            Indica si han o no de separarse los octetos con un gui&oacute;n y
+	 *            en l&iacute;neas de 16
 	 * @return Representaci&oacute;n textual del vector de octetos de entrada
 	 */
 	public static String hexify(final byte abyte0[], final boolean separator) {
@@ -338,15 +334,15 @@ public final class Util {
 	}
 
 	/**
-	 * Convierte un vector de octetos en una cadena de caracteres que contiene
-	 * la representaci&oacute;n hexadecimal. Copiado directamente de
+	 * Convierte un vector de octetos en una cadena de caracteres que contiene la
+	 * representaci&oacute;n hexadecimal. Copiado directamente de
 	 * opencard.core.util.HexString
 	 * 
 	 * @param abyte0
 	 *            Vector de octetos que deseamos representar textualmente
 	 * @param separator
-	 *            Indica si han o no de separarse los octetos con un
-	 *            gui&oacute;n y en l&iacute;neas de 16
+	 *            Indica si han o no de separarse los octetos con un gui&oacute;n y
+	 *            en l&iacute;neas de 16
 	 * @return Representaci&oacute;n textual del vector de octetos de entrada
 	 */
 	public static String hexify(final byte abyte0[], final String separator) {
@@ -427,9 +423,9 @@ public final class Util {
 	}
 
 	/**
-	 * Genera una lista de cadenas compuesta por los fragmentos de texto
-	 * separados por la cadena de separaci&oacute;n indicada. No soporta
-	 * expresiones regulares. Por ejemplo:<br>
+	 * Genera una lista de cadenas compuesta por los fragmentos de texto separados
+	 * por la cadena de separaci&oacute;n indicada. No soporta expresiones
+	 * regulares. Por ejemplo:<br>
 	 * <ul>
 	 * <li><b>Texto:</b> foo$bar$foo$$bar$</li>
 	 * <li><b>Separado:</b> $</li>

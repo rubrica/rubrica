@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -78,15 +78,15 @@ public final class RubricaXMLAdvancedSignature extends XMLAdvancedSignature {
 	private String styleId = null;
 
 	/**
-	 * A&ntilde;ade una hoja de estilo en modo <i>enveloping</i> dentro de la
-	 * firma. La referencia para firmarla debe construirse de forma externa,
-	 * esta clase no la construye ni a&ntilde;ade
+	 * A&ntilde;ade una hoja de estilo en modo <i>enveloping</i> dentro de la firma.
+	 * La referencia para firmarla debe construirse de forma externa, esta clase no
+	 * la construye ni a&ntilde;ade
 	 * 
 	 * @param xmlStyle
 	 *            Elemento de estilo XML
 	 * @param sId
-	 *            Identificador de la hoja de estilo (si se proporciona un nulo
-	 *            no se a&ntilde;ade la hoja de estilo)
+	 *            Identificador de la hoja de estilo (si se proporciona un nulo no
+	 *            se a&ntilde;ade la hoja de estilo)
 	 */
 	void addStyleSheetEnvelopingOntoSignature(XmlStyle xmlStyle, final String sId) {
 		this.styleElement = xmlStyle.getStyleElement();
@@ -101,8 +101,8 @@ public final class RubricaXMLAdvancedSignature extends XMLAdvancedSignature {
 	 * Establece el algoritmo de canonicalizaci&oacute;n.
 	 * 
 	 * @param canMethod
-	 *            URL del algoritmo de canonicalizaci&oacute;n. Debe estar
-	 *            soportado en XMLDSig 1.0 o 1.1
+	 *            URL del algoritmo de canonicalizaci&oacute;n. Debe estar soportado
+	 *            en XMLDSig 1.0 o 1.1
 	 */
 	void setCanonicalizationMethod(final String canMethod) {
 		if (canMethod != null) {
@@ -202,8 +202,8 @@ public final class RubricaXMLAdvancedSignature extends XMLAdvancedSignature {
 	 *            Datos de la firma XAdES-BES
 	 * @return Instancia de la clase
 	 * @throws GeneralSecurityException
-	 *             Cuando se especifica una XAdES con un algoritmo de huella
-	 *             digital no soportado.
+	 *             Cuando se especifica una XAdES con un algoritmo de huella digital
+	 *             no soportado.
 	 */
 	public static RubricaXMLAdvancedSignature newInstance(final XAdES_BES xades) throws GeneralSecurityException {
 		final RubricaXMLAdvancedSignature result = new RubricaXMLAdvancedSignature(xades);

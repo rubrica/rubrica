@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,18 +24,16 @@ public class SignValidity {
 	}
 
 	/**
-	 * Errores que invalidan una firma o impiden conocer si es v&aacute;lida o
-	 * no.
+	 * Errores que invalidan una firma o impiden conocer si es v&aacute;lida o no.
 	 */
 	public enum VALIDITY_ERROR {
 		/**
-		 * Cuando no se puede comprobar la validez por no tener los datos
-		 * firmados.
+		 * Cuando no se puede comprobar la validez por no tener los datos firmados.
 		 */
 		NO_DATA,
 		/**
-		 * Cuando la informacion contenida en la firma no sea consistente
-		 * (certificados corruptos, etc.).
+		 * Cuando la informacion contenida en la firma no sea consistente (certificados
+		 * corruptos, etc.).
 		 */
 		CORRUPTED_SIGN,
 		/** Cuando la firma no se corresponde con los datos firmados. */
@@ -59,8 +57,7 @@ public class SignValidity {
 		/** Cuando el emisor del certificado no es v&aacute;lido. */
 		CA_NOT_SUPPORTED,
 		/**
-		 * Cuando existe alg&uacute;n problema con las CRLs incrustadas en la
-		 * firma.
+		 * Cuando existe alg&uacute;n problema con las CRLs incrustadas en la firma.
 		 */
 		CRL_PROBLEM,
 		/** Cuando se trata de una firma PDF. */
@@ -109,8 +106,8 @@ public class SignValidity {
 	}
 
 	/**
-	 * Recupera el error que invalida la firma. Si no existe ning&uacute;n error
-	 * o este es desconocido, se devolver&aacute; {@code null}.
+	 * Recupera el error que invalida la firma. Si no existe ning&uacute;n error o
+	 * este es desconocido, se devolver&aacute; {@code null}.
 	 * 
 	 * @return Error que invalida la firma o impide comprobar su validez.
 	 */

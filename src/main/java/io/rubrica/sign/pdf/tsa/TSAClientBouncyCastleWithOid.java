@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -48,20 +48,23 @@ public class TSAClientBouncyCastleWithOid extends TSAClientBouncyCastle implemen
 
 	private String policy;
 
-	public TSAClientBouncyCastleWithOid(String ignore){super(ignore);}
-	
-	//public TSAClientBouncyCastleWithOid(String url) {
-		//super(url, null, null, DEFAULTTOKENSIZE, DEFAULTHASHALGORITHM);
-	//}
+	public TSAClientBouncyCastleWithOid(String ignore) {
+		super(ignore);
+	}
 
-	//public TSAClientBouncyCastleWithOid(String url, String username, String password) {
-		//super(url, username, password, 4096, DEFAULTHASHALGORITHM);
-	//}
+	// public TSAClientBouncyCastleWithOid(String url) {
+	// super(url, null, null, DEFAULTTOKENSIZE, DEFAULTHASHALGORITHM);
+	// }
 
-	//public TSAClientBouncyCastleWithOid(String url, String policy) {
-	//	super(url, null, null, 4096, DEFAULTHASHALGORITHM);
-	//	this.policy = policy;
-	//}
+	// public TSAClientBouncyCastleWithOid(String url, String username, String
+	// password) {
+	// super(url, username, password, 4096, DEFAULTHASHALGORITHM);
+	// }
+
+	// public TSAClientBouncyCastleWithOid(String url, String policy) {
+	// super(url, null, null, 4096, DEFAULTHASHALGORITHM);
+	// this.policy = policy;
+	// }
 
 	/**
 	 * Gets Policy OID of TSA request.
@@ -97,13 +100,15 @@ public class TSAClientBouncyCastleWithOid extends TSAClientBouncyCastle implemen
 		}
 
 		BigInteger nonce = BigInteger.valueOf(System.currentTimeMillis());
-		//TimeStampRequest request = tsqGenerator.generate(
-				//new ASN1ObjectIdentifier(DigestAlgorithms.getAllowedDigests(getDigestAlgorithm())), imprint, nonce);
+		// TimeStampRequest request = tsqGenerator.generate(
+		// new
+		// ASN1ObjectIdentifier(DigestAlgorithms.getAllowedDigests(getDigestAlgorithm())),
+		// imprint, nonce);
 		TimeStampRequest request = null;
 		byte[] requestBytes = request.getEncoded();
 
 		// Call the communications layer
-		//respBytes = getTSAResponse(requestBytes);
+		// respBytes = getTSAResponse(requestBytes);
 		respBytes = null;
 
 		// Handle the TSA response
@@ -132,7 +137,7 @@ public class TSAClientBouncyCastleWithOid extends TSAClientBouncyCastle implemen
 		byte[] encoded = tsToken.getEncoded();
 
 		// Update our token size estimate for the next call (padded to be safe)
-		//this.tokenSizeEstimate = encoded.length + 32;
+		// this.tokenSizeEstimate = encoded.length + 32;
 		return encoded;
 	}
 
@@ -152,13 +157,15 @@ public class TSAClientBouncyCastleWithOid extends TSAClientBouncyCastle implemen
 		}
 
 		BigInteger nonce = BigInteger.valueOf(System.currentTimeMillis());
-		//TimeStampRequest request = tsqGenerator.generate(
-				//new ASN1ObjectIdentifier(DigestAlgorithms.getAllowedDigests(digestAlgorithm)), imprint, nonce);
+		// TimeStampRequest request = tsqGenerator.generate(
+		// new
+		// ASN1ObjectIdentifier(DigestAlgorithms.getAllowedDigests(digestAlgorithm)),
+		// imprint, nonce);
 		TimeStampRequest request = null;
 		byte[] requestBytes = request.getEncoded();
 
 		// Call the communications layer
-		//respBytes = getTSAResponse(requestBytes);
+		// respBytes = getTSAResponse(requestBytes);
 		respBytes = null;
 
 		// Handle the TSA response
@@ -194,7 +201,7 @@ public class TSAClientBouncyCastleWithOid extends TSAClientBouncyCastle implemen
 		// tsaInfo.inspectTimeStampTokenInfo(tsTokenInfo);
 		// }
 		// Update our token size estimate for the next call (padded to be safe)
-		//this.tokenSizeEstimate = encoded.length + 32;
+		// this.tokenSizeEstimate = encoded.length + 32;
 		return encoded;
 	}
 }

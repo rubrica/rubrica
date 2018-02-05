@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -61,13 +61,13 @@ final class EscapeHelper {
 	}
 
 	/**
-	 * Devuelve un nombre X.500 con los caracteres especiales codificados de
-	 * forma acorde a la <a href="http://www.ietf.org/rfc/rfc4514.txt">RFC
-	 * 4514</a>. En particular, la RFC 4514 detalla la <i>String Representation
-	 * of Distinguished Names</i> de la siguiente forma:
+	 * Devuelve un nombre X.500 con los caracteres especiales codificados de forma
+	 * acorde a la <a href="http://www.ietf.org/rfc/rfc4514.txt">RFC 4514</a>. En
+	 * particular, la RFC 4514 detalla la <i>String Representation of Distinguished
+	 * Names</i> de la siguiente forma:
 	 * <ol>
-	 * <li>El algoritmo descrito en el apartado 2 es <b>recomendado</b>, y que
-	 * se pueden dar por v&aacute;lidos otros algoritmos.</li>
+	 * <li>El algoritmo descrito en el apartado 2 es <b>recomendado</b>, y que se
+	 * pueden dar por v&aacute;lidos otros algoritmos.</li>
 	 * <li>Cualquier algoritmo <b>deber&aacute;</b> cumplir lo descrito en el
 	 * apartado 3.</li>
 	 * </ol>
@@ -143,20 +143,20 @@ final class EscapeHelper {
 	 * siguientes reglas adicionales:
 	 * <ul>
 	 * <li>Los RDN se separan con ',' (coma).</li>
-	 * <li>Los caracteres ' ' (espacio), '"' (comilla doble), ',' (coma), '+'
-	 * (mas), '=' (igual), '&gt;' (mayor que), '&lt;' (menor que), '&#35;'
-	 * (almohadilla), ';' (punto y coma) y '&#92;' (barra invertida) se pueden
-	 * proteger con '&#92;' (barra invertida).</li>
+	 * <li>Los caracteres ' ' (espacio), '"' (comilla doble), ',' (coma), '+' (mas),
+	 * '=' (igual), '&gt;' (mayor que), '&lt;' (menor que), '&#35;' (almohadilla),
+	 * ';' (punto y coma) y '&#92;' (barra invertida) se pueden proteger con '&#92;'
+	 * (barra invertida).</li>
 	 * <li>Otros caracteres se protegen con '&#92;xx'.</li>
 	 * </ul>
 	 * <p>
 	 * Al incorporar Java un codificador Java acorde a la
 	 * <a href="https://www.ietf.org/rfc/rfc2253.txt">RFC-2253</a> (una
 	 * versi&oacute;n obsoleta de la RFC 4514), es posible considerar que este
-	 * simple tratamiento podr&iacute;a ser aceptable sin m&aacute;s. Conviene
-	 * no obstante notar que esta codificaci&oacute;n podr&iacute;a ser
-	 * insuficiente en ciertos casos, ya que la RFC 4514, en su punto 2.4
-	 * (<i>Converting an AttributeValue from ASN.1 to a String</i>) indica:
+	 * simple tratamiento podr&iacute;a ser aceptable sin m&aacute;s. Conviene no
+	 * obstante notar que esta codificaci&oacute;n podr&iacute;a ser insuficiente en
+	 * ciertos casos, ya que la RFC 4514, en su punto 2.4 (<i>Converting an
+	 * AttributeValue from ASN.1 to a String</i>) indica:
 	 * </p>
 	 * 
 	 * <pre>
@@ -172,9 +172,9 @@ final class EscapeHelper {
 	 *  5.2).
 	 * </pre>
 	 * 
-	 * Es decir, que si se quiere una representaci&oacute;n reversible, es
-	 * necesario usar <code>#hex</code>. En el punto 5.2 (<i>Use of
-	 * Distinguished Names in Security Applications</i>) se lee:
+	 * Es decir, que si se quiere una representaci&oacute;n reversible, es necesario
+	 * usar <code>#hex</code>. En el punto 5.2 (<i>Use of Distinguished Names in
+	 * Security Applications</i>) se lee:
 	 * 
 	 * <pre>
 	 *  The transformations of an AttributeValue value from its X.501 form to
@@ -208,12 +208,12 @@ final class EscapeHelper {
 	 *  (as demonstrated in the final example of Section 4).
 	 * </pre>
 	 * 
-	 * Con lo que es posible concluir que ser&iacute;a necesario usar
-	 * <i>#hex</i> para codificar el <code>KeyName</code> de XAdES cuando
-	 * contenga un DN X.500, cosa que <u>no</u> se est&aacute; haciendo.
+	 * Con lo que es posible concluir que ser&iacute;a necesario usar <i>#hex</i>
+	 * para codificar el <code>KeyName</code> de XAdES cuando contenga un DN X.500,
+	 * cosa que <u>no</u> se est&aacute; haciendo.
 	 * <p>
-	 * Por &uacute;ltimo, faltar&iacute;a tambi&eacute;n eliminar los espacios
-	 * entre los RDN X.500 atendiendo a lo recogido en el Ap&eacute;ndice A:
+	 * Por &uacute;ltimo, faltar&iacute;a tambi&eacute;n eliminar los espacios entre
+	 * los RDN X.500 atendiendo a lo recogido en el Ap&eacute;ndice A:
 	 * </p>
 	 * 
 	 * <pre>

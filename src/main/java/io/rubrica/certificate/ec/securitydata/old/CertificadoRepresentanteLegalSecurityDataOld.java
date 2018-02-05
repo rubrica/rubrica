@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,11 +26,10 @@ import io.rubrica.certificate.ec.CertificadoRepresentanteLegal;
  *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
-public class CertificadoRepresentanteLegalSecurityDataOld extends
-		CertificadoSecurityDataOld implements CertificadoRepresentanteLegal {
+public class CertificadoRepresentanteLegalSecurityDataOld extends CertificadoSecurityDataOld
+		implements CertificadoRepresentanteLegal {
 
-	public CertificadoRepresentanteLegalSecurityDataOld(
-			X509Certificate certificado) {
+	public CertificadoRepresentanteLegalSecurityDataOld(X509Certificate certificado) {
 		super(certificado);
 	}
 

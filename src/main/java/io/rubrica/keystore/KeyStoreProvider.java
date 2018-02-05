@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,7 +26,7 @@ import java.security.KeyStoreException;
  */
 public interface KeyStoreProvider {
 
-    KeyStore getKeystore() throws KeyStoreException;
+	KeyStore getKeystore() throws KeyStoreException;
 
-    KeyStore getKeystore(char[] password) throws KeyStoreException;
+	KeyStore getKeystore(char[] password) throws KeyStoreException;
 }

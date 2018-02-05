@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -66,8 +66,7 @@ public final class XAdESUtil {
 	private static final Logger logger = Logger.getLogger(XAdESUtil.class.getName());
 
 	/**
-	 * Comprueba que los nodos de firma proporcionados sean firmas en formato
-	 * XAdES.
+	 * Comprueba que los nodos de firma proporcionados sean firmas en formato XAdES.
 	 * 
 	 * @param signNodes
 	 *            Listado de nodos de firma.
@@ -133,15 +132,14 @@ public final class XAdESUtil {
 	}
 
 	/**
-	 * Obtiene la lista de <i>CommitmentTypeIndication</i> declarados en el
-	 * fichero de propiedades de par&aacute;metros adicionales.
+	 * Obtiene la lista de <i>CommitmentTypeIndication</i> declarados en el fichero
+	 * de propiedades de par&aacute;metros adicionales.
 	 * 
 	 * @param xParams
 	 *            Par&aacute;metros adicionales para la firma.
 	 * @param signedDataId
 	 *            Identificador del nodo a firmar (<i>Data Object</i>).
-	 * @return Lista de <i>CommitmentTypeIndication</i> a incluir en la firma
-	 *         XAdES.
+	 * @return Lista de <i>CommitmentTypeIndication</i> a incluir en la firma XAdES.
 	 */
 	public static List<CommitmentTypeIndication> parseCommitmentTypeIndications(Properties xParams,
 			String signedDataId) {
@@ -227,13 +225,19 @@ public final class XAdESUtil {
 				}
 			}
 
-			ret.add(new CommitmentTypeIndicationImpl(new CommitmentTypeIdImpl(
-					identifier.startsWith("urn:oid:") ? // OID
-														// como URN si el Id es
-														// OID, null en otro
-														// caso
-							"OIDAsURN" : null,
-					identifier, // Un OID o una URL
+			ret.add(new CommitmentTypeIndicationImpl(new CommitmentTypeIdImpl(identifier.startsWith("urn:oid:") ? // OID
+																													// como
+																													// URN
+																													// si
+																													// el
+																													// Id
+																													// es
+																													// OID,
+																													// null
+																													// en
+																													// otro
+																													// caso
+					"OIDAsURN" : null, identifier, // Un OID o una URL
 					description, // Descripcion textual (opcional)
 					documentationReferences // Lista de URL (opcional)
 			), signedDataId != null ? // Una URI, pero se acepta null
@@ -308,9 +312,9 @@ public final class XAdESUtil {
 		// Manifest, y se
 		// usa entonces en la firma una unica referencia a este Manifest
 		referenceList.clear();
-		referenceList.add(fac.newReference(
-				"#" + manifestId, digestMethod, canonicalizationTransform != null
-						? Collections.singletonList(canonicalizationTransform) : new ArrayList<Transform>(0),
+		referenceList.add(fac.newReference("#" + manifestId, digestMethod,
+				canonicalizationTransform != null ? Collections.singletonList(canonicalizationTransform)
+						: new ArrayList<Transform>(0),
 				XAdESSigner.MANIFESTURI, "Manifest" + referenceId));
 
 		return referenceList;

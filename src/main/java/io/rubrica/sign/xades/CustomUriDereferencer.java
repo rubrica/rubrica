@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -94,13 +94,12 @@ public final class CustomUriDereferencer implements URIDereferencer {
 	}
 
 	/**
-	 * Obtiene el dereferenciador XML por defecto del JRE. Este sera el de
-	 * Apache o el de Sun.
+	 * Obtiene el dereferenciador XML por defecto del JRE. Este sera el de Apache o
+	 * el de Sun.
 	 * 
 	 * @return Dereferenciador XML por defecto del JRE.
 	 * @throws ClassNotFoundException
-	 *             Si no se encuentra ni el dereferenciador de Sun ni el de
-	 *             Apache.
+	 *             Si no se encuentra ni el dereferenciador de Sun ni el de Apache.
 	 */
 	private static Class<?> getDereferencerClass() throws ClassNotFoundException {
 		try {
@@ -117,8 +116,8 @@ public final class CustomUriDereferencer implements URIDereferencer {
 	 * 
 	 * @return Dereferenciador a medida por defecto de Java
 	 * @throws NoSuchFieldException
-	 *             Si falla la reflexi&oacute;n por cambios de las clases
-	 *             internas de Java
+	 *             Si falla la reflexi&oacute;n por cambios de las clases internas
+	 *             de Java
 	 * @throws SecurityException
 	 *             Si no se tienen permisos para la reflexi&oacute;n
 	 * @throws ClassNotFoundException
@@ -180,16 +179,15 @@ public final class CustomUriDereferencer implements URIDereferencer {
 
 	/**
 	 * Busca el primer nodo de un documento XML que tenga un atributo con nombre
-	 * <i>Id</i> cuyo valor sea el indicado o <code>null</code> si no se
-	 * encuentra ninguno.
+	 * <i>Id</i> cuyo valor sea el indicado o <code>null</code> si no se encuentra
+	 * ninguno.
 	 * 
 	 * @param doc
 	 *            Documento XML
 	 * @param nodeId
 	 *            Valor del atributo <i>Id</i> del nodo a buscar
-	 * @return Primer nodo de un documento XML que tenga un atributo <i>Id</i>
-	 *         con el valor indicado o <code>null</code> si no se encuentra
-	 *         ninguno
+	 * @return Primer nodo de un documento XML que tenga un atributo <i>Id</i> con
+	 *         el valor indicado o <code>null</code> si no se encuentra ninguno
 	 */
 	public static Element getElementById(final Document doc, final String nodeId) {
 		if (doc == null || nodeId == null) {

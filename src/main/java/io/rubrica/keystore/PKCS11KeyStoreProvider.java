@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -45,92 +45,93 @@ import javax.security.auth.login.LoginException;
  */
 public abstract class PKCS11KeyStoreProvider implements KeyStoreProvider {
 
-    private static final Logger log = Logger.getLogger(PKCS11KeyStoreProvider.class.getName());
+	private static final Logger log = Logger.getLogger(PKCS11KeyStoreProvider.class.getName());
 
-    /**
-     * Obtiene la configuracion para el Provider, segun el sistema operativo que
-     * se utilice.
-     *
-     * @return
-     */
-    public abstract String getConfig();
+	/**
+	 * Obtiene la configuracion para el Provider, segun el sistema operativo que se
+	 * utilice.
+	 *
+	 * @return
+	 */
+	public abstract String getConfig();
 
-    @Override
-    public KeyStore getKeystore() throws KeyStoreException {
-        return getKeystore(null);
-    }
+	@Override
+	public KeyStore getKeystore() throws KeyStoreException {
+		return getKeystore(null);
+	}
 
-    @Override
-    public KeyStore getKeystore(char[] password) throws KeyStoreException {
-        InputStream configStream = null;
+	@Override
+	public KeyStore getKeystore(char[] password) throws KeyStoreException {
+		InputStream configStream = null;
 
-        try {
-            // Crear una instancia de sun.security.pkcs11.SunPKCS11
-            configStream = new ByteArrayInputStream(getConfig().getBytes());
-            Provider sunPKCS11Provider = this.createSunPKCS11Provider(configStream);
-            Security.addProvider(sunPKCS11Provider);
+		try {
+			// Crear una instancia de sun.security.pkcs11.SunPKCS11
+			configStream = new ByteArrayInputStream(getConfig().getBytes());
+			Provider sunPKCS11Provider = this.createSunPKCS11Provider(configStream);
+			Security.addProvider(sunPKCS11Provider);
 
-            KeyStore keyStore = KeyStore.getInstance("PKCS11");
-            keyStore.load(null, password);
-            return keyStore;
-        } catch (CertificateException | NoSuchAlgorithmException | IOException e) {
-            throw new KeyStoreException(e);
-        } finally {
-            if (configStream != null) {
-                try {
-                    configStream.close();
-                } catch (IOException e) {
-                    log.warning(e.getMessage());
-                }
-            }
-        }
-    }
+			KeyStore keyStore = KeyStore.getInstance("PKCS11");
+			keyStore.load(null, password);
+			return keyStore;
+		} catch (CertificateException | NoSuchAlgorithmException | IOException e) {
+			throw new KeyStoreException(e);
+		} finally {
+			if (configStream != null) {
+				try {
+					configStream.close();
+				} catch (IOException e) {
+					log.warning(e.getMessage());
+				}
+			}
+		}
+	}
 
-    /**
-     * Instancia la clase <code>sun.security.pkcs11.SunPKCS11</code>
-     * dinamicamente, usando Java Reflection.
-     *
-     * @return una instancia de <code>sun.security.pkcs11.SunPKCS11</code>
-     */
-    @SuppressWarnings("unchecked")
-    private Provider createSunPKCS11Provider(InputStream configStream) throws KeyStoreException {
-        try {
-            Class sunPkcs11Class = Class.forName("sun.security.pkcs11.SunPKCS11");
-            Constructor pkcs11Constr = sunPkcs11Class.getConstructor(InputStream.class);
-            return (Provider) pkcs11Constr.newInstance(configStream);
-        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            throw new KeyStoreException(e);
-        }
-    }
+	/**
+	 * Instancia la clase <code>sun.security.pkcs11.SunPKCS11</code> dinamicamente,
+	 * usando Java Reflection.
+	 *
+	 * @return una instancia de <code>sun.security.pkcs11.SunPKCS11</code>
+	 */
+	@SuppressWarnings("unchecked")
+	private Provider createSunPKCS11Provider(InputStream configStream) throws KeyStoreException {
+		try {
+			Class sunPkcs11Class = Class.forName("sun.security.pkcs11.SunPKCS11");
+			Constructor pkcs11Constr = sunPkcs11Class.getConstructor(InputStream.class);
+			return (Provider) pkcs11Constr.newInstance(configStream);
+		} catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException
+				| InstantiationException e) {
+			throw new KeyStoreException(e);
+		}
+	}
 
-    public abstract boolean existeDriver();
+	public abstract boolean existeDriver();
 
-    public void logout() throws KeyStoreException {
-        InputStream configStream = null;
+	public void logout() throws KeyStoreException {
+		InputStream configStream = null;
 
-        try {
-            // Crear una instancia de sun.security.pkcs11.SunPKCS11
-            configStream = new ByteArrayInputStream(getConfig().getBytes());
-            Provider sunPKCS11Provider = this.createSunPKCS11Provider(configStream);
-            AuthProvider auth = (AuthProvider) sunPKCS11Provider;
+		try {
+			// Crear una instancia de sun.security.pkcs11.SunPKCS11
+			configStream = new ByteArrayInputStream(getConfig().getBytes());
+			Provider sunPKCS11Provider = this.createSunPKCS11Provider(configStream);
+			AuthProvider auth = (AuthProvider) sunPKCS11Provider;
 
-            try {
-                auth.logout();
-            } catch (LoginException e) {
-                throw new KeyStoreException(e);
-            }
-        } finally {
-            if (configStream != null) {
-                try {
-                    configStream.close();
-                } catch (IOException e) {
-                    log.warning(e.getMessage());
-                }
-            }
-        }
-    }
+			try {
+				auth.logout();
+			} catch (LoginException e) {
+				throw new KeyStoreException(e);
+			}
+		} finally {
+			if (configStream != null) {
+				try {
+					configStream.close();
+				} catch (IOException e) {
+					log.warning(e.getMessage());
+				}
+			}
+		}
+	}
 
-    protected static boolean is64bit() {
-        return System.getProperty("sun.arch.data.model").contains("64");
-    }
+	protected static boolean is64bit() {
+		return System.getProperty("sun.arch.data.model").contains("64");
+	}
 }

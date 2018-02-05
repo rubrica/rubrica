@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -34,29 +34,28 @@ import java.util.logging.Logger;
  */
 public class WindowsKeyStoreProvider implements KeyStoreProvider {
 
-    private static final Logger logger = Logger
-            .getLogger(WindowsKeyStoreProvider.class.getName());
+	private static final Logger logger = Logger.getLogger(WindowsKeyStoreProvider.class.getName());
 
-    @Override
-    public KeyStore getKeystore() throws KeyStoreException {
-        try {
-            KeyStore keyStore = KeyStore.getInstance("Windows-MY");
-            keyStore.load(null, null);
+	@Override
+	public KeyStore getKeystore() throws KeyStoreException {
+		try {
+			KeyStore keyStore = KeyStore.getInstance("Windows-MY");
+			keyStore.load(null, null);
 
-            // Corregir bug en el MSCAPI
-            if (KeyStoreUtilities.tieneAliasRepetidos(keyStore)) {
-                logger.fine("El KeyStore tiene alias repetidos, fixing...");
-                KeyStoreUtilities.fixAliases(keyStore);
-            }
+			// Corregir bug en el MSCAPI
+			if (KeyStoreUtilities.tieneAliasRepetidos(keyStore)) {
+				logger.fine("El KeyStore tiene alias repetidos, fixing...");
+				KeyStoreUtilities.fixAliases(keyStore);
+			}
 
-            return keyStore;
-        } catch (NoSuchAlgorithmException | CertificateException | IOException e) {
-            throw new KeyStoreException(e);
-        }
-    }
+			return keyStore;
+		} catch (NoSuchAlgorithmException | CertificateException | IOException e) {
+			throw new KeyStoreException(e);
+		}
+	}
 
-    @Override
-    public KeyStore getKeystore(char[] ignore) throws KeyStoreException {
-        return getKeystore();
-    }
+	@Override
+	public KeyStore getKeystore(char[] ignore) throws KeyStoreException {
+		return getKeystore();
+	}
 }

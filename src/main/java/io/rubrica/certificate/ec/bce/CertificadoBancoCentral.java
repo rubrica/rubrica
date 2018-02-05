@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -63,9 +63,6 @@ public abstract class CertificadoBancoCentral {
 		return obtenerExtension(OID_CONTENEDOR);
 	}
 
-	
-	
-	
 	public String getCedulaPasaporte() {
 		return obtenerExtension(OID_CEDULA_PASAPORTE);
 	}
@@ -113,8 +110,7 @@ public abstract class CertificadoBancoCentral {
 	public String getRazonSocial() {
 		return obtenerExtension(OID_RAZON_SOCIAL);
 	}
-	
-	
+
 	/**
 	 * Retorna el valor de la extension, y una cadena vacia si no existe.
 	 * 

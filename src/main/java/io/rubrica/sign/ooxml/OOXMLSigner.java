@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -44,8 +44,7 @@ public class OOXMLSigner implements Signer {
 	private static final Logger logger = Logger.getLogger(OOXMLSigner.class.getName());
 
 	/**
-	 * Consutruye un firmador OOXML, comprobando que se cuente con un JRE
-	 * adecuado.
+	 * Consutruye un firmador OOXML, comprobando que se cuente con un JRE adecuado.
 	 */
 	public OOXMLSigner() {
 		// Proveedor XMLDSig
@@ -126,14 +125,14 @@ public class OOXMLSigner implements Signer {
 	}
 
 	/**
-	 * Indica si los datos indicados son un documento OOXML susceptible de
-	 * contener una firma electr&oacute;nica.
+	 * Indica si los datos indicados son un documento OOXML susceptible de contener
+	 * una firma electr&oacute;nica.
 	 * 
 	 * @param sign
 	 *            Datos que deseamos comprobar.
-	 * @return Devuelve <code>true</code> si los datos indicados son un
-	 *         documento OOXML susceptible de contener una firma
-	 *         electr&oacute;nica, <code>false</code> en caso contrario.
+	 * @return Devuelve <code>true</code> si los datos indicados son un documento
+	 *         OOXML susceptible de contener una firma electr&oacute;nica,
+	 *         <code>false</code> en caso contrario.
 	 */
 	public boolean isSign(byte[] sign) {
 		if (sign == null) {

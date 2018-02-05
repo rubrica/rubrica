@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -49,8 +49,7 @@ public interface Signer {
 	 * @throws RubricaException
 	 *             Cuando ocurre cualquier problema durante el proceso
 	 * @throws IOException
-	 *             Cuando ocurren problemas relacionados con la lectura de los
-	 *             datos
+	 *             Cuando ocurren problemas relacionados con la lectura de los datos
 	 */
 	byte[] sign(byte[] data, String algorithm, PrivateKey key, Certificate[] certChain, Properties extraParams)
 			throws RubricaException, IOException;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -50,7 +50,7 @@ public class PdfUtil {
 				logger.severe("Se ha indicado una posicion invalida para la firma: " + e);
 			}
 		}
-		
+
 		if (extraParams.getProperty(positionOnPageLowerLeftX) != null
 				&& extraParams.getProperty(positionOnPageLowerLeftY) != null
 				&& extraParams.getProperty(positionOnPageUpperRightX) == null
@@ -58,8 +58,8 @@ public class PdfUtil {
 			try {
 				return new Rectangle(Integer.parseInt(extraParams.getProperty(positionOnPageLowerLeftX).trim()),
 						Integer.parseInt(extraParams.getProperty(positionOnPageLowerLeftY).trim()),
-						Integer.parseInt(extraParams.getProperty(positionOnPageLowerLeftX).trim())+110, 
-						Integer.parseInt(extraParams.getProperty(positionOnPageLowerLeftY).trim())-36);
+						Integer.parseInt(extraParams.getProperty(positionOnPageLowerLeftX).trim()) + 110,
+						Integer.parseInt(extraParams.getProperty(positionOnPageLowerLeftY).trim()) - 36);
 			} catch (final Exception e) {
 				logger.severe("Se ha indicado una posicion invalida para la firma: " + e);
 			}

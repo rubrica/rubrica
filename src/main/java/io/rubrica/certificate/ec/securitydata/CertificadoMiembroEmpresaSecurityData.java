@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@ import io.rubrica.certificate.ec.CertificadoMiembroEmpresa;
  *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
-public class CertificadoMiembroEmpresaSecurityData extends
-		CertificadoSecurityData implements CertificadoMiembroEmpresa {
+public class CertificadoMiembroEmpresaSecurityData extends CertificadoSecurityData
+		implements CertificadoMiembroEmpresa {
 
 	public CertificadoMiembroEmpresaSecurityData(X509Certificate certificado) {
 		super(certificado);

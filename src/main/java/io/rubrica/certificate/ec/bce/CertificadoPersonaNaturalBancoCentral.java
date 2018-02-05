@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,46 +26,46 @@ import io.rubrica.certificate.ec.CertificadoPersonaNatural;
  *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
-public class CertificadoPersonaNaturalBancoCentral extends
-		CertificadoBancoCentral implements CertificadoPersonaNatural {
+public class CertificadoPersonaNaturalBancoCentral extends CertificadoBancoCentral
+		implements CertificadoPersonaNatural {
 
 	public CertificadoPersonaNaturalBancoCentral(X509Certificate certificado) {
 		super(certificado);
 	}
 
-	//public String getCedulaPasaporte() {
-	//	return obtenerExtension(OID_CEDULA_PASAPORTE);
-	//}
+	// public String getCedulaPasaporte() {
+	// return obtenerExtension(OID_CEDULA_PASAPORTE);
+	// }
 
-	//public String getNombres() {
-	//	return obtenerExtension(OID_NOMBRES);
-	//}
+	// public String getNombres() {
+	// return obtenerExtension(OID_NOMBRES);
+	// }
 
-	//public String getPrimerApellido() {
-	//	return obtenerExtension(OID_APELLIDO_1);
-	//}
+	// public String getPrimerApellido() {
+	// return obtenerExtension(OID_APELLIDO_1);
+	// }
 
-	//public String getSegundoApellido() {
-	//	return obtenerExtension(OID_APELLIDO_2);
-	//}
+	// public String getSegundoApellido() {
+	// return obtenerExtension(OID_APELLIDO_2);
+	// }
 
-	//public String getDireccion() {
-	//	return obtenerExtension(OID_DIRECCION);
-	//}
+	// public String getDireccion() {
+	// return obtenerExtension(OID_DIRECCION);
+	// }
 
-	//public String getTelefono() {
-	//	return obtenerExtension(OID_TELEFONO);
-	//}
+	// public String getTelefono() {
+	// return obtenerExtension(OID_TELEFONO);
+	// }
 
-	//public String getCiudad() {
-	//	return obtenerExtension(OID_CIUDAD);
-	//}
+	// public String getCiudad() {
+	// return obtenerExtension(OID_CIUDAD);
+	// }
 
-	//public String getPais() {
-	//	return obtenerExtension(OID_PAIS);
-	//}
+	// public String getPais() {
+	// return obtenerExtension(OID_PAIS);
+	// }
 
-	//public String getRuc() {
-	//	return obtenerExtension(OID_RUC);
-	//}
+	// public String getRuc() {
+	// return obtenerExtension(OID_RUC);
+	// }
 }

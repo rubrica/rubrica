@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -58,8 +58,8 @@ public final class XmlStyle {
 	 * @param data
 	 *            XML en formato binario
 	 * @param headless
-	 *            Indica si deben omitirse las interacciones con el usuario
-	 *            mediante interfaz gr&aacute;fico
+	 *            Indica si deben omitirse las interacciones con el usuario mediante
+	 *            interfaz gr&aacute;fico
 	 * @throws IOException
 	 *             Cuando hay errores de entrada / salida
 	 * @throws CannotDereferenceException
@@ -69,8 +69,8 @@ public final class XmlStyle {
 	 * @throws ReferenceIsNotXmlException
 	 *             Cuando el estilo referenciado no est&aacute; en formato XML
 	 * @throws javax.xml.transform.TransformerFactoryConfigurationError
-	 *             Cuando hay errores de configuraci&oacute; en la
-	 *             factor&iacute;a de transformaciones
+	 *             Cuando hay errores de configuraci&oacute; en la factor&iacute;a
+	 *             de transformaciones
 	 */
 	public XmlStyle(byte[] data, boolean headless)
 			throws IOException, CannotDereferenceException, IsInnerlException, ReferenceIsNotXmlException {
@@ -149,14 +149,13 @@ public final class XmlStyle {
 	}
 
 	/**
-	 * Obtiene los par&aacute;metros de la cabecera de definici&oacute;n de la
-	 * hoja de estilo de un XML.
+	 * Obtiene los par&aacute;metros de la cabecera de definici&oacute;n de la hoja
+	 * de estilo de un XML.
 	 * 
 	 * @param inputXML
 	 *            XML de entrada
-	 * @return Properties con los par&aacute;metros encontrados en la cabecera,
-	 *         o un Properties vac&iacute;o si el XML no declaraba una hoja de
-	 *         estilo
+	 * @return Properties con los par&aacute;metros encontrados en la cabecera, o un
+	 *         Properties vac&iacute;o si el XML no declaraba una hoja de estilo
 	 * @throws IOException
 	 *             Si no se puede analizar adecuadamente la cabecera de estilo
 	 */
@@ -184,9 +183,8 @@ public final class XmlStyle {
 	 * @param id
 	 *            Identificador de la hoja de estilo
 	 * @param headless
-	 *            <code>true</code> si <b>no</b> se desea que se pregunte al
-	 *            usuario para dereferenciar las hojas de estilo enlazadas con
-	 *            rutas locales
+	 *            <code>true</code> si <b>no</b> se desea que se pregunte al usuario
+	 *            para dereferenciar las hojas de estilo enlazadas con rutas locales
 	 * @return Documento DOM con la hoja de estilo
 	 * @throws CannotDereferenceException
 	 *             Si no se puede dereferenciar

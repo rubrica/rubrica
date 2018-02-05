@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -122,16 +122,16 @@ public final class MimeHelper {
 	}
 
 	/**
-	 * Obtiene el Oid correspondiente a un Mime Type concreto. Si no conoce el
-	 * Oid asociado, devuelve el OID por defecto para datos binarios
+	 * Obtiene el Oid correspondiente a un Mime Type concreto. Si no conoce el Oid
+	 * asociado, devuelve el OID por defecto para datos binarios
 	 * (DEFAULT_CONTENT_OID_DATA).
 	 * 
 	 * @param mimetype
 	 *            del que deseamos obtener el Oid.
 	 * @return OID asociado al Mime Type.
 	 * @throws IOException
-	 *             Si no se puede cargar la tabla de correspondencias entre
-	 *             MIMEType y OID
+	 *             Si no se puede cargar la tabla de correspondencias entre MIMEType
+	 *             y OID
 	 */
 	public static String transformMimeTypeToOid(final String mimetype) throws IOException {
 		if (mimetypeOidProp == null) {
@@ -142,16 +142,15 @@ public final class MimeHelper {
 	}
 
 	/**
-	 * Obtiene el Mime correspondiente a un Oid concreto. Si no conoce el Mime
-	 * Type asociado, devuelve el gen&eacute;rico de datos binarios
-	 * (DEFAULT_MIMETYPE).
+	 * Obtiene el Mime correspondiente a un Oid concreto. Si no conoce el Mime Type
+	 * asociado, devuelve el gen&eacute;rico de datos binarios (DEFAULT_MIMETYPE).
 	 * 
 	 * @param oid
 	 *            del que deseamos obtener el Mime Type.
 	 * @return MimeType asociado al OID.
 	 * @throws IOException
-	 *             Si no se puede cargar la tabla de correspondencias entre
-	 *             MIMEType y OID
+	 *             Si no se puede cargar la tabla de correspondencias entre MIMEType
+	 *             y OID
 	 */
 	public static String transformOidToMimeType(final String oid) throws IOException {
 		if (oidMimetypeProp == null) {
@@ -161,8 +160,8 @@ public final class MimeHelper {
 	}
 
 	/**
-	 * Carga el fichero de propiedades que relaciona OID de formato con su mime
-	 * type correspondiente.
+	 * Carga el fichero de propiedades que relaciona OID de formato con su mime type
+	 * correspondiente.
 	 * 
 	 * @throws IOException
 	 *             Cuando hay errores en la carga del fichero de propiedades
@@ -195,8 +194,8 @@ public final class MimeHelper {
 	}
 
 	/**
-	 * Recupera el MimeType de los datos analizados, <code>null</code> si no se
-	 * pudo detectar.
+	 * Recupera el MimeType de los datos analizados, <code>null</code> si no se pudo
+	 * detectar.
 	 * 
 	 * @return MimeType de los datos.
 	 * @throws IOException
@@ -237,8 +236,8 @@ public final class MimeHelper {
 
 	/**
 	 * Recupera la extensi&oacute;n com&uacute;n para un fichero con los datos
-	 * analizados, {@code null} si no se conoce. La extensi&oacute;n se devuelve
-	 * sin el punto separador.
+	 * analizados, {@code null} si no se conoce. La extensi&oacute;n se devuelve sin
+	 * el punto separador.
 	 * 
 	 * @return Extensi&oacute;n para un fichero de datos.
 	 */
@@ -271,8 +270,8 @@ public final class MimeHelper {
 	}
 
 	/**
-	 * Recupera la descripcion de los datos analizados, <code>null</code> si no
-	 * se pudo detectar.
+	 * Recupera la descripcion de los datos analizados, <code>null</code> si no se
+	 * pudo detectar.
 	 * 
 	 * @return Descripci&oacute;n del tipo de dato.
 	 */

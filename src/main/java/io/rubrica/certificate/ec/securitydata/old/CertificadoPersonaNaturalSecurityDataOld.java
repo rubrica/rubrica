@@ -18,8 +18,8 @@ import io.rubrica.certificate.ec.CertificadoPersonaNatural;
  *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
-public class CertificadoPersonaNaturalSecurityDataOld extends
-		CertificadoSecurityDataOld implements CertificadoPersonaNatural {
+public class CertificadoPersonaNaturalSecurityDataOld extends CertificadoSecurityDataOld
+		implements CertificadoPersonaNatural {
 
 	public CertificadoPersonaNaturalSecurityDataOld(X509Certificate certificado) {
 		super(certificado);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,10 +26,10 @@ public class RectanguloParaFirmar {
 
 	public static Rectangle obtenerRectangulo(Rectangle dimensionHoja, float posicionUnitariaX,
 			float posicionUnitariaY) {
-		float lowerLeftX = dimensionHoja.getWidth()*posicionUnitariaX - ANCHO_RECTANGULO_FIRMA/2;
-		float lowerLeftY = dimensionHoja.getHeight()*posicionUnitariaY - ALTO_RECTANGULO_FIRMA/2;
-		float upperLeftX = dimensionHoja.getWidth()*posicionUnitariaX + ANCHO_RECTANGULO_FIRMA/2;
-		float upperLeftY = dimensionHoja.getHeight()*posicionUnitariaY + ALTO_RECTANGULO_FIRMA/2;
+		float lowerLeftX = dimensionHoja.getWidth() * posicionUnitariaX - ANCHO_RECTANGULO_FIRMA / 2;
+		float lowerLeftY = dimensionHoja.getHeight() * posicionUnitariaY - ALTO_RECTANGULO_FIRMA / 2;
+		float upperLeftX = dimensionHoja.getWidth() * posicionUnitariaX + ANCHO_RECTANGULO_FIRMA / 2;
+		float upperLeftY = dimensionHoja.getHeight() * posicionUnitariaY + ALTO_RECTANGULO_FIRMA / 2;
 		return new Rectangle(lowerLeftX, lowerLeftY, upperLeftX, upperLeftY);
 	}
 }

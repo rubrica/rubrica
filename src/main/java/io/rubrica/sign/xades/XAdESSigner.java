@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -337,16 +337,15 @@ public final class XAdESSigner implements Signer {
 	 * </li>
 	 * <li>Hola de estilo remota con ruta absoluta
 	 * <ul>
-	 * <li>Se restaura la declaraci&oacute;n de hoja de estilo tal y como estaba
-	 * en el XML original</li>
-	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja
-	 * remota</li>
+	 * <li>Se restaura la declaraci&oacute;n de hoja de estilo tal y como estaba en
+	 * el XML original</li>
+	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja remota</li>
 	 * </ul>
 	 * </li>
 	 * <li>Hoja de estilo empotrada
 	 * <ul>
-	 * <li>Se restaura la declaraci&oacute;n de hoja de estilo tal y como estaba
-	 * en el XML original</li>
+	 * <li>Se restaura la declaraci&oacute;n de hoja de estilo tal y como estaba en
+	 * el XML original</li>
 	 * </ul>
 	 * </li>
 	 * </ul>
@@ -360,8 +359,7 @@ public final class XAdESSigner implements Signer {
 	 * </li>
 	 * <li>Hola de estilo remota con ruta absoluta
 	 * <ul>
-	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja
-	 * remota</li>
+	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja remota</li>
 	 * </ul>
 	 * </li>
 	 * <li>Hoja de estilo empotrada
@@ -380,8 +378,7 @@ public final class XAdESSigner implements Signer {
 	 * </li>
 	 * <li>Hola de estilo remota con ruta absoluta
 	 * <ul>
-	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja
-	 * remota</li>
+	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja remota</li>
 	 * </ul>
 	 * </li>
 	 * <li>Hoja de estilo empotrada
@@ -400,8 +397,7 @@ public final class XAdESSigner implements Signer {
 	 * </li>
 	 * <li>Hola de estilo remota con ruta absoluta
 	 * <ul>
-	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja
-	 * remota</li>
+	 * <li>Se firma una referencia (<i>canonicalizada</i>) a esta hoja remota</li>
 	 * </ul>
 	 * </li>
 	 * <li>Hoja de estilo empotrada
@@ -446,14 +442,14 @@ public final class XAdESSigner implements Signer {
 	}
 
 	/**
-	 * Comprueba si la firma es <i>detached</i>. Previamente debe haberse
-	 * comprobado que el XML se corresponde con una firma XAdES.
+	 * Comprueba si la firma es <i>detached</i>. Previamente debe haberse comprobado
+	 * que el XML se corresponde con una firma XAdES.
 	 * 
 	 * @param element
 	 *            Elemento que contiene el nodo ra&iacute;z del documento que se
 	 *            quiere comprobar
-	 * @return <code>true</code> si la firma es <i>detached</i>,
-	 *         <code>false</code> en caso contrario.
+	 * @return <code>true</code> si la firma es <i>detached</i>, <code>false</code>
+	 *         en caso contrario.
 	 */
 	public static boolean isDetached(final Element element) {
 		if (element == null) {
@@ -555,7 +551,8 @@ public final class XAdESSigner implements Signer {
 					// TODO: Deshacer solo el Base64 si existe la transformacion
 					// Base64 (COMPROBAR)
 					return isBase64TransformationDeclared(rootSig, firstChild.getAttribute(ID_IDENTIFIER))
-							? Base64.decode(firstChild.getTextContent()) : firstChild.getTextContent().getBytes();
+							? Base64.decode(firstChild.getTextContent())
+							: firstChild.getTextContent().getBytes();
 				}
 			}
 
@@ -579,7 +576,8 @@ public final class XAdESSigner implements Signer {
 					// TODO: Deshacer solo el Base64 si existe la transformacion
 					// Base64 (COMPROBAR)
 					return isBase64TransformationDeclared(rootSig, object.getAttribute(ID_IDENTIFIER))
-							? Base64.decode(object.getTextContent()) : object.getTextContent().getBytes();
+							? Base64.decode(object.getTextContent())
+							: object.getTextContent().getBytes();
 				}
 			}
 		} catch (Exception ex) {
@@ -612,8 +610,8 @@ public final class XAdESSigner implements Signer {
 	}
 
 	/**
-	 * Comprueba si unos datos firmados tienen declarados una
-	 * transformaci&oacute;n de tipo Base64.
+	 * Comprueba si unos datos firmados tienen declarados una transformaci&oacute;n
+	 * de tipo Base64.
 	 * 
 	 * @param rootSig
 	 *            Nodo raiz de la firma.

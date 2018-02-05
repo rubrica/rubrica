@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -73,8 +73,7 @@ public enum ValidationResult {
 	}
 
 	/**
-	 * Obtiene la representaci&oacute;n JSON del resultado de la
-	 * validaci&oacute;n.
+	 * Obtiene la representaci&oacute;n JSON del resultado de la validaci&oacute;n.
 	 * 
 	 * @return Representaci&oacute;n JSON del resultado de la validaci&oacute;n
 	 */
@@ -84,8 +83,8 @@ public enum ValidationResult {
 	}
 
 	/**
-	 * Indica si el resultado corresponde a un certificado X.509v3
-	 * v&aacute;lido, dentro de su periodo de validez y no revocado).
+	 * Indica si el resultado corresponde a un certificado X.509v3 v&aacute;lido,
+	 * dentro de su periodo de validez y no revocado).
 	 * 
 	 * @return <code>true</code> si corresponde a un certificado X.509v3
 	 *         v&aacute;lido, <code>false</code> en caso contrario

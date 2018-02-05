@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -54,8 +54,8 @@ final class ContentTypeManager {
 	private static final Logger logger = Logger.getLogger(ContentTypeManager.class.getName());
 
 	/**
-	 * Crea un ContentTypeManager que nos permitira conocer el contentType
-	 * asociado a cada elemento del documento.
+	 * Crea un ContentTypeManager que nos permitira conocer el contentType asociado
+	 * a cada elemento del documento.
 	 * 
 	 * @param contentTypeIs
 	 *            Flujo de datos de entrada del fichero [Content_Types].xml

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,6 +22,5 @@ package io.rubrica.certificate.ec;
  *
  * @author Ricardo Arguello <ricardo.arguello@soportelibre.com>
  */
-public interface CertificadoRepresentanteLegal extends
-		CertificadoPersonaJuridica {
+public interface CertificadoRepresentanteLegal extends CertificadoPersonaJuridica {
 }

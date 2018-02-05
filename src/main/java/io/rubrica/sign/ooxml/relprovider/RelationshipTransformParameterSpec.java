@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,24 +22,32 @@ import java.util.List;
 
 import javax.xml.crypto.dsig.spec.TransformParameterSpec;
 
-/** Relationship Transform parameter specification class.
- * @author fcorneli */
+/**
+ * Relationship Transform parameter specification class.
+ * 
+ * @author fcorneli
+ */
 public final class RelationshipTransformParameterSpec implements TransformParameterSpec {
 
-    private final List<String> sourceIds;
+	private final List<String> sourceIds;
 
-    /** Constructor. */
-    public RelationshipTransformParameterSpec() {
-        this.sourceIds = new LinkedList<>();
-    }
+	/** Constructor. */
+	public RelationshipTransformParameterSpec() {
+		this.sourceIds = new LinkedList<>();
+	}
 
-    /** A&ntilde;ade una referencia de relaci&oacute;n para el identificados proporcionado.
-     * @param sourceId Identificador de origen de la relaci&oacute;n */
-    public void addRelationshipReference(final String sourceId) {
-        this.sourceIds.add(sourceId);
-    }
+	/**
+	 * A&ntilde;ade una referencia de relaci&oacute;n para el identificados
+	 * proporcionado.
+	 * 
+	 * @param sourceId
+	 *            Identificador de origen de la relaci&oacute;n
+	 */
+	public void addRelationshipReference(final String sourceId) {
+		this.sourceIds.add(sourceId);
+	}
 
-    List<String> getSourceIds() {
-        return this.sourceIds;
-    }
+	List<String> getSourceIds() {
+		return this.sourceIds;
+	}
 }

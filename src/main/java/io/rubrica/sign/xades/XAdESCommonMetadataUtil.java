@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -136,7 +136,8 @@ final class XAdESCommonMetadataUtil {
 		}
 
 		final String hashAlgo = identifierHashAlgorithm != null
-				? XAdESUtil.getDigestMethodByCommonName(identifierHashAlgorithm) : null;
+				? XAdESUtil.getDigestMethodByCommonName(identifierHashAlgorithm)
+				: null;
 
 		final SignaturePolicyIdentifier spi = new SignaturePolicyIdentifierImpl(false);
 		try {

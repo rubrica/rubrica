@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -60,7 +60,8 @@ public class CrlUtils {
 
 			System.out.println("Valid? " + OcspUtils.isValidCertificate(cert));
 			crlDistPoints = overridingDistributionPoints == null || overridingDistributionPoints.isEmpty()
-					? CertificateUtils.getCrlDistributionPoints(cert) : overridingDistributionPoints;
+					? CertificateUtils.getCrlDistributionPoints(cert)
+					: overridingDistributionPoints;
 		} catch (IOException e) {
 			logger.severe("Error obteniendo los puntos de distribucion de CRL: " + e);
 			return ValidationResult.SERVER_ERROR;

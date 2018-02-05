@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -35,30 +35,24 @@ import java.security.cert.X509Certificate;
  */
 public class CertificadoSecurityDataOldFactory {
 
-	public static boolean esCertificadoDeSecurityDataOld(
-			X509Certificate certificado) {
+	public static boolean esCertificadoDeSecurityDataOld(X509Certificate certificado) {
 		byte[] valor = certificado.getExtensionValue(OID_CEDULA_PASAPORTE);
 		return (valor != null);
 	}
 
-	public static CertificadoSecurityDataOld construir(
-			X509Certificate certificado) {
+	public static CertificadoSecurityDataOld construir(X509Certificate certificado) {
 		if (certificateHasPolicy(certificado, OID_TIPO_PERSONA_NATURAL)) {
 			return new CertificadoPersonaNaturalSecurityDataOld(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_TIPO_PERSONA_JURIDICA_EMPRESA)) {
+		} else if (certificateHasPolicy(certificado, OID_TIPO_PERSONA_JURIDICA_EMPRESA)) {
 			return new CertificadoPersonaJuridicaSecurityDataOld(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_TIPO_REPRESENTANTE_LEGAL)) {
+		} else if (certificateHasPolicy(certificado, OID_TIPO_REPRESENTANTE_LEGAL)) {
 			return new CertificadoRepresentanteLegalSecurityDataOld(certificado);
 		} else if (certificateHasPolicy(certificado, OID_TIPO_MIEMBRO_EMPRESA)) {
 			return new CertificadoMiembroEmpresaSecurityDataOld(certificado);
-		} else if (certificateHasPolicy(certificado,
-				OID_TIPO_FUNCIONARIO_PUBLICO)) {
+		} else if (certificateHasPolicy(certificado, OID_TIPO_FUNCIONARIO_PUBLICO)) {
 			return new CertificadoFuncionarioPublicoSecurityDataOld(certificado);
 		} else {
-			throw new RuntimeException(
-					"Tipo Certificado de SecurityData desconocido!");
+			throw new RuntimeException("Tipo Certificado de SecurityData desconocido!");
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2017 Rubrica
+ * Copyright 2009-2018 Rubrica
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -33,13 +33,13 @@ public class OsUtils {
 		logger.finer("Operating System:" + osName);
 		return (osName.toUpperCase().indexOf("WINDOWS") == 0);
 	}
-	
+
 	public static String getOs() {
 		String osName = System.getProperty("os.name");
 		logger.finer("Operating System:" + osName);
 		return osName.toUpperCase();
 	}
-	
+
 	public static String getJavaVersion() {
 		String javaVersion = System.getProperty("java.version");
 		logger.finer("Java Version:" + javaVersion);
