@@ -55,7 +55,6 @@ public class KeyStoreProviderFactory {
 
 	static {
 		List<KeyStoreProvider> macOS = new ArrayList<KeyStoreProvider>();
-		macOS.add(new AppleKeyStoreProvider());
 		macOS.add(new SafenetAppleKeyStoreProvider());
 		macOS.add(new EPass2003AppleKeyStoreProvider());
 		macOS.add(new EPass3003AppleKeyStoreProvider());
