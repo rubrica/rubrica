@@ -17,7 +17,7 @@
 
 package io.rubrica.sign.pdf.tsa;
 
-import com.lowagie.text.pdf.TSAClient;
+import com.itextpdf.text.pdf.security.TSAClient;
 
 /**
  * Implementacion de cliente TSA para utilizar el servidor de Time Stamping del

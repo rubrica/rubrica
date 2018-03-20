@@ -30,9 +30,9 @@ import org.bouncycastle.tsp.TimeStampResponse;
 import org.bouncycastle.tsp.TimeStampToken;
 import org.bouncycastle.tsp.TimeStampTokenInfo;
 
-import com.lowagie.text.error_messages.MessageLocalization;
-import com.lowagie.text.pdf.TSAClient;
-import com.lowagie.text.pdf.TSAClientBouncyCastle;
+import com.itextpdf.text.error_messages.MessageLocalization;
+import com.itextpdf.text.pdf.security.TSAClient;
+import com.itextpdf.text.pdf.security.TSAClientBouncyCastle;
 
 /**
  * Implementacion de TSAClient que permite establecer un Policy OID para su

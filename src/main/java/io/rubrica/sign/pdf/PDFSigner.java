@@ -17,7 +17,6 @@
 
 package io.rubrica.sign.pdf;
 
-import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,19 +31,19 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Font;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.AcroFields;
-import com.lowagie.text.pdf.ColumnText;
-import com.lowagie.text.pdf.PdfDictionary;
-import com.lowagie.text.pdf.PdfName;
-import com.lowagie.text.pdf.PdfPKCS7;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.PdfSignatureAppearance;
-import com.lowagie.text.pdf.PdfStamper;
-import com.lowagie.text.pdf.PdfTemplate;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfDictionary;
+import com.itextpdf.text.pdf.PdfName;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfSignatureAppearance;
+import com.itextpdf.text.pdf.PdfStamper;
+import com.itextpdf.text.pdf.PdfTemplate;
+import com.itextpdf.text.pdf.security.PdfPKCS7;
 
 import io.rubrica.core.RubricaException;
 import io.rubrica.sign.InvalidFormatException;
@@ -176,7 +175,7 @@ public class PDFSigner implements Signer {
 				PdfTemplate pdfTemplate1 = sap.getLayer(2);
 				ColumnText columnText1 = new ColumnText(pdfTemplate1);
 				columnText1.setSimpleColumn(x, y, (width / 2) - 1, height);
-				Font font1 = new Font(Font.ITALIC, 5.0f, Font.BOLD, Color.BLACK);
+				Font font1 = new Font();
 				Paragraph paragraph1 = new Paragraph(nombreFirmante.trim(), font1);
 				paragraph1.setAlignment(Paragraph.ALIGN_RIGHT);
 				columnText1.addElement(paragraph1);
@@ -185,7 +184,7 @@ public class PDFSigner implements Signer {
 				PdfTemplate pdfTemplate2 = sap.getLayer(2);
 				ColumnText columnText2 = new ColumnText(pdfTemplate2);
 				columnText2.setSimpleColumn(x + (width / 2) + 1, y, width, height);
-				Font font2 = new Font(Font.ITALIC, 3f, Font.NORMAL, Color.DARK_GRAY);
+				Font font2 = new Font();
 				Paragraph paragraph2 = new Paragraph(3, "Nombre de reconocimiento " + informacionCertificado.trim()
 						+ "\nRazón: " + reason + "\nFecha: " + signTime, font2);
 				paragraph2.setAlignment(Paragraph.ALIGN_LEFT);
@@ -197,7 +196,8 @@ public class PDFSigner implements Signer {
 			}
 		}
 
-		sap.setCrypto(key, (X509Certificate) certChain[0], null, PdfSignatureAppearance.WINCER_SIGNED);
+		// sap.setCrypto(key, (X509Certificate) certChain[0], null,
+		// PdfSignatureAppearance. CERTIFIED_NO_CHANGES_ALLOWED);
 
 		try {
 			stp.close();

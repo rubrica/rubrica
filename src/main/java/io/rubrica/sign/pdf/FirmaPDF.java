@@ -19,6 +19,7 @@ package io.rubrica.sign.pdf;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
 import java.security.SignatureException;
 import java.security.cert.Certificate;
@@ -34,14 +35,14 @@ import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 import org.bouncycastle.tsp.TimeStampToken;
 
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.AcroFields;
-import com.lowagie.text.pdf.PdfPKCS7;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.PdfSignatureAppearance;
-import com.lowagie.text.pdf.PdfStamper;
-import com.lowagie.text.pdf.TSAClient;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfSignatureAppearance;
+import com.itextpdf.text.pdf.PdfStamper;
+import com.itextpdf.text.pdf.security.PdfPKCS7;
+import com.itextpdf.text.pdf.security.TSAClient;
 
 import io.rubrica.certificate.ec.securitydata.SecurityDataSubCaCert;
 
@@ -128,7 +129,12 @@ public class FirmaPDF {
 
 			// System.out.println("Subject: " +
 			// CertificateInfo.getSubjectFields(pk.getSigningCertificate()));
-			System.out.println("Document modified: " + !pk.verify());
+			try {
+				System.out.println("Document modified: " + !pk.verify());
+			} catch (GeneralSecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			// KeyStore kall = KeyStoreUtil.loadCacertsKeyStore();
 

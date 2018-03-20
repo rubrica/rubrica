@@ -17,7 +17,7 @@
 
 package io.rubrica.sign.pdf;
 
-import com.lowagie.text.Rectangle;
+import com.itextpdf.text.Rectangle;
 
 public class RectanguloParaFirmar {
 

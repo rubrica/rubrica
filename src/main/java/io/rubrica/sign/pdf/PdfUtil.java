@@ -20,7 +20,7 @@ package io.rubrica.sign.pdf;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import com.lowagie.text.Rectangle;
+import com.itextpdf.text.Rectangle;
 
 public class PdfUtil {
 

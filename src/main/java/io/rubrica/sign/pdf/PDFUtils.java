@@ -37,8 +37,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.lowagie.text.pdf.AcroFields;
-import com.lowagie.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.PdfReader;
 
 import io.rubrica.core.AliasesNotFoundException;
 import io.rubrica.core.PrivateKeyAndCertificateChain;
