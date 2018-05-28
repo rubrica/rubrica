@@ -49,18 +49,6 @@
 	</properties>
 
 	<dependencies>
-                <!--QR-->
-                <dependency>
-                    <groupId>com.google.zxing</groupId>
-                    <artifactId>core</artifactId>
-                    <version>3.2.1</version>
-                </dependency>
-                <dependency>
-                    <groupId>com.google.zxing</groupId>
-                    <artifactId>javase</artifactId>
-                    <version>3.2.1</version>
-                </dependency>
-                <!--QR-->
 		<dependency>
 			<groupId>com.github.librepdf</groupId>
 			<artifactId>openpdf</artifactId>
