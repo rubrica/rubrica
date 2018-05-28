@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
 
 import io.rubrica.core.RubricaException;
 import io.rubrica.keystore.Alias;
+import io.rubrica.keystore.FileKeyStoreProvider;
+import io.rubrica.keystore.KeyStoreProvider;
 import io.rubrica.keystore.KeyStoreProviderFactory;
 import io.rubrica.keystore.KeyStoreUtilities;
 import io.rubrica.sign.pdf.PDFSigner;
@@ -36,8 +38,8 @@ public class Main {
 		// String fileP7m = "/home/mfernandez/Decretos firmados/1.pdf.p7m";
 		// byte[] p7m = Documento.loadFile(fileP7m);
 		//
-		// VerificadorCMS verificadorCMS = new VerificadorCMS();
-		// byte[] signedP7m = verificadorCMS.verify(p7m);
+//		 VerificadorCMS verificadorCMS = new VerificadorCMS();
+//		 byte[] signedP7m = verificadorCMS.verify(p7m);
 		//
 		// java.io.FileOutputStream fosP7m = new
 		////// java.io.FileOutputStream(io.rubrica.validaciones.Fichero.ruta());
@@ -46,40 +48,58 @@ public class Main {
 		////// VERIFICAR
 
 		// ARCHIVO
-		// String archivo="/Volumes/PERSONAL/misael_vladimir_fernandez_correa.p12";
-		// String password="1234";
+		 String archivo="/home/mfernandez/Firmas/BCE/2017/p12/cn=misael_vladimir_fernandez_correa+27112017+sn=0028.p12";
+		 String password="1234";
 		// TOKEN
-		String password = "1234";
+//		String password = "1234";
 
 		// La fecha actual en formato ISO-8601 (2017-08-27T17:54:43.562-05:00)
 		String fechaHora = ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
 
+                //SUPERIOR IZQUIERDA
 		String llx = "10";
 		String lly = "830";
-		String urx = String.valueOf(Integer.parseInt(llx) + 110);
-		String ury = String.valueOf(Integer.parseInt(lly) - 36);
+                //String urx = String.valueOf(Integer.parseInt(llx) + 110);
+		//String ury = String.valueOf(Integer.parseInt(lly) - 36);
+                //INFERIOR CENTRADO
+//		String llx = "190";
+//		String lly = "85";
+//		String urx = String.valueOf(Integer.parseInt(llx) + 260);
+//		String ury = String.valueOf(Integer.parseInt(lly) - 36);
+                //INFERIOR CENTRADO (ancho pie pagina)
+//		String llx = "100";
+//		String lly = "80";&
+//		String urx = String.valueOf(Integer.parseInt(llx) + 430);
+//		String ury = String.valueOf(Integer.parseInt(lly) - 25);
+                //INFERIOR DERECHA
+//		String llx = "330";
+//		String lly = "85";
+//		String urx = String.valueOf(Integer.parseInt(llx) + 260);
+//		String ury = String.valueOf(Integer.parseInt(lly) - 36);
 
 		Properties params = new Properties();
 		params.setProperty(PDFSigner.SIGNING_LOCATION, "");
 		params.setProperty(PDFSigner.SIGNING_REASON, "Firmado digitalmente por FirmaEC");
 		params.setProperty(PDFSigner.SIGN_TIME, fechaHora);
-		params.setProperty(PDFSigner.LAST_PAGE, "200");
+		params.setProperty(PDFSigner.LAST_PAGE, "1");
+		params.setProperty(PDFSigner.FONT_SIZE, "6");//4.5
+		params.setProperty(PDFSigner.TYPE_SIG, "information2");//QR
 		// Posicion firma
 		params.setProperty(PdfUtil.positionOnPageLowerLeftX, llx);
 		params.setProperty(PdfUtil.positionOnPageLowerLeftY, lly);
-		// params.setProperty(PdfUtil.positionOnPageUpperRightX, urx);
-		// params.setProperty(PdfUtil.positionOnPageUpperRightY, ury);
+		//params.setProperty(PdfUtil.positionOnPageUpperRightX, urx);
+		//params.setProperty(PdfUtil.positionOnPageUpperRightY, ury);
 
 		////// LEER PDF:
 		// String filePdf = "C:\\Users\\Desarrollo\\Desktop\\test.pdf";
-		String filePdf = "/Users/test/Downloads/Manual-Usuario-FirmaEC.pdf";
+		String filePdf = "/home/mfernandez/test.pdf";
 		byte[] pdf = Documento.loadFile(filePdf);
 
 		// ARCHIVO
-		// KeyStoreProvider ksp = new FileKeyStoreProvider(archivo);
-		// KeyStore keyStore = ksp.getKeystore(password.toCharArray());
+		 KeyStoreProvider ksp = new FileKeyStoreProvider(archivo);
+		 KeyStore keyStore = ksp.getKeystore(password.toCharArray());
 		// TOKEN
-		KeyStore keyStore = KeyStoreProviderFactory.getKeyStore(password);
+		//KeyStore keyStore = KeyStoreProviderFactory.getKeyStore(password);
 
 		byte[] signedPdf = null;
 		PDFSigner signer = new PDFSigner();
