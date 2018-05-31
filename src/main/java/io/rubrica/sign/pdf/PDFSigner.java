@@ -76,6 +76,7 @@ public class PDFSigner implements Signer {
 	public static final String LAST_PAGE = "0";
 	public static final String FONT_SIZE = "3";
 	public static final String TYPE_SIG = "information1";
+	public static final String INFO_QR = "";
 
 	static {
 		BouncyCastleUtils.initializeBouncyCastle();
@@ -125,6 +126,13 @@ public class PDFSigner implements Signer {
                 
                 if (typeSig.equals("QR") && extraParams.getProperty(FONT_SIZE) == null)
                     fontSize = 4.5f;
+                
+                // Información QR
+                String infoQR = "";
+                if (extraParams.getProperty(INFO_QR) == null)
+                    infoQR = "";
+                else
+                    infoQR = extraParams.getProperty(INFO_QR).trim();
                 
                 // Tamaño espaciado
                 float fontLeading = fontSize;
@@ -201,29 +209,39 @@ public class PDFSigner implements Signer {
                                     case "QR":{
                                         // Creating the appearance for layer 2
                                         // Nombre Firmante
+//                                        nombreFirmante = nombreFirmante+" "+nombreFirmante;
+//                                        nombreFirmante="PRUEBA QUIPUX MISAEL FERNANDEZ";
+//                                        nombreFirmante="JOSE DAVID GAMBOA VERA";
                                         PdfTemplate pdfTemplate1 = sap.getLayer(2);
-                                        Font font1 = new Font(Font.COURIER, fontSize+(fontSize/2), Font.BOLD, Color.BLACK);
-                                        Paragraph paragraph1 = new Paragraph(fontLeading, nombreFirmante.trim(), font1);
-                                        paragraph1.setAlignment(Paragraph.ALIGN_LEFT);
-                                        ColumnText columnText1 = new ColumnText(pdfTemplate1);
-                                        columnText1.setSimpleColumn((width / 3) + 1, 0, width, height);
-                                        columnText1.addElement(paragraph1);
-                                        columnText1.go();
+                                        Font font = new Font(Font.COURIER, fontSize+(fontSize/2), Font.BOLD, Color.BLACK);
+                                        float maxFontSize = getMaxFontSize(com.lowagie.text.pdf.BaseFont.createFont(), nombreFirmante.trim(), width-((width / 3)+3));
+                                        font.setSize(maxFontSize);
+                                        fontLeading=maxFontSize;
+                                        
+                                        Paragraph paragraph = new Paragraph("Firmado digitalmente por:\n", new Font(Font.COURIER, fontSize/1.25f, Font.NORMAL, Color.BLACK));
+                                        paragraph.add(new Paragraph(nombreFirmante.trim(), font));
+                                        paragraph.setAlignment(Paragraph.ALIGN_LEFT);
+                                        paragraph.setLeading(fontLeading);
+                                        ColumnText columnText = new ColumnText(pdfTemplate1);
+                                        columnText.setSimpleColumn((width / 3) + 3, 0, width, height);
+                                        columnText.addElement(paragraph);
+                                        columnText.go();
                                         //Imagen
                                         java.awt.image.BufferedImage bufferedImage = null;
                                         //QR
                                         String text = "Nombre firmante: "+nombreFirmante.trim()+"\n";
                                         text = text + "Razón: "+reason+"\n";
                                         text = text + "Fecha firmado: "+signTime+"\n";
+                                        text = text + infoQR;
                                         try {
-                                            bufferedImage = io.rubrica.util.QRCode.generateQR(text, 300, 300);
+                                            bufferedImage = io.rubrica.util.QRCode.generateQR(text, (int) height, (int) height);
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
                                         //QR
                                         PdfTemplate pdfTemplateImage = sap.getLayer(2);
                                         ColumnText columnTextImage = new ColumnText(pdfTemplateImage);
-                                        columnTextImage.setSimpleColumn(0, 0, (width / 3) - 1, height);
+                                        columnTextImage.setSimpleColumn(0, 0, width / 3, height);
                                         columnTextImage.setAlignment(Paragraph.ALIGN_CENTER);
                                         columnTextImage.addElement(com.lowagie.text.Image.getInstance(bufferedImage, null));
                                         columnTextImage.go();
@@ -256,7 +274,7 @@ public class PDFSigner implements Signer {
                                     case "information2":{
                                         // Creating the appearance for layer 2
                                         //ETSI TS 102 778-6 V1.1.1 (2010-07)
-                                        Font font = new Font(Font.HELVETICA, fontSize, Font.NORMAL, Color.BLACK);
+                                        Font font = new Font(Font.HELVETICA, fontSize, Font.BOLD, Color.BLACK);
                                         com.lowagie.text.pdf.BaseFont baseFont = com.lowagie.text.pdf.BaseFont.createFont();
 
                                         float x = Float.parseFloat(extraParams.getProperty("PositionOnPageLowerLeftX").trim());
@@ -264,7 +282,7 @@ public class PDFSigner implements Signer {
                                         nombreFirmante = nombreFirmante.replace(" ", "*");
                                         width = baseFont.getWidthPoint(nombreFirmante, font.getSize());
                                         nombreFirmante = nombreFirmante.replace("*", " ");
-                                        height = font.getSize()*2;
+                                        height = font.getSize()*3;
                                         sap.setVisibleSignature(new Rectangle(x, y, x+width, y-height), page, null);
                                         pdfTemplate = sap.getLayer(0);
                                         pdfTemplate.rectangle(0, 0, width, height);
@@ -272,6 +290,7 @@ public class PDFSigner implements Signer {
                                         
                                         Paragraph paragraph = new Paragraph(fontLeading, "Firmado digitalmente por:\n", new Font(Font.HELVETICA, fontSize/1.5f, Font.NORMAL, Color.BLACK));
                                         paragraph.add(new Paragraph(fontLeading, nombreFirmante, font));
+                                        paragraph.add(new Paragraph(fontLeading, "Fecha: " + signTime, new Font(Font.HELVETICA, fontSize/1.5f, Font.NORMAL, Color.BLACK)));
                                         paragraph.setAlignment(Paragraph.ALIGN_LEFT);
                                         ColumnText columnText = new ColumnText(pdfTemplate1);
                                         columnText.setSimpleColumn(0, 0, width, height);
@@ -298,6 +317,36 @@ public class PDFSigner implements Signer {
 
 		return baos.toByteArray();
 	}
+        private  float getMaxFontSize(com.lowagie.text.pdf.BaseFont baseFont, String text, float width){
+            float measureWidth = 1;
+            float fontSize = 0.1f;
+            float oldSize = 0.1f;
+            int repeat = 0;
+            float multiply = 1;
+            text=text.replace(" ", "*");
+            while(measureWidth < width){
+                repeat++;
+                measureWidth = baseFont.getWidthPoint(text, fontSize);
+                oldSize = fontSize;
+                fontSize += 0.1f;
+            }
+            System.out.println("repeat: "+repeat);
+            System.out.println("fontSize: "+fontSize);
+            if (repeat>60)
+                multiply = 1;
+            if (repeat<=60 && repeat>20)
+                multiply = 2;
+            if (repeat<=20 && repeat>10)
+                multiply = 3;
+            if (repeat<=10)
+                multiply = 4;
+            
+            if (fontSize>20){
+                oldSize=20;
+                multiply = 1;
+            }            
+            return oldSize*multiply;
+        }
 
 	@Override
 	public List<SignInfo> getSigners(byte[] sign) throws InvalidFormatException, IOException {

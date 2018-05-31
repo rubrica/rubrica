@@ -31,7 +31,11 @@ public class QRCode {
  
         QRCode qr = new QRCode();
         File file = new File("qrCode.png");
-        String text = "Misael Fernández Correa";
+        String text = "Nombre firmante: MISAEL VLADIMIR FERNANDEZ CORREA\n" +
+            "Razón: Firmado digitalmente con RUBRICA\n" +
+            "Fecha firmado: 2018-05-31T11:39:47.247-05:00\n" +
+            "Firmado digitalmente con FirmaEC\n" +
+            "https://www.firmadigital.gob.ec/";
  
         try {
  
@@ -49,9 +53,13 @@ public class QRCode {
     }
  
     public static BufferedImage generateQR(String text, int h, int w) throws Exception {
-        
+        //Generamos el mapa de caracterìsticas que requerimos para el QR
         java.util.Map<com.google.zxing.EncodeHintType, Object> hints = new EnumMap<>(com.google.zxing.EncodeHintType.class);
-        hints.put(com.google.zxing.EncodeHintType.CHARACTER_SET, java.nio.charset.StandardCharsets.ISO_8859_1.name());
+        //En nuestro caso particular agregamos soporte para el español con la codificación ISO-8859-1
+        hints.put(com.google.zxing.EncodeHintType.CHARACTER_SET, java.nio.charset.StandardCharsets.US_ASCII.name());//ISO_8859_1
+        //Desde la versión 3.2.1 de Zxing podemos establecer el tamaño del borde, por default es 4
+        hints.put(com.google.zxing.EncodeHintType.MARGIN, 0);
+        //Agregamos la correción de error del QR
         hints.put(com.google.zxing.EncodeHintType.ERROR_CORRECTION, com.google.zxing.qrcode.decoder.ErrorCorrectionLevel.L);
         
         QRCodeWriter writer = new QRCodeWriter();
@@ -64,17 +72,17 @@ public class QRCode {
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, matrix.getWidth(), matrix.getHeight());
         graphics.setColor(Color.BLACK);
-
+            
         for (int i = 0; i < matrix.getWidth(); i++) {
             for (int j = 0; j < matrix.getHeight(); j++) {
                 if (matrix.get(i, j)) {
                     graphics.fillRect(i, j, 1, 1);
                 }
             }
-        }
+        }    
         return image;
     }
- 
+    
     public static String decoder(File file) throws Exception {
  
         FileInputStream inputStream = new FileInputStream(file);

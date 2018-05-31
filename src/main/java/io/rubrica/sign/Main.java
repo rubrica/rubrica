@@ -49,41 +49,57 @@ public class Main {
 
 		// ARCHIVO
 		 String archivo="/home/mfernandez/Firmas/BCE/2017/p12/cn=misael_vladimir_fernandez_correa+27112017+sn=0028.p12";
-		 String password="1234";
+		 String password="Password#1";
 		// TOKEN
 //		String password = "1234";
 
 		// La fecha actual en formato ISO-8601 (2017-08-27T17:54:43.562-05:00)
 		String fechaHora = ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
 
+                //QR
                 //SUPERIOR IZQUIERDA
 		String llx = "10";
 		String lly = "830";
+                //INFERIOR IZQUIERDA
+		//String llx = "100";
+		//String lly = "91";
+                //INFERIOR DERECHA
+		//String llx = "419";
+		//String lly = "91";
+                //INFERIOR CENTRADO
+		//String llx = "260";
+		//String lly = "91";
+                //QR
+                //SUPERIOR IZQUIERDA
+		//String llx = "10";
+		//String lly = "830";
                 //String urx = String.valueOf(Integer.parseInt(llx) + 110);
 		//String ury = String.valueOf(Integer.parseInt(lly) - 36);
                 //INFERIOR CENTRADO
-//		String llx = "190";
-//		String lly = "85";
-//		String urx = String.valueOf(Integer.parseInt(llx) + 260);
-//		String ury = String.valueOf(Integer.parseInt(lly) - 36);
+		//String llx = "190";
+		//String lly = "85";
+		//String urx = String.valueOf(Integer.parseInt(llx) + 260);
+		//String ury = String.valueOf(Integer.parseInt(lly) - 36);
                 //INFERIOR CENTRADO (ancho pie pagina)
-//		String llx = "100";
-//		String lly = "80";&
-//		String urx = String.valueOf(Integer.parseInt(llx) + 430);
-//		String ury = String.valueOf(Integer.parseInt(lly) - 25);
+		//String llx = "100";
+		//String lly = "80";&
+		//String urx = String.valueOf(Integer.parseInt(llx) + 430);
+		//String ury = String.valueOf(Integer.parseInt(lly) - 25);
                 //INFERIOR DERECHA
-//		String llx = "330";
-//		String lly = "85";
-//		String urx = String.valueOf(Integer.parseInt(llx) + 260);
-//		String ury = String.valueOf(Integer.parseInt(lly) - 36);
+		//String llx = "10";
+		//String lly = "85";
+		//String urx = String.valueOf(Integer.parseInt(llx) + 260);
+		//String ury = String.valueOf(Integer.parseInt(lly) - 36);
 
 		Properties params = new Properties();
 		params.setProperty(PDFSigner.SIGNING_LOCATION, "");
-		params.setProperty(PDFSigner.SIGNING_REASON, "Firmado digitalmente por FirmaEC");
+		params.setProperty(PDFSigner.SIGNING_REASON, "Firmado digitalmente con RUBRICA");
 		params.setProperty(PDFSigner.SIGN_TIME, fechaHora);
 		params.setProperty(PDFSigner.LAST_PAGE, "1");
-		params.setProperty(PDFSigner.FONT_SIZE, "6");//4.5
-		params.setProperty(PDFSigner.TYPE_SIG, "information2");//QR
+		params.setProperty(PDFSigner.TYPE_SIG, "QR");
+                params.setProperty(PDFSigner.INFO_QR, "Firmado digitalmente con FirmaEC\nhttps://www.firmadigital.gob.ec/");
+//		params.setProperty(PDFSigner.TYPE_SIG, "information2");
+//		params.setProperty(PDFSigner.FONT_SIZE, "4.5");
 		// Posicion firma
 		params.setProperty(PdfUtil.positionOnPageLowerLeftX, llx);
 		params.setProperty(PdfUtil.positionOnPageLowerLeftY, lly);
@@ -92,6 +108,7 @@ public class Main {
 
 		////// LEER PDF:
 		// String filePdf = "C:\\Users\\Desarrollo\\Desktop\\test.pdf";
+//		String filePdf = "/home/mfernandez/prueba.pdf";
 		String filePdf = "/home/mfernandez/test.pdf";
 		byte[] pdf = Documento.loadFile(filePdf);
 
