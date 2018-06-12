@@ -218,7 +218,7 @@ public class PDFSigner implements Signer {
                                         font.setSize(maxFontSize);
                                         fontLeading=maxFontSize;
                                         
-                                        Paragraph paragraph = new Paragraph("Firmado digitalmente por:\n", new Font(Font.COURIER, fontSize/1.25f, Font.NORMAL, Color.BLACK));
+                                        Paragraph paragraph = new Paragraph("Firmado electrónicamente por:\n", new Font(Font.COURIER, fontSize/1.25f, Font.NORMAL, Color.BLACK));
                                         paragraph.add(new Paragraph(nombreFirmante.trim(), font));
                                         paragraph.setAlignment(Paragraph.ALIGN_LEFT);
                                         paragraph.setLeading(fontLeading);
@@ -229,9 +229,9 @@ public class PDFSigner implements Signer {
                                         //Imagen
                                         java.awt.image.BufferedImage bufferedImage = null;
                                         //QR
-                                        String text = "Nombre firmante: "+nombreFirmante.trim()+"\n";
-                                        text = text + "Razón: "+reason+"\n";
-                                        text = text + "Fecha firmado: "+signTime+"\n";
+                                        String text = "FIRMADO POR: "+nombreFirmante.trim()+"\n";
+                                        text = text + "RAZON: "+reason+"\n";
+                                        text = text + "FECHA: "+signTime+"\n";
                                         text = text + infoQR;
                                         try {
                                             bufferedImage = io.rubrica.util.QRCode.generateQR(text, (int) height, (int) height);
